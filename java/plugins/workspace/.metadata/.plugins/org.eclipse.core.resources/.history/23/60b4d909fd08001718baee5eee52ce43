@@ -1,0 +1,43 @@
+package me.commandcraft.testcommand;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class CommandExec {
+
+	private static final String[] libs = {"asm-5.2.jar", "cglib-3.2.5.jar"};
+	private static Object wrapper;
+	@SuppressWarnings("rawtypes")
+	private static Map<String, List> entities = new HashMap<String, List>();
+	
+	public static void init(JavaPlugin plugin) throws Exception {
+		for (String lib : libs) LibLoader.loadLib(plugin, lib);
+		setWrapper();
+	}
+	
+	public static List getEntities(CommandSender sender, String selector) {
+		String uuid = UUID.randomUUID().toString();
+		
+		return entities.remove(uuid);
+	}
+	
+	private static void setWrapper() throws Exception {
+		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+		Class<?> vanilla = Class.forName("org.bukkit.craftbukkit." + version + ".command.VanillaCommandWrapper");
+		Class<?> cmdabs = Class.forName("net.minecraft.server." + version + ".CommandAbstract");
+		
+		Class<?> enhancer = Class.forName("net.sf.cglib.proxy.Enhancer");
+		Class<?> callback = Class.forName("net.sf.cglib.proxy.Callback");
+		Object e = enhancer.getMethod("create", Class.class, callback).invoke(null, cmdabs, new Interceptor(version));
+		wrapper = vanilla.getConstructor(cmdabs).newInstance(e);
+		if (wrapper == null) throw new Exception("Cannot instanciate VanillaCommandWrapper");
+	}
+}

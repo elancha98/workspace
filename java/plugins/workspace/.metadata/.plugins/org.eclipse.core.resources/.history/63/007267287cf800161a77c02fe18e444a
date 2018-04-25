@@ -1,0 +1,22 @@
+package me.commandcraft.soulbound;
+
+import java.security.DigestException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
+
+public class DeathListener implements Listener {
+	
+	Map<UUID, ItemStack[]> died = new HashMap<UUID, ItemStack[]>();
+
+	@EventHandler
+	public void onEntityDeath(PlayerRespawnEvent event) {
+		event.getPlayer().
+	}
+}

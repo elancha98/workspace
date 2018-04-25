@@ -1,0 +1,5 @@
+package me.commandcraft.chestbank.bank;
+
+public class BankManager {
+
+}

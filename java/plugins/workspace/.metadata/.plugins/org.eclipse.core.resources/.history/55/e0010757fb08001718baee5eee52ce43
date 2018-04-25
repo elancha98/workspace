@@ -1,0 +1,14 @@
+package me.commandcraft.testcommand;
+
+public class CommandExec {
+
+	private static final String[] libs = {"asm-5.2.jar", "cglib-3.2.5.jar"};
+	
+	public static void init() {
+		
+	}
+}
+
+class JarUtils {
+	
+}

@@ -1,0 +1,246 @@
+\documentclass[12pt,a4paper,table]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[pdftex]{hyperref}
+\usepackage[table]{xcolor}
+\usepackage{amsmath,amsthm,amssymb,graphicx,mathtools,tikz,hyperref,enumerate}
+\usepackage{mdframed,cleveref,cancel,stackengine,pgfplots,subcaption,pgf,xfrac}
+\usepackage{listings}
+%\usepackage[spanish]{babel}
+
+\newmdenv[leftline=false,topline=false]{topright}
+\let\proof\relax
+\usepackage[utf8]{inputenc}
+\usetikzlibrary{positioning}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\q}{\mathbb{Q}}
+\newcommand{\cx}{\mathbb{C}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\let\k\relax
+\newcommand{\k}{\mathbf{k}}
+\newcommand{\ita}[1]{\textit{#1}}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand\setb[1]{\left\{#1\right\}}
+\newcommand{\vbrack}[1]{\langle #1\rangle}
+\newcommand{\determinant}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\Po}{\mathbb{P}}
+
+\newcommand{\dualpar}[1]{\left(#1\right)^\ast}
+\newcommand{\dual}[1]{#1^\ast}
+
+\DeclareMathOperator{\join}{\vee}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\car}{car}
+
+\newcommand{\myref}[1]{\hyperref[item:a#1]{\uppercase{a#1}}}
+
+
+\hypersetup{
+	colorlinks,
+	linkcolor=blue
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{purple}{HTML}{7F0055}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    escapechar=|,
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\usetikzlibrary{arrows}
+
+\newtheoremstyle{break}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%        Punctuation after thm head
+{\newline}% Space after thm head: \newline = linebreak
+{#1 #2 \normalfont \textit{#3}}%         Thm head spec
+
+
+\theoremstyle{break}
+\newtheorem{ej}{Ejercicio}
+\newtheorem{defi}{Definición}
+\let\proof\relax
+\newtheorem*{proof}{Solución}
+
+%\pgfplotsset{compat=1.5}
+
+\begin{document}
+\date{\today}
+
+\title{\textbf{Programación lineal entera} \\
+\small{Calendario de la National Football League}}
+\author{Marc Esquerrà \and Ernesto Lanchares}
+\maketitle
+
+\tableofcontents
+\newpage
+\section{Formulación matemática}
+
+Primero, vamos a definir nuestras variables. Tendremos una variable por cada posible
+partido por cada jornada, es decir, nuestro conjunto de variables son
+\[
+	\texttt{VAR} = \setb{x_{ijk} \left\vert \substack{1 \leq i \leq n \\
+		1 \leq j \leq n \\ i < j \\ 1 \leq k \leq r(n/2- 1) +
+		sn/2}\right.}
+\]
+Donde cada $x_{ijk}$ es una variable binaria, que vale 1 si, en la jornada $k$ el
+equipo $i$ se enfrenta al equipo $j$ y 0 en otro caso.
+
+De aquí, podemos deducir nuestro vector de costos, asignando un $c_{ijk}$ a cada
+$x_{ijk}$ creando así nuestra función objetivo.
+\[
+	c_{ijk} =
+	\begin{cases}
+		0 \text{ si $(i,j)$ es un partido inter-divisional.} \\
+		0 \text{ si $(i,j)$ es un partido intra-dimensional y $k=1$} \\
+		2^{k-2} \text{ si $(i,j)$ es un partido intra-dimensional y $k \geq 2$}
+	\end{cases}
+\]
+(Los valores de $c_{ijk}$ coinciden con los del enunciado debido a la forma en la que
+hemos definido nuestro conjunto de variables).
+
+Por tanto, tan solo nos queda definir nuestras restricciones. Primero, impondremos
+que cada equipo juege un partido cada semana, para ello, necesitamos que
+\[
+	\sum^n_{j = i+1} x_{ijk} +
+	\sum^{i-1}_{j = 1} x_{jik} = 1 \qquad
+	\substack{\forall k=1,\dots,r(n/2-1)+sn/2 \\ \forall i = 1,\dots,n}
+\]
+Asegurandonos que cada equipo juega exactamente un partido por jornada. Ahora, hemos de
+asegurar que cada equipo $i$ juega exactamente los partidos que le tocan contra cada
+equipo, así pues, tenemos
+\[
+	\sum^{r(n/2 - 1) + sn/2}_{k=1} x_{ijk} =
+	\begin{cases}
+		r \text{ si $i$ y $j$ están en la misma división} \\
+		s \text{ si $i$ y $j$ están en divisiones distintas}
+	\end{cases}
+\]
+Impondremos está restricción para cada parejas de equipos, es decir, $\forall i =
+1,\dots,n$, $\forall j = 1, \dots, (i-1)$.
+
+De forma que, el problema final queda así
+\[
+	\begin{cases}\displaystyle
+		\textbf{max } \sum^{jor}_{k=1} \sum^n_{i=1}
+		\sum^{n}_{j=i+1} c_{ijk} x_{ijk} \\
+		\textbf{s.a.} \\
+		\displaystyle
+		\indent\sum^n_{j = i+1} x_{ijk} + \sum^{i-1}_{j = 1} x_{jik} = 1 \qquad
+		\substack{\forall k=1,\dots,jor \\ \forall i = 1,\dots,n} \\
+		\displaystyle
+		\indent\sum^{jor}_{k=1} x_{ijk} = r \qquad
+		\substack{\forall i=1,\dots,n/2 \\ \forall j=i+1,\dots,n/2} \\
+		\displaystyle
+		\indent\sum^{jor}_{k=1} x_{ijk} = r \qquad
+		\substack{\forall i=(n/2)+1,\dots,n \\ \forall j=i+1,\dots,n} \\
+		\displaystyle
+		\indent\sum^{jor}_{k=1} x_{ijk} = s \qquad
+		\substack{\forall i=1,\dots,n/2 \\ \forall j=(n/2)+1,\dots,n}
+	\end{cases}
+\]
+Identificando $jor = r(n/2 - 1) + sn/2$.
+
+\section{Modelo en AMPL}
+
+\begin{lstlisting}[language=Awk]
+|\color{purple}\textbf{param}| n;
+|\color{purple}\textbf{param}| r;
+|\color{purple}\textbf{param}| s;
+|\color{purple}\textbf{param}| jornada:= r*(n/2 -1) + n*s/2;
+
+|\color{purple}\textbf{set}| Div1:=1..n/2;
+|\color{purple}\textbf{set}| Div2:=(n/2+1)..n;
+|\color{purple}\textbf{set}| jornadas:=1..jornada;
+|\color{purple}\textbf{set}| equipo = 1..n;
+|\color{purple}\textbf{set}| partidoIntra1:= {i |\color{purple}\textbf{in}| Div1, j |\color{purple}\textbf{in}| Div1: i < j};
+|\color{purple}\textbf{set}| partidoIntra2:= {i |\color{purple}\textbf{in}| Div2, j |\color{purple}\textbf{in}| Div2: i < j};
+|\color{purple}\textbf{set}| partidoInter := {i |\color{purple}\textbf{in}| Div1, j |\color{purple}\textbf{in}| Div2};
+|\color{purple}\textbf{set}| partidos := partidoIntra1 |\color{purple}\textbf{union}| partidoIntra2 |\color{purple}\textbf{union}| partidoInter;
+
+|\color{purple}\textbf{var}| x {(i,j) |\color{purple}\textbf{in}| partidos, k |\color{purple}\textbf{in}| jornadas}>=0,<=1,|\color{purple}\textbf{integer};|
+
+|\color{purple}\textbf{maximize}| total:
+	|\color{purple}\textbf{sum}|{k |\color{purple}\textbf{in}| 2..jornada}(|\color{purple}\textbf{sum}|{(i,j) |\color{purple}\textbf{in}| partidoIntra1} (2^(k-2))*x[i,j,k] + |\color{purple}\textbf{sum}|{(i,j) |\color{purple}\textbf{in}| partidoIntra1} (2^(k-2)*x[i,j,k]));
+	
+|\color{purple}\textbf{subject to}| res_jornadas{k |\color{purple}\textbf{in}| jornadas, a |\color{purple}\textbf{in}| equipo}:
+	(|\color{purple}\textbf{sum}|{(a,j) |\color{purple}\textbf{in}| partidos} x[a,j,k]) + (sum{(i,a) |\color{purple}\textbf{in}| partidos} x[i,a,k]) = 1;
+
+|\color{purple}\textbf{subject to}| res_equipos1{(i,j) |\color{purple}\textbf{in}| partidoIntra1}:
+	(|\color{purple}\textbf{sum}|{k |\color{purple}\textbf{in}| jornadas} x[i,j,k])=r;
+	
+|\color{purple}\textbf{subject to}| res_equipos2{(i,j) |\color{purple}\textbf{in}| partidoIntra2}:
+	(|\color{purple}\textbf{sum}|{k |\color{purple}\textbf{in}| jornadas} x[i,j,k])=r;
+	
+|\color{purple}\textbf{subject to}| res_equipos{(i,j) |\color{purple}\textbf{in}| partidoInter}:
+	(|\color{purple}\textbf{sum}|{k |\color{purple}\textbf{in}| jornadas} x[i,j,k])=s;
+\end{lstlisting}
+
+\section{Ejemplos}
+\subsection{$n = 6, r =  2, s = 3$}
+El resultado de la función objetivo en este caso es 8064, quedando las jornadas de
+esta  manera:
+
+\begin{center}\begin{tabular}[]{|rcl|rcl|rcl|rcl|}
+	\hline
+	\rowcolor{gray!50} Jornada 1 & \hspace{1em} & \hspace{1em} &
+	Jornada 2 & \hspace{1em} & \hspace{1em} &
+	Jornada 3 & \hspace{1em} & \hspace{1em} &
+	Jornada 4 & \hspace{1em} & \hspace{1em} \\ \hline
+	1 & - & 5  &  1 & - & 4  &  1 & - & 6  &  1 & - & 4 \\ \hline
+	2 & - & 6  &  2 & - & 5  &  2 & - & 5  &  2 & - & 6 \\ \hline
+	3 & - & 4  &  3 & - & 6  &  3 & - & 4  &  3 & - & 5 \\ \hline
+	\rowcolor{gray!50} Jornada 5 & \hspace{1em} & \hspace{1em} &
+	Jornada 6 & \hspace{1em} & \hspace{1em} &
+	Jornada 7 & \hspace{1em} & \hspace{1em} &
+	Jornada 8 & \hspace{1em} & \hspace{1em} \\ \hline
+	1 & - & 4  &  1 & - & 6  &  1 & - & 6  &  1 & - & 3 \\ \hline
+	2 & - & 6  &  2 & - & 5  &  2 & - & 4  &  2 & - & 4 \\ \hline
+	3 & - & 5  &  3 & - & 4  &  3 & - & 5  &  5 & - & 6\\ \hline
+	\rowcolor{gray!50} Jornada 9 & \hspace{1em} & \hspace{1em} &
+	Jornada 10 & \hspace{1em} & \hspace{1em} &
+	Jornada 11 & \hspace{1em} & \hspace{1em} &
+	Jornada 12 & \hspace{1em} & \hspace{1em} \\ \hline
+	1 & - & 3  &  1 & - & 2  &  1 & - & 2  &  1 & - & 5 \\ \hline
+	2 & - & 4  &  3 & - & 6  &  3 & - & 6  &  2 & - & 3 \\ \hline
+	5 & - & 6  &  4 & - & 5  &  4 & - & 5  &  4 & - & 6 \\ \hline
+	%\rowcolor{gray!50} Jornada 13 & \hspace{1em} & \hspace{1em} \\ \hline
+	%1 & - & 5 \\ \hline
+	%2 & - & 3 \\ \hline
+	%4 & - & 6 \\ \hline
+\end{tabular}\end{center}
+
+
+\end{document}

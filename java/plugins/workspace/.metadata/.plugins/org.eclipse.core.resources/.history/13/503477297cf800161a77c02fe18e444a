@@ -1,0 +1,38 @@
+package me.commandcraft.soulbound;
+
+import java.security.DigestException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
+
+import net.minecraft.server.v1_8_R3.Item;
+
+public class DeathListener implements Listener {
+	
+	Map<UUID, ItemStack[]> died = new HashMap<UUID, ItemStack[]>();
+
+	@EventHandler
+	public void onEntityDeath(PlayerRespawnEvent event) {
+		event.getPlayer()
+	}
+	
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		Player player = event.getEntity();
+		List<ItemStack> keep = new ArrayList<ItemStack>();
+		for (ItemStack item : player.getInventory().getContents()) {
+			if (Utils.isSoulbound(item)) keep.add(item);
+		}
+		died.put(player.getUniqueId(), keep.toArray(new ItemStack[0]))
+	}
+}

@@ -1,0 +1,41 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[paper=a4paper,margin=20mm]{geometry}
+\usepackage{amsmath,amsfonts, amssymb}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+colorlinks,
+linkcolor={red}
+}
+
+\begin{document}
+\title{Informe de práctica: Mínimos quadrados y descomposición QR}
+\author{Ernesto Lanchares y Miquel Ortega}
+\date{}
+\maketitle
+
+\setlength\parindent{0pt}
+
+La práctica llevada a cabo hace uso del siguiente resultado:
+
+
+\begin{itemize}
+\item 
+Sean $x = (x_0,\dots,x_n)^T$ e $y = (y_0,\dots,y_n)^T$ vectores pertenecientes a $\mathbb{R}^{N+1}$. Un polinomio $p_M(x)$ cumple
+\begin{equation}\label{eq:1}
+\sqrt{\sum_{i=0}^{N} (p_M(x_i) - y_i)^2)} 
+\leq \sqrt{\sum_{i=0}^{N} (q_M(x_i) - y_i)^2)}
+\end{equation}
+para todo $q_M(x) \in R_M[x]$ si y solo si sus coeficientes $a_0, a_1,\dots,a_M$ son solución de las ecuaciones normales.
+\end{itemize}
+
+Procedamos a la demostración. Sea $A\in\mathcal{M}_{N+1, M+1}$ la matriz donde $A_{i,j} = x_i^{(M+1-j)}$ y $a = (a_0, a_1,...,a_n)^T$. Entonces, las ecuaciones normales consisten en imponer $A^TAa = A^Ty$. Esto se puede reescribir como 
+\[A^Ta-A^Ty = 0\]
+\[Aa(y-b)^T\]
+
+
+
+\end{document}
+\grid
+\grid

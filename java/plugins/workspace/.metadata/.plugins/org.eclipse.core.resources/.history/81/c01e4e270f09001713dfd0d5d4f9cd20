@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<template type="ProjTempl" version="1.0" supplier="Symbian" revision="1.0" author="Bala Torati"
+        id="EXE" label="Simple EXE" description="A skeletal Symbian OS EXE project. Creates a folder for sources and another for include."
+         help="help.html">
+
+	<property-group id="basics" label="Basic Settings" description="Basic properties of a project" type="PAGES-ONLY" help="help.html">
+        
+		<property id="projectName"
+            label="Project Name"
+            description="UID 2"
+            default=""
+            type="input"
+            pattern="."
+            hidden="false"
+            mandatory="true"
+            persist="true"/>
+    </property-group>
+    
+    <process type="org.eclipse.cdt.managedbuilder.core.NewManagedProject">
+        <simple name="name" value="$(projectName)"/>
+    </process>
+
+    <process type="org.eclipse.cdt.core.CreateSourceFolder">
+        <simple name="projectName" value="$(projectName)"/>
+        <simple name="path" value="src/me/commandcraft/$(projectName)"/>
+    </process>
+
+    <process type="org.eclipse.cdt.managedbuilder.core.CreateIncludeFolder">
+        <simple name="projectName" value="$(projectName)"/>
+        <simple name="path" value="lib"/>
+    </process>
+
+    <process type="org.eclipse.cdt.core.AddFiles">
+        <simple name="projectName" value="$(projectName)"/>
+        <complex-array name="files">
+            <element>
+                <simple name="source" value="libs/asm-5.2.jar"/>
+                <simple name="target" value="libs/asm-5.2.jar"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+            <element>
+                <simple name="source" value="libs/gclib-3.2.5.jar"/>
+                <simple name="target" value="libs/gclib-3.2.5.jar"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+            <element>
+                <simple name="source" value="java/CommandExec.java"/>
+                <simple name="target" value="me/commandcraft/$(projectName)/CommandExec.java"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+            <element>
+                <simple name="source" value="java/LibLoader.java"/>
+                <simple name="target" value="me/commandcraft/$(projectName)/LibLoader.java"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+        </complex-array>
+    </process>
+</template>

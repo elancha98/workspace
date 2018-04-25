@@ -1,0 +1,10 @@
+package me.commandcraft.chestbank;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class ChestBank extends JavaPlugin {
+
+	public void onEnable() {
+		
+	}
+}

@@ -1,0 +1,32 @@
+Action.o: Action.cc Action.hh Structs.hh Utils.hh Defs.hh
+AIDemo.o: AIDemo.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+AINull.o: AINull.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+AIRandom.o: AIRandom.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+AIRonda_195.o: AIRonda_195.cc Player.hh Info.hh Settings.hh Structs.hh \
+ Utils.hh Defs.hh State.hh Action.hh Random.hh Registry.hh
+AITest1.o: AITest1.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+AITest2.o: AITest2.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+AITest3.o: AITest3.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+AITest4.o: AITest4.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+Board.o: Board.cc Board.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh
+Game.o: Game.cc Game.hh Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh Board.hh
+Info.o: Info.cc Info.hh Settings.hh Structs.hh Utils.hh Defs.hh State.hh
+Main.o: Main.cc Game.hh Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh Board.hh
+Player.o: Player.cc Player.hh Info.hh Settings.hh Structs.hh Utils.hh \
+ Defs.hh State.hh Action.hh Random.hh Registry.hh
+Random.o: Random.cc Random.hh Utils.hh Defs.hh
+Registry.o: Registry.cc Registry.hh Utils.hh Defs.hh
+Settings.o: Settings.cc Settings.hh Structs.hh Utils.hh Defs.hh
+State.o: State.cc State.hh Structs.hh Utils.hh Defs.hh
+Structs.o: Structs.cc Structs.hh Utils.hh Defs.hh
+Utils.o: Utils.cc Utils.hh Defs.hh

@@ -1,0 +1,363 @@
+<!-- -*-html-*- -->
+<!-- README.html -->
+<!-- Prettyprinted by html-pretty flex version 1.00 [04-Dec-1997] -->
+<!-- on Sat Dec 11 22:43:00 1999 -->
+<!-- for Nelson H. F. Beebe,INSCC 322,+1 801 581-5254,+1 801 487-3585 (beebe@sunev.math.utah.edu) -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN" >
+
+<HTML>
+    <HEAD>
+        <TITLE>
+            Installation notes for texpretty
+        </TITLE>
+        <LINK REV="made" HREF="mailto:beebe@math.utah.edu">
+    </HEAD>
+    <BODY>
+        <H1>
+            Installation notes for texpretty
+        </H1>
+        <P>
+            Last update: <B>
+            <FONT COLOR="#ff0000">
+                Sat Dec 11 22:45:47 1999
+            </FONT>
+            </B>
+        </P>
+        <ADDRESS>
+            Nelson H. F. Beebe<BR>
+            Center for Scientific Computing<BR>
+            University of Utah<BR>
+            Department of Mathematics, 322 INSCC<BR>
+            155 S 1400 E RM 233<BR>
+            Salt Lake City, UT 84112-0090<BR>
+            USA<BR>
+            <BR>
+            Email:  beebe@math.utah.edu, beebe@acm.org, beebe@ieee.org
+            (Internet)<BR>
+            WWW URL:  http://www.math.utah.edu/~beebe<BR>
+            Telephone:  +1 801 581 5254<BR>
+            FAX:  +1 801 585 1640, +1 801 581 4148<BR>
+        </ADDRESS>
+        <!-- ====================================================================== -->
+        <HR>
+        <H2>
+            Table of contents
+        </H2>
+        <UL>
+            <LI>
+                <A HREF="#Introduction">
+                    Introduction
+                </A>
+            </LI>
+            <LI>
+                <A HREF="#efficiency-issues">
+                    Efficiency issues
+                </A>
+            </LI>
+            <LI>
+                <A HREF="#ibm-pc-installation">
+                    IBM PC installation
+                </A>
+            </LI>
+        </UL>
+        <!-- ====================================================================== -->
+        <HR>
+        <H2>
+            <A NAME="Introduction">
+                Introduction
+            </A>
+        </H2>
+        <P>
+            You should be able to build and run tests of this package on
+            any POSIX-conformant system like this:
+        </P>
+<PRE>
+    ./configure &amp;&amp; make all check
+</PRE>
+        <P>
+            You can choose a particular C (or C++) compiler and/or
+            optimization options like this:
+        </P>
+<PRE>
+    env CC='compiler ' CFLAGS='optimization options' ./configure &amp;&amp; \
+            make all check OPT='optimization options'
+</PRE>
+        <P>
+            For <TT>make</TT>, optimization options should always be
+            supplied in the <TT>OPT</TT> variable, to avoid destroying other
+            critical parts of the <TT>CFLAGS</TT> setting.
+        </P>
+        <P>
+            With <TT>flex</TT> 2.5.1, all systems pass.  If you get
+            failures in <TT>check005</TT> at the characters in 128..255
+            with <TT>flex</TT>, you probably have an older version and
+            should upgrade (flex sources are on 
+            <TT>ftp://ftp.gnu.org/pub/gnu/flex/flex*.tar.gz</TT>, and on
+            sites that mirror the Free Software Foundation archive);
+            <TT>flex</TT> 2.3 is one such failing version.
+        </P>
+        <P>
+            The lexical analyzer can no longer be built with 
+            <TT>lex</TT>: it complains on several architectures:
+        </P>
+<PRE>
+    "texpty.l":line 3923: Error: Too many positions for one state - acompute
+
+    8976/20000 nodes(%e), 14243/30000 positions(%p), 2/2200 (%n),
+    0 transitions, 1346/3000 packed char classes(%k), 0/6800 packed
+    transitions(%a), 0/6000 output slots(%o)
+</PRE>
+        <P>
+            The only solution to this problem is to move the many
+            patterns into a hash table, so that relatively simple lexer
+            patterns can be used, followed by a table lookup to find
+            particular keywords.  However, I'm not yet prepared to make
+            this change.
+        </P>
+        <P>
+            On other systems, please try a C++ compiler if you have one,
+            because it is more likely to catch problems than C compilers
+            do. <TT>flex</TT>-generated code is C++ compatible, but
+            some vendor <TT>lex</TT> implementations are still in the
+            old K&amp;R C mold, instead of conforming to 1989 ANSI/ISO
+            Standard C, and produce C code that cannot be compiled with
+            C++ compilers.
+        </P>
+        <P>
+            If the validation tests are all successful, then you can
+            install the package like this:
+        </P>
+<PRE>
+    make install
+</PRE>
+        <P>
+            It you want to change the default compiler optimization
+            level, set the variable <TT>OPT</TT> on the command line.
+            For example
+        </P>
+<PRE>
+    make OPT=-O3 all
+</PRE>
+        <P>
+            Should you want to remove an installed version, just do
+        </P>
+<PRE>
+    make uninstall
+</PRE>
+        <P>
+            When you finish, do
+        </P>
+<PRE>
+    make clean
+</PRE>
+        <P>
+            to remove intermediate files, leaving the executable, or
+        </P>
+<PRE>
+    make distclean
+</PRE>
+        <P>
+            to reduce everything to the state of the original
+            distribution.
+        </P>
+        <!-- ====================================================================== -->
+        <HR>
+        <H2>
+            <A NAME="efficiency-issues">
+                Efficiency issues
+            </A>
+        </H2>
+        <P>
+            The performance of <TT>lex</TT> (and <TT>flex</TT>
+            )-generated lexical analyzers is largely independent of the
+            number of input patterns ( <TT>texpretty</TT> has about 640
+            of them!), and the lexical analyzers are generally quite
+            efficient.  This one is no exception.
+        </P>
+        <P>
+            On a large test file of 131,163 lines (4.53MB), made by
+            concatenating all of the <TT>.ltx</TT> files in one subtree
+            of my home file system, the <TT>flex</TT> version of <TT>
+            texpretty</TT> took only 42.5 sec (3088 lines/sec, 107K
+            input bytes/sec) on an entry-level Sun SPARCstation LX
+            workstation, with the code compiled at the highest
+            optimization level ( <TT>-xO4</TT> ) with the Sun Solaris
+            2.4 native C compiler.  This optimization level results in
+            inlining of short functions, of which there are many in this
+            program.
+        </P>
+        <P>
+            A more general result is the ratio of <TT>texpretty</TT> 's
+            run time with that of a simple program which copies the same
+            file with the loop
+        </P>
+<PRE>
+    while ((c = getchar()) != EOF)
+        putchar(c);
+</PRE>
+        <P>
+            so that every input character is input and output
+            individually.  The copy loop ran in 6.25 sec, and the time
+            ratio is 6.8.
+        </P>
+        <P>
+            Line profiling with Sun <TT>tcov</TT> revealed hot spots
+            inside the <TT>flex</TT> -generated code, about which one
+            can do nothing, and in <TT>out_char()</TT>.
+        </P>
+        <P>
+            CPU time profiling with <TT>gprof</TT> gave the flat profile
+            below.  Note that <TT>_read()</TT> and <TT>write()</TT>
+            together account for about 33% of the CPU time, and
+            profiling for about 25%.
+        </P>
+        <P>
+            The most important design conclusion from these results is
+            that the linear search in <TT>out_control_sequence()</TT> -
+            &gt; <TT>get_style_by_name()</TT> does <EM>not</EM> need to
+            be replaced by a more complex hash table lookup: <TT>
+            strcmp()</TT> in the search loop accounts for only about
+            0.04% of the time.
+        </P>
+        <P>
+            In the preceding version of <TT>texpretty</TT>, profiling
+            showed a 6% contribution from <TT>strchr()</TT>, 95% of
+            whose calls were in the line wrapping test in <TT>
+            out_string()</TT>. A small code change reduced this test to
+            an array lookup, so <TT>strchr()</TT> now accounts for only
+            0.4% of the time.
+        </P>
+<PRE>
+        granularity: each sample hit covers 2 byte(s) for 0.01% of 129.26 seconds
+        
+           %  cumulative    self              self    total
+         time   seconds   seconds    calls  ms/call  ms/call name
+         23.2      29.94    29.94    10312     2.90     2.90  write
+         13.2      46.97    17.03                             mcount (350)
+         12.1      62.65    15.68        1 15680.29 96587.17  yylex(void)
+          9.6      75.07    12.42     1115    11.14    11.14  _read
+          6.2      83.03     7.97  4533804     0.00     0.00  out_char(int)
+          5.6      90.21     7.18                             oldarc
+          3.7      95.00     4.80   649261     0.01     0.03  out_string(const char*)
+          3.4      99.37     4.37                             next
+          2.2     102.25     2.88  2335481     0.00     0.00  indentation_size(void)
+          1.8     104.58     2.33  1758159     0.00     0.00  last_char(int)
+          1.7     106.84     2.26                             done
+          1.5     108.83     1.99   691784     0.00     0.00  trim_line(int)
+          1.3     110.55     1.72  2316905     0.00     0.00  line_length(void)
+          1.3     112.21     1.67   819242     0.00     0.00  yyinput(void)
+          0.9     113.43     1.22    50726     0.02     0.02  get_style_by_name(const char*)
+          0.8     114.52     1.09   113184     0.01     0.01  _memccpy
+          0.8     115.49     0.97   638158     0.00     0.01  out_yytext(void)
+          0.7     116.44     0.95     6464     0.15     0.15  _mutex_unlock_stub
+          0.7     117.36     0.92   495555     0.00     0.00  strlen
+          0.7     118.25     0.89   371538     0.00     0.02  blank(void)
+          0.5     118.95     0.71                             chainloop
+          0.5     119.62     0.67   112719     0.01     0.05  fputs
+          0.5     120.25     0.63   819242     0.00     0.01  input_char(void)
+          0.4     120.83     0.58   102361     0.01     0.19  line_end(void)
+          0.4     121.36     0.53    65031     0.01     0.01  strcpy
+          0.4     121.84     0.48     1202     0.40     3.59  copy_verbatim(void)
+          0.4     122.30     0.46   164995     0.00     0.00  strchr
+          0.3     122.70     0.40   474789     0.00     0.00  out_blank(void)
+          0.3     123.07     0.38   112049     0.00     0.05  out_buffer(void)
+          0.3     123.43     0.36    56995     0.01     0.02  get_name(const char*)
+          0.3     123.76     0.33    15358     0.02     0.30  out_comment(void)
+          0.2     124.07     0.31                             moncontrol
+          0.2     124.34     0.27   137432     0.00     0.00  _realbufend
+          0.2     124.59     0.26   377414     0.00     0.00  check_delimiter_level(int)
+          0.2     124.85     0.26   106521     0.00     0.00  yyunput(int, char*)
+          0.2     125.10     0.26   469977     0.00     0.00  delete_spaces(void)
+          0.2     125.34     0.24    85382     0.00     0.01  out_leading_blanks(int)
+          0.2     125.57     0.23    11882     0.02     0.02  memcpy
+          0.2     125.80     0.23    91066     0.00     0.00  adjust_brace_level(int)
+          0.2     126.02     0.22       76     2.89     2.91  get_token(char*, const char*)
+        ....
+          0.1     127.57     0.08    48674     0.00     0.05  out_control_sequence(void)
+        ....
+          0.0     128.32     0.04    52465     0.00     0.00  strcmp
+        ....
+</PRE>
+        <!-- ====================================================================== -->
+        <HR>
+        <H2>
+            <A NAME="ibm-pc-installation">
+                IBM PC installation
+            </A>
+        </H2>
+        <P>
+            A development version of the <TT>flex</TT> -generated <TT>
+            texpretty</TT> built without problems under Turbo C 2.0, and
+            passed the validation suite.  However, once the patterns for
+            plain TeX and LAmSTeX were added, this resulted in a <TT>
+            switch</TT> statement with more than 256 cases, which this
+            compiler rejects.
+        </P>
+        <P>
+            With Turbo C 3.0, the big <TT>switch</TT> statement
+            compiled, but compilation later aborted with the message
+            <TT>``Too much global data defined in file''</TT>.  There is
+            no simple fix for this problem.
+        </P>
+        <P>
+            Compilation under Microsoft C 5.0 and 5.1 worked in both the
+            compact memory models, provided <TT>EXEMOD</TT> (or the
+            compiler switch <TT>-F hhhh</TT> ) was run to reset the
+            stack size to a reasonable value, and the executable passes
+            the validation suite.
+        </P>
+        <P>
+            [TO DO:  set stack size in the source code!  This can be
+            done with Turbo C with the code like this:
+        </P>
+<PRE>
+    unsigned _stklen = 0x7fff;
+</PRE>
+        <P>
+            Microsoft C doesn't allow it to be set in the code, just on
+            the compiler command line, or after the fact with
+            <TT>EXEMOD</TT>.]
+        </P>
+        <P>
+            Compilation under Microsoft C 6.0 fails with an internal
+            compiler error like this under small, compact, and huge
+            memory models:
+        </P>
+<PRE>
+    texpty.c(2025) : fatal error C1001: Internal Compiler Error
+                    (compiler file '@(#)regMD.c:1.100', line 3837)
+                    Contact Microsoft Product Support Services
+</PRE>
+        <P>
+            <TT>lex</TT> -generated <TT>texpty.c</TT> compiled with
+            Microsoft C 5.0, 5.1, and 6.0 in the large and huge memory
+            models and passed the validation suite.  In the small and
+            compact models, the program compiles, but fails at run time
+            because it requires more stack space than there is space
+            available, even with the largest stacksize that <TT>EXEMOD
+            </TT> would permit.
+        </P>
+        <P>
+            Because of these problems, I revised the code to reduce the
+            number of <TT>lex</TT> patterns, and instead match a simple
+            one representing a TeX control sequence.  A hash table
+            lookup scheme then became essential to identify the
+            appropriate action to be taken for a particular control
+            sequence, because there are over 700 of them recognized; a
+            linear search through such a list is unacceptably slow.
+        </P>
+        <P>
+            With these changes, Turbo C 2.0 and 3.0 compilation with the
+            compact memory model, and Microsoft C 5.0 and 5.1
+            compilation with the compact or large memory model, all
+            produce executables that pass the validation suite.  I tried
+            the small memory model with Microsoft C, but experiments
+            with adjusting the stack space with <TT>EXEMOD</TT> led to
+            either `<EM>out of stack space</EM>' or `<EM>out of
+            dynamic (heap) memory</EM>' errors. Microsoft C 6.0 still
+            gets the internal error documented above.
+        </P>
+    </BODY>
+</HTML>
+

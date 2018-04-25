@@ -1,0 +1,8 @@
+package me.commandcraft.chestbank.bank;
+
+import java.util.List;
+
+public class BankManager {
+
+	List<Bank> banks;
+}

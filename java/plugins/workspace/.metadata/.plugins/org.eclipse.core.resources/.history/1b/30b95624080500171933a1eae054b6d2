@@ -1,0 +1,48 @@
+package me.commandcraft.parkshooter;
+
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Entity;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import com.mojang.authlib.GameProfile;
+
+import net.minecraft.server.v1_11_R1.CommandAbstract;
+import net.minecraft.server.v1_11_R1.CommandBan;
+import net.minecraft.server.v1_11_R1.CommandDispatcher;
+import net.minecraft.server.v1_11_R1.CommandObjectiveExecutor;
+import net.minecraft.server.v1_11_R1.CommandSay;
+import net.minecraft.server.v1_11_R1.CommandTeleport;
+import net.minecraft.server.v1_11_R1.ICommandListener;
+import net.minecraft.server.v1_11_R1.PlayerSelector;
+import net.minecraft.server.v1_11_R1.IEntitySelector.EntitySelectorEquipable;
+
+public class CommandExec {
+	
+	public static void init(JavaPlugin plugin) {
+		Set<String> commands = plugin.getDescription().getCommands().keySet();
+		String pack = CommandExec.class.getPackage().getName() + ".commands.";
+		for (String command : commands) {
+			try {
+				Class<?> exec = Class.forName(pack + StringUtils.capitalize(command) + "Exec");
+				plugin.getCommand(command).setExecutor((CommandExecutor) exec.newInstance());
+			} catch (Exception e) {
+				Logger.severe("Disable because can't load command: " + command);
+				Bukkit.getPluginManager().disablePlugin(plugin);
+			}
+			try {
+				Class<?> tab = Class.forName(pack + StringUtils.capitalize(command) + "Tab");
+				plugin.getCommand(command).setTabCompleter((TabCompleter) tab.newInstance());
+			} catch (Exception e) {}
+		}
+	}
+	
+	public static List<Entity> getEntities(String p) {
+		return PlayerSelector.getPlayers(new ICommandListener(), p, (Class<? extends T>) Entity.class);
+	}
+}

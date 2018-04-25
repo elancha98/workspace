@@ -1,0 +1,5 @@
+package me.commandcraft.chestbank;
+
+public class CommandExec implements CommandExecutor{
+
+}

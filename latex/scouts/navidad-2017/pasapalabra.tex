@@ -1,0 +1,82 @@
+\documentclass[72pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{fancyhdr}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage[explicit]{titlesec}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\newlength{\w}
+\setlength{\w}{\textwidth / 5 - 1.18pt}
+
+\newcommand*\getlength[1]{\number#1}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textit{Grupo Scout 109 Monte Clavijo} \\}
+\lhead{Campamento de Navidad 2017 \\ Nieva de Cameros (La Rioja)} %CAMPAMENTO Y LUGAR
+\cfoot{\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}}
+
+\titleformat{\section}
+  {\Large\bfseries}{\thesection}{5em}{#1}[{\titlerule}]
+
+\begin{document}
+\large
+\fontencoding{T1}\fontfamily{lmss}\fontseries{m}\fontshape{n}\selectfont
+\begin{tabular}{|p{2cm}|c|}
+\hline
+\multirow{5}{*}{\includegraphics[width=2cm]{logo}} & \textbf{CLAN} \\ % RAMA
+\cline{2-2}
+& \textbf{PASAPALABRA} \\ %TITULO
+\cline{2-2}
+& \parbox{\textwidth-4cm}{Fecha y momento del dia: \textbf{27 diciembre - tarde}} \\ %Fecha
+& \parbox{\textwidth-4cm}{Duracion: \textbf{1.5 horas}} \\ %Duracion
+& \parbox{\textwidth-4cm}{Destinatarios/as: \textbf{jovenes de 17 a 21 años}} \\ %Destinatarios
+\hline
+\end{tabular}
+
+\section*{DESCRIPCI\'ON}
+    Jugaremos al conocido juego ``Pasapalabra'', haciendo una competición por equipos.
+\section*{OBJETIVOS} 
+\begin{itemize}
+    \item Pasarnoslo muy requetebien
+    \item Aprender nuevo vocabulario
+\end{itemize}
+
+\section*{DESARROLLO} 
+    Jugaremos al ``fantabuloso'' juego de pasapalabra. Primero, dividiremos al clan en
+    grupos, el número es irrelevante, pero se recomiendan equipos de 3 o 4 personas
+    como máximo. A partir de aquí, usaremos la app de ordenador para jugar. Cada equipo
+    tendrá un ``rosco'' con letras y un tiempo inicial de 200 segundos. Y se procederá
+    de forma normal, con las normas originales.
+\section*{MATERIALES}
+\begin{itemize} 
+    \item Ordenador
+    \item Proyector
+    \item Móvil con anclaje por USB
+    \item App de Pasapalabra
+\end{itemize}
+\section*{SUGERENCIAS} 
+
+\begin{itemize}
+    \item No hacer los equipos muy grandes.
+\end{itemize}
+
+\section*{EVALUACION} 
+\begin{itemize}
+    \item ¿Se lo han pasado bien?
+    \item ¿Han aprendido nuevas palabras?
+    \item ¿Han respetado los turnos de palabra?
+\end{itemize}
+
+\section*{FUENTE} 
+G. S. 109 Monte Clavijo
+\end{document}

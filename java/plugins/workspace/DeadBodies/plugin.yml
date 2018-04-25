@@ -1,0 +1,7 @@
+name: DeadBodies
+description: Simple
+version: 1.0
+author: CommandCraft
+main: me.commandcraft.deadbodies.Main
+depend:
+  - Citizens

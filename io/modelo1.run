@@ -1,0 +1,10 @@
+reset;
+
+model modelo2.mod;
+
+option solver minos;
+option minos_options 'superbasics_limit=1000';
+
+solve;
+
+printf {i in PUNTOS} "(%lf, %lf)\n", x[i], -y[i];

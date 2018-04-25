@@ -1,0 +1,29 @@
+package me.commandcraft.testcommand;
+
+import java.io.File;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class LibLoader {
+
+	public static void loadLib(JavaPlugin plugin, String libr) throws Exception {
+		final File lib = new File(plugin.getDataFolder(), libr);
+		if (!lib.exists()) JarUtils.extractFromJar(lib.getName(), lib.getAbsolutePath());
+		addClassPath(JarUtils.getJarUrl(lib));
+	}
+	
+	private static void addClassPath(URL url) throws Exception {
+		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+		Class<URLClassLoader> sysclass = URLClassLoader.class;
+		Method method = sysclass.getDeclaredMethod("addURL", URL.class);
+		method.setAccessible(true);
+        method.invoke(sysloader, url);
+	}
+	
+	private static URL getJarUrl(File file) {
+		
+	}
+}

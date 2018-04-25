@@ -1,0 +1,72 @@
+\documentclass[72pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{fancyhdr}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage[explicit]{titlesec}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\newlength{\w}
+\setlength{\w}{\textwidth / 5 - 1.18pt}
+
+\newcommand*\getlength[1]{\number#1}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textit{Grupo Scout 109 Monte Clavijo} \\}
+\lhead{Campamento de Verano 2017 \\ Zarzosa (La Rioja)} %CAMPAMENTO Y LUGAR
+\cfoot{\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}}
+
+\titleformat{\section}
+  {\Large\bfseries}{\thesection}{5em}{#1}[{\titlerule}]
+
+\begin{document}
+\large
+\fontencoding{T1}\fontfamily{lmss}\fontseries{m}\fontshape{n}\selectfont
+\begin{tabular}{|p{2cm}|c|}
+\hline
+\multirow{5}{*}{\includegraphics[width=2cm]{logo}} & \textbf{CLAN} \\ % RAMA
+\cline{2-2}
+& \textbf{BOMBA DE ARIETE} \\ %TITULO
+\cline{2-2}
+& \parbox{\textwidth-4cm}{Fecha y momento del dia: \textbf{16 jullio - tarde}} \\ %Fecha
+& \parbox{\textwidth-4cm}{Duracion: \textbf{1.5 horas}} \\ %Duracion
+& \parbox{\textwidth-4cm}{Destinatarios/as: \textbf{jovenes de 17 a 21 años}} \\ %Destinatarios
+\hline
+\end{tabular}
+
+\section*{DESCRIPCI\'ON}
+
+\section*{OBJETIVOS}
+\begin{itemize}
+    \item
+\end{itemize}
+
+\section*{DESARROLLO}
+
+\section*{MATERIALES}
+\begin{itemize}
+    \item
+\end{itemize}
+\section*{SUGERENCIAS}
+
+\begin{itemize}
+    \item
+\end{itemize}
+
+\section*{EVALUACION}
+\begin{itemize}
+    \item
+\end{itemize}
+
+\section*{FUENTE}
+G. S. 109 Monte Clavijo
+\end{document}

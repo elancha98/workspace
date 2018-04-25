@@ -1,0 +1,64 @@
+package me.commandcraft.testcommand;
+
+import java.util.List;
+
+import org.apache.commons.io.output.ThresholdingOutputStream;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_8_R3.command.VanillaCommandWrapper;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import com.google.gson.Gson;
+
+import net.minecraft.server.v1_8_R3.CommandAbstract;
+import net.minecraft.server.v1_8_R3.CommandException;
+import net.minecraft.server.v1_8_R3.Entity;
+import net.minecraft.server.v1_8_R3.ICommand;
+import net.minecraft.server.v1_8_R3.ICommandListener;
+import net.minecraft.server.v1_8_R3.PlayerSelector;
+
+public class Main extends JavaPlugin {
+	
+	private static List<Entity> entities;
+
+	public void onEnable() {
+		
+	}
+
+	public void onDisable() {
+		
+	}
+	
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		VanillaCommandWrapper wrapper = new VanillaCommandWrapper(new CommandAbstract() {
+			
+			@Override
+			public int compareTo(ICommand o) {
+				return 0;
+			}
+			
+			@Override
+			public String getUsage(ICommandListener arg0) {
+				return null;
+			}
+			
+			@Override
+			public String getCommand() {
+				return null;
+			}
+			
+			@Override
+			public void execute(ICommandListener arg0, String[] arg1)
+					throws CommandException {
+				List<Entity> list = PlayerSelector.getPlayers(arg0, arg1[0], Entity.class);
+				Main.setEntities(list);
+			}
+		});
+		sender.sendMessage(new Gson().toJson(entities));
+		return true;
+	}
+	
+	public static void setEntities(List<Entity> e) {
+		entities = e;
+	}
+}

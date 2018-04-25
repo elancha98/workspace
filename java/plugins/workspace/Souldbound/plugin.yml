@@ -1,0 +1,9 @@
+name: SoulBound
+description: Simple
+version: 1.0
+author: CommandCraft
+main: me.commandcraft.soulbound.Main
+
+commands:
+  soulbound:
+    description: used to soulbound items

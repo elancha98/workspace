@@ -1,0 +1,37 @@
+package me.commandcraft.chestbank;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+public class Configuration {
+
+	private YamlConfiguration config;
+	
+	public Configuration() {
+		load();
+	}
+	
+	public String getTitle() {
+		if (config.isSet("bank_title") && config.isString("bank_title")) {
+			config.set("bank_title", "&eChestBank");
+			Bukkit.getLogger().info("setted");
+		}
+		Bukkit.getLogger().info(config.getString("bank_title"));
+		return ChatColor.translateAlternateColorCodes('&', config.getString("bank_title"));
+	}
+	
+	public void load() {
+		File file = new File(ChestBank.getInstance().getDataFolder(), "config.yml");
+		config = YamlConfiguration.loadConfiguration(file);
+	}
+	
+	public void save() throws IOException {
+		File file = new File(ChestBank.getInstance().getDataFolder(), "config.yml");
+		if (!file.exists()) file.createNewFile();
+		config.save(file);;
+	}
+}

@@ -1,0 +1,17 @@
+name: ChestBank
+description: Simple
+version: 1.0
+author: CommandCraft
+main: me.commandcraft.chestbank.ChestBank
+depend: [Vault]
+
+commands:
+  chestbank:
+    description: used to access chestbank
+    aliases: [cb]
+
+permissions:
+  chestbank.add:
+    default: op
+  chestbank.set:
+    dedault: op

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/starter.dir/main.cpp.o CMakeFiles/starter.dir/VertexBuffer.cpp.o CMakeFiles/starter.dir/ShaderProgram.cpp.o  -o starter /usr/lib/libGL.so -lglfw /usr/lib/libGLEW.so 

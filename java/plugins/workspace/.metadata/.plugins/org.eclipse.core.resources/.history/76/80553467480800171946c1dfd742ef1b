@@ -1,0 +1,123 @@
+package me.commandcraft.testcommand;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+public class CommandExec {
+	
+	private static Object wrapper;
+	@SuppressWarnings("rawtypes")
+	private static Map<String, List> entities = new HashMap<String, List>();
+
+	public static void init(JavaPlugin plugin) throws Exception {
+		setWrapper();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static List getEntities(CommandSender sender, String selector) {
+		String uuid = UUID.randomUUID().toString();
+		try {
+			wrapper.getClass().getMethod("execute", CommandSender.class, String.class, String[].class)
+				.invoke(wrapper, sender, "", new String[] {selector, uuid});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entities.remove(uuid);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static void putEntities(String uuid, List ent) {
+		entities.put(uuid, ent);
+	}
+	
+	private static void setWrapper() throws Exception{
+		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+		Class<?> vanilla = Class.forName("org.bukkit.craftbukkit." + version + ".command.VanillaCommandWrapper");
+		Class<?> cmdabs = Class.forName("net.minecraft.server." + version + ".CommandAbstract");
+		Enhancer e = new Enhancer();
+		e.setSuperclass(cmdabs);
+		e.setCallback(new Interceptor(version));
+		
+		wrapper = vanilla.getConstructor(cmdabs).newInstance(e.create());
+	}
+	
+	private static void loadLibs(JavaPlugin plugin) {
+		final File[] libs = new File[] {
+                new File(plugin.getDataFolder(), "cglib-3.2.5.jar"),
+                new File(plugin.getDataFolder(), "asm-5.2.jar") };
+        for (final File lib : libs) {
+            if (!lib.exists()) {
+                JarUtils.extractFromJar(lib.getName(),
+                        lib.getAbsolutePath());
+            }
+        }
+        for (final File lib : libs) {
+            if (!lib.exists()) {
+                Bukkit.getLogger().warning(
+                        "There was a critical error loading My plugin! Could not find lib: "
+                                + lib.getName());
+                Bukkit.getServer().getPluginManager().disablePlugin(this);
+                return;
+            }
+            addClassPath(JarUtils.getJarUrl(lib));
+        }
+	}
+	
+	private static void addClassPath(final URL url) throws IOException {
+        final URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        final Class<URLClassLoader> sysclass = URLClassLoader.class;
+        try {
+            final Method method = sysclass.getDeclaredMethod("addURL",
+                    new Class[] { URL.class });
+            method.setAccessible(true);
+            method.invoke(sysloader, new Object[] { url });
+        } catch (final Throwable t) {
+            t.printStackTrace();
+            throw new IOException("Error adding " + url + " to system classloader");
+        }
+    }
+}
+
+class Interceptor implements MethodInterceptor {
+	
+	private Method get_players;
+	private Class<?> entity;
+	
+	protected Interceptor(String version) throws ClassNotFoundException {
+		entity = Class.forName("net.minecraft.server." + version + ".Entity");
+		Class<?> selector = Class.forName("net.minecraft.server." + version + ".PlayerSelector");
+		Method[] methods = selector.getDeclaredMethods();
+		for (Method method : methods) {
+			if (method.getName().equals("getPlayers")) get_players = method;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object intercept(Object t, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+		String name = method.getName();
+		if (name.equals("compareTo")) return 0;
+		if (name.equals("execute")) {
+			List list = (List) get_players.invoke(null, args[0], ((String[]) args[1])[0], entity);
+			CommandExec.putEntities(((String[]) args[1])[1], list);
+		}
+		return null;
+	}
+	
+	
+}

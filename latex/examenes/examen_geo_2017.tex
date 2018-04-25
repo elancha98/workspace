@@ -1,0 +1,217 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{enumitem}
+
+\usepackage{tikz}
+\tikzstyle{every node}=[circle, draw, fill=black!50, inner sep=0pt, minimum width=4pt]
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\vv}[1]{\overrightarrow{#1}}
+\newcommand{\norm}[1]{\lVert #1 \rVert }
+
+
+\begin{document}
+
+\title{Examen final geometria 2017}
+\date {}
+\maketitle
+
+\begin{enumerate}
+\item Tomamos la referencia $\mathcal{R} = \left\{D,\vv{DP},\vv{PC}\right\}$, entonces
+\begin{itemize}
+\item $D = \begin{pmatrix} 0 & 0 \end{pmatrix}$
+\item $P = \begin{pmatrix} 1 & 0 \end{pmatrix}$
+\item $A = \begin{pmatrix} 1 & -1 \end{pmatrix}$
+\item $C = \begin{pmatrix} 1 & 1 \end{pmatrix}$
+\end{itemize}
+Ahora $\vv{DB} = \frac{3}{2} \vv{DP} \implies B = \begin{pmatrix} \frac{3}{2} & 0 \end{pmatrix}$.
+Tambien $\vv{BC} = \frac{4}{3}\vv{BY} \iff \vv{BY} = \frac{3}{4}\vv{BC} = \frac{3}{4}
+\begin{pmatrix} -\frac{1}{2} & 1 \end{pmatrix} = \begin{pmatrix} -\frac{3}{8} & \frac{3}{4} \end{pmatrix}$.
+Por lo tanto $Y = \begin{pmatrix} \frac{9}{8} & \frac{3}{4} \end{pmatrix}$.
+\\ \\
+Ahora $\vv{PX} = \frac{1}{3}\vv{AC} = \frac{1}{3}\begin{pmatrix} 0 & 2 \end{pmatrix} = 
+\begin{pmatrix} 0 & \frac{2}{3} \end{pmatrix} \implies X = \begin{pmatrix} 1 & \frac{2}{3} \end{pmatrix}$
+\\ \\
+Y $\frac{9}{8} \vv{DX} = \frac{9}{8}\begin{pmatrix} 1 & \frac{2}{3} \end{pmatrix} =
+\begin{pmatrix} \frac{9}{8} & \frac{3}{4} \end{pmatrix} = \vv{DY}$ por lo tanto $D,X,Y$ estan alineados.
+\\ \\ \\
+\item Primero calculamos la familia de puntos fijos:
+\[
+L :=
+\begin{cases}
+4x+9y-3=x \\
+-x-2y+1=y
+\end{cases}
+\implies
+x + 3y = 1
+\iff
+\begin{cases}
+x = -3t +1 \\
+y = t
+\end{cases}
+\]
+Que es una recta. Tomamos un centro de nuestra referencia un $P \in L$, por ejemplo
+$P = \begin{pmatrix} 1 & 0 \end{pmatrix}$. Calculamos ahora $Q_f(t)$:
+\[
+Q_f(t) = \det \begin{pmatrix} 4-t & 9 \\ -1 & -2-t \end{pmatrix} = t^2 -2t + 1 = (t-1)^2
+\]
+Como $\ker (f-Id) \neq \R^2$, $f$ no diagonaliza. Calculamos ahora $u_1$. Elegimos un punto
+$Q \notin L (\text{recta de puntos fijos})$,
+tal que $f(Q)-Q = (f-Id)Q = u_1$ y $u_1$ sea $vep$ de $vap$ 1:
+\[
+\begin{pmatrix} 3 & 9 & -3 \\ -1 & -3 &1 \\ 0 & 0 & 0\end{pmatrix}
+\begin{pmatrix} x \\ y \\ 1 \end{pmatrix} = \lambda \begin{pmatrix} -3 \\ 1 \end{pmatrix}
+\]
+Ya que si $u_1$ es $vep$ de $vap$ 1, entonces es un multiplo del vector director de $L$.
+Podemos tomar, por ejemplo,
+$Q = \begin{pmatrix} 1 & 1 \end{pmatrix} \implies u_1 = \begin{pmatrix} 9 & -3 \end{pmatrix}$
+y $u_2 = Q - P = \begin{pmatrix} 0 & 1 \end{pmatrix} \implies \mathcal{R} =
+\left\{P,u_1,u_2\right\} = \left\{\begin{pmatrix} 1 & 0 \end{pmatrix}, \begin{pmatrix} 9 & -3 \end{pmatrix},
+\begin{pmatrix} 0 & 1 \end{pmatrix} \right\}$ y:
+\[
+M_{\mathcal{R}}(f) = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+\]
+$f$ es por tanto, una homologia general de eje $L$.
+\\ \\ \\ \\
+\item Primero calculamos $P_p(Q)$. $q \in P_p(Q) \iff \phi(p,q) = 0$:
+\[
+\phi(p,q) = \begin{pmatrix} 2 & 0 & 1 \end{pmatrix}
+\begin{pmatrix} 1 & -1 & 0 \\ -1 & 3 & 1 \\ 0 & 1 & 0 \end{pmatrix}
+\begin{pmatrix} x \\ y \\ 1 \end{pmatrix} = 0
+\iff
+\begin{cases}
+x = \lambda \\
+y = 2 \lambda
+\end{cases}
+\iff
+\begin{pmatrix} x \\ y \end{pmatrix} = \lambda \begin{pmatrix} 1 \\ 2 \end{pmatrix} 
+\]
+Llamamos ahora $A=\begin{pmatrix} 1 & 0 \end{pmatrix}$ y $B = \begin{pmatrix} 0 & 1 \end{pmatrix}$,
+dado un punto $q$, tenemos que:
+\[
+area(\overset{\triangle}{ABq}) = \frac{1}{2}\sqrt{G \left( \vv{AB},\vv{Aq} \right)}
+=
+\frac{1}{2}\norm{\vv{Aq}'}\sqrt{G \left( \vv{AB} \right)}
+=
+\frac{\norm{\vv{Aq}'} \norm{\vv{AB}}}{2}
+\]
+Donde $\vv{Aq}'$ es la proyecion de $\vv{Aq}$ sobre $\left[\vv{AB} \right]^{\perp}$. Tenemos que
+$\left[\vv{AB} \right] = \left[ \begin{pmatrix} -1 & 1 \end{pmatrix}\right]$ y que
+$\left[\vv{AB} \right]^{\perp} = \left[ \begin{pmatrix} 1 & 1 \end{pmatrix}\right]^{\perp}$, por lo tanto:
+\[
+\vv{Aq} = \begin{pmatrix} -1 \\ 0 \end{pmatrix} + \lambda \begin{pmatrix} 1 \\ 2 \end{pmatrix}
+=
+a \begin{pmatrix} -1 \\ 1 \end{pmatrix} + b  \begin{pmatrix} 1 \\ 1 \end{pmatrix}
+\iff
+b = \frac{3 \lambda - 1}{2}
+\]
+Entonces $\vv{Aq}' = b \begin{pmatrix}1 & 1 \end{pmatrix}$. Ahora queremos que
+$area(\triangle ABq) = 1$, lo cual implica que $\norm{\vv{Aq}'} = \sqrt{2}$
+\[
+\norm{\vv{Aq}'} = \sqrt{2 \left( b^2 \right)} = \sqrt{2}
+\iff
+\frac{3 \lambda - 1}{2} = \pm 1
+\]
+De donde deducimos que los puntos son:
+\[
+\begin{cases}
+q_1 = \frac{-1}{3} \begin{pmatrix} 1 & 2\end{pmatrix} =
+\begin{pmatrix} \frac{-1}{3} & \frac{-2}{3}\end{pmatrix} \\
+q_2 =  \begin{pmatrix} 1 & 2 \end{pmatrix}
+\end{cases}
+\]
+\\ \\ \\ \\
+\end{enumerate}
+\begin{enumerate}[label=(\Alph*)]
+\item Primero, vemos que $f = S_v \circ S_u$ es una rotacion. $S_v$ y $S_u$ son ambos movimientos
+directos, por lo tanto, $f$ es tambien un movimiento directo, es decir, $f$ es una traslacion, una rotacion
+o un movimiento helicoidal. Vemos ahora que $f(P) = P$ (ya que es punto fijo tanto por $S_v$ como por
+$S_u$) es un punto fijo, lo cual implica que $f$ es una rotacion. Vemos ahora que $P + [w]$ es una
+recta de puntos fijos. Vemos que $\forall x \in P +[w] \quad S_u(x) = x - 2\vv{Px}$ y
+$S_v(x) = x - 2\vv{Px}$. Por lo tanto $(S_v \circ S_u)(x) = x$. Para calcular el angulo, miramos un punto
+$q \in P + [u]$, entonces $f(q) = S_v(q)$, y vemos que el angulo $\alpha$ de la rotacion es dos veces
+el angulo entre $u$ y $v$.
+\\ \\ \\ \\
+\item \begin{enumerate}[label=\roman*)]
+\item Si deja invariante la recta $r$, entonces $r$ es el eje de la simetria, y tenemos:
+\[
+r = \begin{pmatrix} 1/2 \\ 0 \end{pmatrix} + \lambda \begin{pmatrix} 1 \\ 1 \end{pmatrix}
+\implies
+q \in \mathbb{E}^2 = \begin{pmatrix} x \\ y \end{pmatrix} =
+\begin{pmatrix} 1/2 \\0 \end{pmatrix} + \lambda \begin{pmatrix} 1 \\1 \end{pmatrix} + 
+b \begin{pmatrix} 1 \\ -1 \end{pmatrix}
+\implies
+b = \frac{x-y-\frac{1}{2}}{2}
+\]
+(Ya que $\begin{pmatrix} 1 & -1\end{pmatrix} \perp \begin{pmatrix} 1 & 1\end{pmatrix}$). Ahora tenemos
+que $S(q) = S(x,y) = \begin{pmatrix} x & y \end{pmatrix} - 2b\begin{pmatrix} 1 & -1 \end{pmatrix}$
+(donde $S$ es la simetria, e.d, $f = \tau \circ S$, con $\tau$ una traslacion):
+\[
+S(x,y) = \begin{pmatrix} x \\ y\end{pmatrix} - 2 \left( \frac{x-y-\frac{1}{2}}{2} \right)
+\begin{pmatrix} 1 \\ -1\end{pmatrix} = \begin{pmatrix} y+\frac{1}{2} & x - \frac{1}{2}\end{pmatrix}
+\]
+Calculamos ahora $S\left(1, -\frac{3}{2}\right) = \begin{pmatrix} -1 & \frac{1}{2}\end{pmatrix}$
+Y por lo tanto el vector de traslacion es $\begin{pmatrix} \frac{9}{8} & \frac{9}{8}\end{pmatrix}$, con
+lo cual $f(x,y) = \begin{pmatrix} y + \frac{1}{2} & x - \frac{1}{2} \end{pmatrix} +
+\begin{pmatrix} \frac{9}{8} & \frac{9}{8} \end{pmatrix} =
+\begin{pmatrix} y + \frac{13}{8} & x + \frac{5}{8} \end{pmatrix}$. Entonces $M_e(f)$:
+\[
+M_e(f) = \begin{pmatrix} 0 & 1 & 13/8 \\ 1 & 0 & 5/8 \\ 0 & 0 & 1\end{pmatrix}
+\]
+\item Primero encontramos $M_e(Q)$:
+\[
+M_e(Q) = \begin{pmatrix} 1 & -1 & 0 \\ -1 & 1 & 1 \\ 0 & 1 & 2\end{pmatrix}
+\]
+Miramos ahora si tiene centros. $p$ es centro sii $Ap +L = 0$:
+\[
+\begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix} \begin{pmatrix} x \\ y\end{pmatrix}
++ \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 0\end{pmatrix}
+\]
+Que no tiene solucion, por lo tanto $Q$ no tiene centros. Como $\det\tilde{A} \neq 0$, $Q$ es una parabola. Sacamos ahora los $vep$s de $A$:
+\[
+Q_A(t) = \begin{pmatrix} 1-t & -1 \\ -1 & 1-t\end{pmatrix} = (1-t)^2-1 = t(t-2)
+\]
+Tomamos entonces $\begin{pmatrix} 1 & 1\end{pmatrix}$ $vep$ de $vap$ 0 y
+$\begin{pmatrix} 1 & -1\end{pmatrix}$ $vep$ de $vap$ 2. Normalizamos ahora los $vep$s, quedando
+$v_1 = \begin{pmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{pmatrix}$ y
+$v_2 = \begin{pmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{pmatrix}$. Queremos ahora
+$p = \begin{pmatrix} x & y\end{pmatrix}$ tal que $\phi(p,p) = 0$ y $\phi(v_2,p) = 0$, entonces:
+\[
+\phi(v_2,p) = 0 \iff \begin{pmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & 0\end{pmatrix}
+\begin{pmatrix} 1 & -1 & 0 \\ -1 & 1 & 1 \\ 0 & 1 & 2 \end{pmatrix}\begin{pmatrix} x \\ y \\ 1 \end{pmatrix} =
+\begin{pmatrix} 0 \\ 0\end{pmatrix}
+\iff
+x = y + \frac{1}{2}
+\]
+Luego $p$ es de la forma $\begin{pmatrix} y + \frac{1}{2} & y \end{pmatrix}$, queremos ahora que:
+\[
+\left( y + \frac{1}{2} \right)^2 - 2y\left(y+\frac{1}{2} \right) + y^2 + 2y +2 = 0
+\iff
+y = -\frac{9}{8}
+\]
+Con lo cual el centro es $p = \begin{pmatrix} -\frac{5}{8} & -\frac{9}{8} \end{pmatrix}$. Tomamos ahora
+$\mathcal{R} = \left\{ p, v_1, v_2\right\}$ entonces:
+\[
+M_{\mathcal{R}}(Q) = \begin{pmatrix} 0 & 0 & b \\ 0 & 2 & 0 \\ b & 0 & 0 \end{pmatrix}
+\]
+Donde $b = \phi(p,v_1) = \frac{1}{\sqrt{2}}$
+\\
+\item Calculamos la imagen del vertice, $f(-\frac{5}{8}, -\frac{9}{8}) =
+\begin{pmatrix} \frac{1}{2} & 0\end{pmatrix}$. Calculamos ahora la imagen de $p + [v_1]$, que es
+$f(p) + [v_1]$ (ya que $p + [v_1]$ es paralelo al eje de simetria). Ahora calculamos $p +[v_2]$, que es
+invariante porque $v_2$ es perpendicular al eje de simetria. Por lo tanto, la imagen de $Q$ por $f$, sera
+una parabola de vertice $\begin{pmatrix} \frac{1}{2} & 0\end{pmatrix}$ y eje
+$\begin{pmatrix} \frac{1}{2} & 0\end{pmatrix} + \left[ \begin{pmatrix} 1 & 1 \end{pmatrix}\right]$.
+
+\end{enumerate}
+\end{enumerate}
+\end{document}

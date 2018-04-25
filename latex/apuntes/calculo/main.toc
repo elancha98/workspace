@@ -1,0 +1,5 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Series Num\IeC {\'e}ricas e Integrales Impropias}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Series num\IeC {\'e}ricas}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Series de n\IeC {\'u}meros positivos}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Series absolutamente convergentes y condicionalmente convergentes}{8}{subsection.1.3}

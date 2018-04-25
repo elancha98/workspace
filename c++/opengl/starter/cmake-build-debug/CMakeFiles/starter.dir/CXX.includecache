@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ernesto/Desktop/workspace/c++/opengl/starter/VertexBuffer.cpp
+GL/glew.h
+-
+VertexBuffer.h
+/home/ernesto/Desktop/workspace/c++/opengl/starter/VertexBuffer.h
+
+/home/ernesto/Desktop/workspace/c++/opengl/starter/VertexBuffer.h
+
+/home/ernesto/Desktop/workspace/c++/opengl/starter/cmake-build-debug/ShaderProgram.cpp
+iostream
+-
+ShaderProgram.h
+/home/ernesto/Desktop/workspace/c++/opengl/starter/cmake-build-debug/ShaderProgram.h
+
+/home/ernesto/Desktop/workspace/c++/opengl/starter/cmake-build-debug/ShaderProgram.h
+string
+-
+GL/glew.h
+-
+
+/home/ernesto/Desktop/workspace/c++/opengl/starter/main.cpp
+GL/glew.h
+-
+GLFW/glfw3.h
+-
+glm/glm.hpp
+-
+iostream
+-
+

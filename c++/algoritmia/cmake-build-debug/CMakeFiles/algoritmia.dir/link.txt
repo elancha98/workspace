@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/algoritmia.dir/program.cc.o  -o algoritmia 

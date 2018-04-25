@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<template type="ProjTempl" version="1.0" supplier="Symbian" revision="1.0" author="Bala Torati"
+        id="EXE" label="Simple EXE" description="A skeletal Symbian OS EXE project. Creates a folder for sources and another for include."
+         help="help.html">
+
+	<property-group id="basics" label="Basic Settings" description="Basic properties of a project" type="PAGES-ONLY" help="help.html">
+        
+		<property id="projectName"
+            label="Project Name"
+            description="UID 2"
+            default=""
+            type="input"
+            pattern="."
+            hidden="false"
+            mandatory="true"
+            persist="true"/>
+    </property-group>
+    
+    <process type="org.eclipse.cdt.managedbuilder.core.NewManagedProject">
+        <simple name="name" value="$(projectName)"/>
+    </process>
+
+    <process type="org.eclipse.cdt.core.CreateSourceFolder">
+        <simple name="projectName" value="$(projectName)"/>
+        <simple name="path" value="me.commandcraft.$(projectName)"/>
+    </process>
+
+    <process type="org.eclipse.cdt.managedbuilder.core.CreateIncludeFolder">
+        <simple name="projectName" value="$(projectName)"/>
+        <simple name="path" value="$(incDir)"/>
+    </process>
+
+    <process type="org.eclipse.cdt.core.AddFiles">
+        <simple name="projectName" value="$(projectName)"/>
+        <complex-array name="files">
+            <element>
+                <simple name="source" value="inc/Basename.h"/>
+                <simple name="target" value="$(incDir)/$(baseName).h"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+            <element>
+                <simple name="source" value="src/Basename.cpp"/>
+                <simple name="target" value="$(sourceDir)/$(baseName).cpp"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+        </complex-array>
+    </process>
+
+    <process type="org.eclipse.cdt.managedbuilder.core.AppendToMBSStringListOptionValues">
+        <simple name="projectName" value= "$(projectName)"/>      
+        <complex-array name="resourcePaths">
+            <element>
+                <simple name="id" value=".*linker\.libraries\.libraries.*" />
+                <simple-array name="values">
+                    <element value="euser.lib" />
+                </simple-array>
+                <simple name="path" value="" />
+            </element>
+        </complex-array>
+    </process>
+</template>

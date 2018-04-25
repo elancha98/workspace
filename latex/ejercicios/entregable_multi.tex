@@ -1,0 +1,601 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage[pdftex]{hyperref}
+\usepackage{amsmath,amsthm,amssymb,graphicx,mathtools,tikz,hyperref,enumerate}
+\usepackage{mdframed,cleveref,cancel,stackengine,pgfplots}
+
+\newmdenv[leftline=false,topline=false]{topright}
+\let\proof\relax
+\usepackage[utf8]{inputenc}
+\usetikzlibrary{positioning}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\q}{\mathbb{Q}}
+\newcommand{\cx}{\mathbb{C}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\let\k\relax
+\newcommand{\k}{\mathbf{k}}
+\newcommand{\ita}[1]{\textit{#1}}
+\newcommand\inv[1]{#1^{-1}}
+\newcommand\setb[1]{\left\{#1\right\}}
+\newcommand{\vbrack}[1]{\langle #1\rangle}
+\newcommand{\determinant}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\Po}{\mathbb{P}}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\car}{car}
+
+
+\hypersetup{
+	colorlinks,
+	linkcolor=blue
+}
+
+\newtheoremstyle{break}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%        Punctuation after thm head
+{\newline}% Space after thm head: \newline = linebreak
+{#1 #2 \normalfont #3}%         Thm head spec
+
+
+\theoremstyle{break}
+\newtheorem{ej}{Ejercicio}
+\let\proof\relax
+\newtheorem*{proof}{Demostración}
+ 
+\begin{document}
+\date{}
+
+\title{Álgebra Multilineal y Geometría Proyectiva}
+\author{Ernesto Lanchares}
+\maketitle
+
+\begin{ej}
+Si tenemos una descomposición minimal (*), demostrad que los vectores $\{u1,\dots, um\}$ son
+l.i. y los vectores $\{v_1,\dots, v_m\}$ también. Deducid que $rang(f) \leq n = dimE$.
+\end{ej}
+\begin{proof}
+Suponemos que $\{u_1,\dots, u_m\}$ son l.d. entonces, se tiene que 
+$\exists \lambda_1,\dots,\lambda_m$ con $\lambda_r \neq 0$ (para al menos una $r$) tales que
+\[
+    \lambda_1 u_1 + \cdots + \lambda_m u_m = 0 \iff
+    u_r = \frac{-\lambda_1}{\lambda_r} u_1+\cdots + \frac{-\lambda_{r-1}}{\lambda_r} u_{r-1}+
+    \frac{-\lambda_{r+1}}{\lambda_r} u_{r+1} + \cdots  + \frac{-\lambda_m}{\lambda_r} u_m
+\]
+Ahora, podemos escribir $f$ como
+\[
+	f = u_1 \otimes v_1 + \cdots + u_r \otimes v_r + \cdots + u_m \otimes v_m
+\]
+Y ustituyendo $u_r$, obtenemos
+\[
+	f = u_1 \otimes v_1 + \cdots + \left( \frac{-\lambda_1}{\lambda_r} u_1 + \cdots +
+	\frac{-\lambda_m}{\lambda_r} u_m \right) \otimes v_r + \cdots + u_m \otimes v_m
+\]
+Agrupando ahora los términos, obtenemos
+\[
+	f = u_1 \otimes \left( v_1 + \frac{-\lambda_1}{\lambda_r} v_r \right) + \cdots +
+	u_m \otimes \left( v_m + \frac{-\lambda_m}{\lambda_r} v_r \right)
+\]
+Y por lo tanto, hemos encontrado una descomposición de $f$ como (*), con menos términos que
+la original, lo cual es imposible ya que la descomposición era minimal. Lo que implica que
+nuestra hipótesis de partida es falsa, es decir, $\{u_1,\dots,u_m\}$ son l.i.
+\\ \\
+Podemos demostrar que $\{v_1,\dots, v_m \}$ son l.i. siguendo un razonamiento análogo.
+\\ \\
+Por el resultado anterior, $rang(f) = m \implies \exists \{u_1,\dots,u_m\}$ l.i. como no
+pueden existir más de $n$ vectores l.i., $rang(f) \leq n$.
+\end{proof}
+
+\begin{ej}
+Con $n = 3$, considerad $u_{B^*} = (1, 2, 3)^t$ y $v_{B^*} = (2, 1, 5)^t$. Calculad
+$A = M_B(u \otimes v)$.
+\end{ej}
+\begin{proof}
+	Sabemos que
+	\[
+		M_B(u \otimes v) = \begin{pmatrix}
+			(u \otimes v)(e_1,e_1) & (u \otimes v)(e_1,e_2) & (u \otimes v)(e_1,e_3) \\
+			(u \otimes v)(e_2,e_1) & (u \otimes v)(e_2,e_2) & (u \otimes v)(e_2,e_3) \\
+			(u \otimes v)(e_3,e_1) & (u \otimes v)(e_3,e_2) & (u \otimes v)(e_3,e_3)
+		\end{pmatrix}
+	\]
+	Por lo tanto, basta calcular estos valores, obteniendo
+	\[
+		M_B(u \otimes v) = \begin{pmatrix}
+			2 & 1 & 5 \\
+			4 & 2 & 10 \\
+			3 & 3 & 15
+		\end{pmatrix}
+	\]
+\end{proof}
+
+\begin{ej}
+	Sea $A = M_B(f) = \begin{pmatrix}
+		1 & 3 & 7 \\ 2 & 6 & 14 \\ 4 & 12 & 28
+	\end{pmatrix}$. Demostrad que $f$ se puede escribir como $f = u' \otimes v'$ encontrando
+	la descomposición explícitamente.
+\end{ej}
+\begin{proof}
+	En efecto, podemos escribir $f$ como
+	\[
+		f = u' \otimes v' = (1,2,4)^t_{B^*} \otimes (1,3,7)^t_{B^*}
+	\]
+	Y, en efecto
+	\[
+		M_B(u' \otimes v') = \begin{pmatrix}
+		(u' \otimes v')(e_1,e_1) & (u' \otimes v')(e_1,e_2) & (u' \otimes v')(e_1,e_3) \\
+		(u' \otimes v')(e_2,e_1) & (u' \otimes v')(e_2,e_2) & (u' \otimes v')(e_2,e_3) \\
+		(u' \otimes v')(e_3,e_1) & (u' \otimes v')(e_3,e_2) & (u' \otimes v')(e_3,e_3)
+		\end{pmatrix} = \begin{pmatrix}
+			1 & 3 & 7 \\ 2 & 6 & 14 \\ 4 & 12 & 28
+		\end{pmatrix}
+	\]
+\end{proof}
+
+\begin{ej}\label{rango_tens}
+	Demostrad que para cualquier forma bilineal $f$ se tiene que $rang(f) = rang(A)$.
+	Dad un método explícito para encontrar una descomposición minimal de $f$ en tensores
+	de $rang$ 1 a partir de la matriz. Dad un ejemplo no trivial con $n = 3$.
+\end{ej}
+\begin{proof}
+	Suponemos que $rang(f) = m$ y
+	\[
+		f = u_1 \otimes v_1 + \cdots u_m \otimes v_m
+	\]
+	es una descomposición minimal de $f$. Consideramos ahora $M_B(f)$
+	\[
+		A = M_B(f) = M_B(u_1 \otimes v_1 + \cdots + u_m \otimes v_m) = M_B(u_1 \otimes v_1) +
+		\cdots + M_B(u_m \otimes v_m)
+	\]
+	(Ya que la matriz de la suma es la suma de matrices). Vamos a ver ahora que
+	$rang(M_B(u \otimes v)) = 1$ ($u,v \in E^*$)
+	\[
+		M_B(u \otimes v) = \begin{pmatrix}
+			(u \otimes v)(e_1,e_1) & \cdots & (u \otimes v)(e_1,e_1n) \\
+			\vdots & \ddots & \vdots \\
+			(u \otimes v)(e_n,e_1) & \cdots & (u \otimes v)(e_n,e_n)
+		\end{pmatrix} = \begin{pmatrix}
+			u(e_1)v(e_1) & \cdots & u(e_1)v(e_n) \\ \vdots & \ddots & \vdots \\
+			u(e_n)v(e_1) & \cdots & u(e_n)v(e_n)
+		\end{pmatrix}
+	\]
+	Y por lo tanto 
+	\[
+		M_B(u \otimes v)_j = \frac{v(e_j)}{v(e_1)} M_B(u \otimes v)_1
+	\]
+	y $rang(M_B(u \otimes v)) = 1$. También sabemos que si $C,D \in M_{n, n}(\k)$, $rang(C+D) \leq rang(C) + rang(D)$ y por lo tanto
+	\[
+		rang(A) \leq rang(M_B(u_1 \otimes v_1)) + \cdots + rang(M_B(u_m \otimes v_m)) = m
+	\]
+	Con lo cual, $rang(A) \leq rang(f)$.
+	\\ \\	
+	Suponemos ahora que $rang(A) = m$, es decir, $\exists i_1,\dots,i_m$ tales que
+	$\{A_{i_1},\dots,A_{i_m}\}$ son l.i. y, si $r \neq i_1,\dots,i_m$,
+	\[
+		A_r = \lambda_{r1}A_{i_1} + \cdots + \lambda_{rm} A_{i_m}
+	\]
+	Definimos ahora $u_j = A_{i_j}$ $\forall j=1,\dots,m$ y $v_j$ la definimos componente
+	a componente
+	\[
+		\left( v_j \right)_k = \begin{cases}
+			1 \quad \text{si } k = i_j \\
+			0 \quad \text{si } k = i_h \quad \text{con } h \neq j \\
+			\lambda_{rj} \quad \text{si } k = r \neq i_h \quad \forall h = 1,\dots,n
+		\end{cases}
+	\]
+	Vamos a comprobar que
+	\[
+		f = u_1 \otimes v_1 + \cdots + u_m \otimes v_m
+	\]
+	Para ello, comprobamos que sus matrices sean iguales. Denotamos
+	$M_B(u_1 \otimes v_1 + \cdots + u_m \otimes v_m)$ como $C$ y distinguimos dos casos
+	\begin{itemize}
+		\item si $h \in \{i_1,\dots,i_m\}$ y $h = i_r$
+		\[
+			C_h = \begin{pmatrix}
+				(u_1 \otimes v_1)(e_1,e_h) + \cdots + (u_m \otimes v_m)(e_1,e_h) \\ \vdots \\
+				(u_1 \otimes v_1)(e_n,e_h) + \cdots + (u_m \otimes v_m)(e_n,e_h)
+			\end{pmatrix}
+			\stackrel{(1)}{=} \begin{pmatrix}
+				u_r(e_1) \\ \vdots \\ u_r(e_n)
+			\end{pmatrix} = A_h
+		\]
+		La cancelación en (1) ocurre ya que, por definición $v_j(e_h) = 0$ si $j \neq r$ y
+		$v_r(e_h) = 1$
+		\item si $h \notin \{i_1,\dots,i_m\}$
+		\begin{gather*}
+			C_h = \begin{pmatrix}
+			(u_1 \otimes v_1)(e_1,e_h) + \cdots + (u_m \otimes v_m)(e_1,e_h) \\ \vdots \\
+			(u_1 \otimes v_1)(e_n,e_h) + \cdots + (u_m \otimes v_m)(e_n,e_h)
+			\end{pmatrix} \stackrel{(2)}{=} \\ = \begin{pmatrix}
+				\lambda_{h1}u_1(e_1) + \cdots + \lambda_{hm}u_m(e_1) \\ \vdots \\
+				\lambda_{h1}u_1(e_n) + \cdots + \lambda_{hm}u_m(e_n)
+			\end{pmatrix} = \lambda_{h1}A_{i_1} + \cdots + \lambda_{hm}A_{i_m} = A_h
+		\end{gather*}
+		La cancelación en (2) ocurre ya que, por definición $v_j(e_h) = \lambda_{hj}$
+	\end{itemize}
+	Por lo tanto $C = A$ y $rang(f) \leq rang(A)$. Pero habiamos visto que
+	$rang(A) \leq rang(f)$, por lo tanto, $rang(A) = rang(f)$ y las $\{u_1,\dots,u_m\}$ y
+	las $\{v_1,\dots,v_m\}$ son las de la demostración.
+	\\ \\
+	Vamos con el ejemplo con $n = 3$. Sea
+	\[
+		A = \begin{pmatrix}
+		1 & 2 & 1 \\ 2 & 4 & 2 \\ 3 & 5 & 2
+		\end{pmatrix}
+	\]
+	Como $rang(A)=2$, $f = u_1 \otimes v_1+u_2 \otimes v_2$. Tomamos 2 columnas l.i. de $A$, 
+	en este caso, la 1 y la 3, entonces
+	\[
+		u_1 = (1,2,3)^t \qquad u_2=(1,2,2)^t
+	\]
+	Ahora encontramos $v_1$ y $v_2$
+	\[
+		v_1 = (1,1,0)^t \qquad v_2 = (0,1,1)^t
+	\]
+\end{proof}
+
+\begin{ej}
+	 Suponemos $\k = \real$ i dotamos al espacio vectorial $E$ de un producto escalar $<,>$.
+	 Suponemos que $B$ es una b.o. Dad un métode para encontrar una descomposición minimal
+	 de $f$ en tensores de $rang$ 1 tales que $\{u_1,u_2,\dots,u_m\}$ sean vectores
+	 ortogonales y $\{v_1,v_2,\dots,v_m\}$ también sean ortogonales (Indicación: utilizad la
+	 SVD de la matriz $A$). Aplicadlo al mismo ejemplo del apartado anterior.
+\end{ej}
+\begin{proof}
+	Sea $rang(A) = m$ y sea
+	\[
+		A = U\Sigma V^T
+	\]
+	La descomposición SVD de $A$, es decir $U$ y $V$ son ortogonales y $\Sigma$ es diagonal.
+	Además,
+	\[
+		\Sigma = \begin{pmatrix}
+			\lambda_1 & 0 & \cdots & \cdots & \cdots  & \cdots & 0 \\
+			0 & \lambda_2 & 0 & \cdots & \cdots & \cdots & 0 \\
+			\vdots & 0 & \ddots & \ddots & & & \vdots \\
+			\vdots & \vdots & \ddots & \lambda_m & \ddots & & \vdots \\
+			\vdots & \vdots &  & \ddots & 0 & \ddots & \vdots \\
+			\vdots & \vdots & & & \ddots & \ddots & 0 \\
+			0 & 0 & \cdots & \cdots & \cdots & 0 & 0
+		\end{pmatrix}
+	\]
+	y definimos nuestros $\{u_1,\dots,u_m\}$ como
+	\[
+		U\Sigma = \begin{pmatrix}
+			\vline & & \vline & \vline & & \vline \\
+			u_1 & \cdots & u_m & 0 & \cdots & 0 \\
+			\vline & & \vline & \vline & & \vline
+		\end{pmatrix}
+	\]
+	Definimos ahora $\{v_1,\dots,v_m\}$ como
+	\[
+		V = \begin{pmatrix}
+			\vline & & \vline & \vline & & \vline \\
+			v_1 & \cdots & v_m & v_{m+1} & & v_n \\
+			\vline & & \vline & \vline & & \vline
+ 		\end{pmatrix}
+	\]
+	y
+	\[
+		v_r = \lambda_{r1}v_1 + \cdots + \lambda_{rm} u_m
+	\]
+	Con $r > m$. Y en efecto tenemos que
+	\begin{gather*}
+		(e_i)^t U\Sigma V^t (e_j) = \\
+		=\begin{pmatrix}
+			0 & \cdots & 0 & 1 & 0 & \cdots & 0
+		\end{pmatrix} \begin{pmatrix}
+		\vline & & \vline & \vline & & \vline \\
+		u_1 & \cdots & u_m & 0 & \cdots & 0 \\
+		\vline & & \vline & \vline & & \vline
+		\end{pmatrix} \begin{pmatrix}
+		\line(1,0){25} & v_1 & \line(1,0){25} \\
+		& \vdots & \\
+		\line(1,0){25} & v_m & \line(1,0){25} \\
+		\line(1,0){25} & v_{m+1} & \line(1,0){25} \\
+		& \vdots & \\
+		\line(1,0){25} & v_n & \line(1,0){25}
+		\end{pmatrix}
+		\begin{pmatrix}
+			0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0
+		\end{pmatrix} = \\
+		= \begin{pmatrix}
+			u_1(e_i) & \cdots & u_m(e_i) & 0 & \cdots & 0
+		\end{pmatrix} \begin{pmatrix}
+			v_1(e_j) \\ \vdots \\ v_m(e_j) \\ \vdots \\ v_n(e_j)
+		\end{pmatrix} =
+		(u_1 \otimes v_1 + \cdots + u_n \otimes v_n) (e_i,e_j)
+	\end{gather*}
+	Y por lo tanto, $f = u_1 \otimes v_1 + \cdots + u_m \otimes v_m$ es una descomposición
+	minimal de $f$ (Ya que $rang(f)=rang(A)$), donde además $\{u_1,\dots,u_m\}$ y
+	$\{v_1,\dots,v_m\}$ son ortogonales.\\ \\
+	Aplicando esto al ejemplo anterior, obtenemos
+	\begin{gather*}
+		\begin{pmatrix}
+			1 & 2 & 1 \\ 2 & 4 & 2 \\ 3 & 5 & 2
+		\end{pmatrix} = U\Sigma V^t = \\ =\begin{pmatrix}
+			0.296914 & 0.334428 & -0.894427 \\ 0.593829 & 0.668855 & 0.447214 \\
+			0.747803 & -0.663921 & 0
+		\end{pmatrix} \begin{pmatrix}
+			8.23278 & 0 & 0 \\ 0 & 0.470434 & 0 \\ 0 & 0 & 0
+		\end{pmatrix} V^t = \\ =
+		\begin{pmatrix}
+			2.44443 & 0.157326 & 0 \\ 4.88886 & 0.314652 & 0 \\ 6.1565 & -0.312331 & 0
+		\end{pmatrix}\begin{pmatrix}
+			0.452822 & -0.679426 & 0.57735 \\ 0.814811 & 0.0524421 & -0.57735 \\
+			0.361989 & 0.731868 & 0.57735
+		\end{pmatrix}^t
+	\end{gather*}
+	Y de ahí obtenemos $u_1 = (2.4443,4.88886,6.1565)^t$,
+	$u_2 = (0.157326,0.314652,-0.312331)^t$, $v_1 = (0.452822,0.814811,0.361989)^t$ y
+	$v_2 = (-0.679426,0.0524421,0.731868)^t$.
+\end{proof}
+
+\begin{ej}
+	En las mismas hipótesis del apartado anterior, suponemos que $f$ es una forma bilineal
+	simétrica ($f \in S_2(E)$). Demostrad que se puede encontrar una descomposición minimal
+	de $f$ con los vectores $v_i = \pm u_i$, siendo también los vectores $\{u_1,\dots,u_m\}$ ortogonales. Encontrad la descomposición cuando $A = \begin{pmatrix}
+		2 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & 2
+	\end{pmatrix}$.
+\end{ej}
+\begin{proof}
+	Como $A$ es simétrica, $\exists \lambda_1,\dots,\lambda_n \in \real$ veps de $A$ (por el
+	teorema espectral real). Además, sean $\{x_1,\dots,x_n\}$ los veps de $A$ (tal que 
+	$Ax_i = \lambda_i x_i$), podemos imponer además, que estos veps sean ortogonormales
+	\[
+		AX = A\begin{pmatrix}
+			\vline & & \vline \\ x_1 & \cdots & x_n \\ \vline & & \vline
+		\end{pmatrix}
+		= \begin{pmatrix}
+			\vline & & \vline \\ x_1 & \cdots & x_n \\ \vline & & \vline
+		\end{pmatrix} \begin{pmatrix}
+			\lambda_1 & 0 & \cdots & 0 \\ 0 & \ddots & \ddots & \vdots \\
+			\vdots & \ddots & \ddots & 0 \\ 0 & \cdots & 0 & \lambda_n
+		\end{pmatrix}
+	\]
+	Por lo tanto, tenemos que
+	\[
+		A = X\Lambda \inv{X} = X \Lambda X^t
+	\]
+	Por otro lado, sabemos que, si $rang(A) = m$, entonces $\lambda_{i_{m+1}} = \cdots
+	= \lambda_{i_n} = 0$ y $\lambda_{i_1}, \dots, \lambda_{i_m} \neq 0$ y definimos
+	$u_i = x_{i_m} \sqrt{\lambda_{i_m}} = v_i$
+	y se tiene que
+	\begin{gather*}
+		(e_i)^tA(e_j)=(e_i)^t \begin{pmatrix}
+		\vline & & \vline \\ x_1 & \cdots & x_n \\ \vline & & \vline
+		\end{pmatrix} \begin{pmatrix}
+		\lambda_1 & 0 & \cdots & 0 \\ 0 & \ddots & \ddots & \vdots \\
+		\vdots & \ddots & \ddots & 0 \\ 0 & \cdots & 0 & \lambda_n
+		\end{pmatrix} \begin{pmatrix}
+		\vline & & \vline \\ x_1 & \cdots & x_n \\ \vline & & \vline
+		\end{pmatrix}^t (e_j) = \\
+		\begin{pmatrix}
+			x_1(e_i) & \cdots & x_1(e_i)
+		\end{pmatrix} \begin{pmatrix}
+		\lambda_1 & 0 & \cdots & 0 \\ 0 & \ddots & \ddots & \vdots \\
+		\vdots & \ddots & \ddots & 0 \\ 0 & \cdots & 0 & \lambda_n
+		\end{pmatrix} \begin{pmatrix}
+			x_1(e_j) \\ \vdots \\ x_n(e_j)
+		\end{pmatrix} = \\
+		= \lambda_1 x_1(e_i)x_1(e_j) + \cdots + x_m(e_i)x_m(e_j) =
+		(u_1 \otimes v_1 + \cdots + u_m \otimes v_m)(e_i,e_j)
+	\end{gather*}
+	Por lo tanto, $f = u_1 \otimes v_1 + \cdots u_m \otimes v_m$ con $\{u_1,\dots,u_m\}$
+	ortogonales y $u_i = v_i$
+	\\\\
+	Si $A = \begin{pmatrix}
+	2 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & 2
+	\end{pmatrix}$. Tenemos que sus veps son
+	\[\begin{cases}
+		x_1 = \left(\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}\right)^t
+		\quad \text{de vap } 4 \\
+		x_2=\left(-\frac{1}{\sqrt{2}},0,\frac{1}{\sqrt{2}}\right)^t \quad \text{de vap } 1 \\
+		x_3 = \left(\frac{1}{\sqrt{6}},-\sqrt{\frac{2}{3}},\frac{1}{6} \right)^t \quad
+		\text{de vap } 1
+	\end{cases}\]
+	Por lo tanto, $u_1 = v_1 = 2x_1 = \left(\frac{2}{\sqrt{3}},\frac{2}{\sqrt{3}},\frac{2}{\sqrt{3}}\right)^t$,
+	$u_2 = v_2 = x_2 = \left(-\frac{1}{\sqrt{2}},0,\frac{1}{\sqrt{2}}\right)^t$ y 
+	$u_3 = v_3 = x_3 = \left(\frac{1}{\sqrt{6}},-\sqrt{\frac{2}{3}},\frac{1}{6} \right)^t$
+\end{proof}
+
+\begin{ej}
+	Demostrad que si $rang(f)=r$ y tenemos la descomposición (**), entonces
+	$\{ w_1, \dots, w_r\}$ son linealmente independientes.
+\end{ej}
+\begin{proof}
+	Suponemos que $\{w_1,\dots, w_r\}$ son l.d. entonces, se tiene que 
+	$\exists \lambda_1,\dots,\lambda_r$ con $\lambda_i \neq 0$ (para al menos una $i$) tales que
+	\[
+	\lambda_1 w_1 + \cdots + \lambda_r w_r = 0 \iff
+	w_i = \frac{-\lambda_1}{\lambda_i} w_1+\cdots + \frac{-\lambda_{i-1}}{\lambda_i} w_{i-1}+
+	\frac{-\lambda_{i+1}}{\lambda_i} w_{i+1} + \cdots  + \frac{-\lambda_r}{\lambda_i} w_r
+	\]
+	Ahora, podemos escribir $f$ como
+	\[
+	f = w_1 \wedge w_2 + \cdots + w_i \wedge w_{i+1} + \cdots + w_{r-1} \wedge w_r
+	\]
+	Y ustituyendo $u_r$, obtenemos
+	\[
+	f = w_1 \wedge w_2 + \cdots + \left( \frac{-\lambda_1}{\lambda_i} w_1 + \cdots +
+	\frac{-\lambda_r}{\lambda_i} w_r \right) \wedge w_{i+1} + \cdots + w_{r-1} \wedge w_r
+	\]
+	Agrupando ahora los términos, obtenemos
+	\[
+	f = w_1 \wedge \left( w_2 + \frac{-\lambda_1}{\lambda_i} w_{i+1} \right) + \cdots +
+	w_{r-1} \wedge \left( w_r + \frac{-\lambda_m}{\lambda_r} w_{i+1} \right)
+	\]
+	Y por lo tanto, hemos encontrado una descomposición de $f$ como (**), con menos términos
+	que la original, lo cual es imposible ya que la descomposición era minimal.
+\end{proof}
+
+\begin{ej}
+	Demostrad que si $rang(f)=r=2k$, entonces $\forall 1 \leq m \leq k$ se verifica que
+	$\overbrace{f \wedge \cdots \wedge f}^{m} \neq 0$ y que
+	$\overbrace{f \wedge \cdots \wedge f}^{k+1}= 0$.
+\end{ej}
+\begin{proof}
+	Sea
+	\[
+		f = w_1 \wedge w_2 + \cdots + w_3 \wedge w_r
+	\]
+	Una descomposición minimal de $f$ como (**). Ahora, sea $\omega_i = w_{2i-1}\wedge
+	w_{2i} \forall i=1,\dots,k$, entonces
+	\[
+		f = \omega_1 + \cdots + \omega_k
+	\]
+	Y de finimos $f^i = \overbrace{f \wedge \cdots \wedge f}^{i}$. Entonces, se tiene
+	\begin{gather*}
+		f^m = f^{m-1} \wedge f \stackrel{(1)}{=} f \wedge f^{m-1} =
+		\left( \omega_1 + \cdots + \omega_k \right) \wedge
+		\left( \lambda^{m-1}_{I_1^{m-1}} \omega_{I_1^{m-1}} + \cdots +
+		\lambda^{m-1}_{I_{m-1}^{m-1}} \omega_{I_{m-1}^{m-1}} \right)=\\
+		\omega_1 \wedge \left( \lambda^{m-1}_{I_1^{m-1}} \omega_{I_1^{m-1}} + \cdots +
+		\lambda^{m-1}_{I_{m-1}^{m-1}} \omega_{I_{m-1}^{m-1}} \right) + \cdots +
+		\omega_k \wedge \left( \lambda^{m-1}_{I_1^{m-1}} \omega_{I_1^{m-1}} + \cdots +
+		\lambda^{m-1}_{I_{m-1}^{m-1}} \omega_{I_{m-1}^{m-1}} \right) =\\
+		\lambda^m_{I_1^m} \omega_{I_m^m} + \cdots + \lambda^m_{I_1^m} \omega_{I_m^m}
+	\end{gather*}
+	Donde $I^h$ es un conjunto de $h$ elementos entre 1 y $k$ ordenados de forma creciente,
+	$\lambda_{I^h}^h$ es una constante de ajuste y
+	\[
+		\omega_{I^h} = \omega_{I(1)} \wedge \omega_{I(2)} \wedge \cdots \wedge \omega_{I(h)} \stackrel{(2)}{=} \omega_{s(I(1))} \wedge \omega_{s(I(2))} \wedge \cdots \wedge \omega_{s(I(h))} \qquad s \in \mathcal{S}_h
+	\]
+	(1) y (2) se producen ya que todos los omegas pertenecen a $T_{2t}(E)$. Además, los
+	$\omega_{I^h}$ son l.i. (ya que los $\{\omega_1,\dots,\omega_r\}$ son l.i.). Por lo
+	tanto, para $m \leq k$
+	\[
+		f^m = \lambda^m_{I_1^m} \omega_{I_m^m} + \cdots + \lambda^m_{I_1^m} \omega_{I_m^m}
+		\neq 0
+	\]
+	Teniendo en cuenta que solo existe un $I^k$, tenemos que  
+	\begin{gather*}
+		f^{k+1} = f^k \wedge f = f \wedge f^k = \left(\omega_1+\cdots+\omega_k\right) \wedge 
+		\left(\lambda^k_{I^k} \omega_{I^k} \right) =\\
+		\lambda^k_{I^k} \left(\omega_1+\cdots+\omega_k\right) \wedge \left(
+		\omega_1 \wedge \cdots \wedge \omega_k \right) = 0
+	\end{gather*}
+\end{proof}
+
+\begin{ej}
+	Sea $E = \real^4$, consideramos la base canonica $B = \setb{e_1,e_2,e_3,e_4}$. Calculad
+	el rango del 2-tensor antisimétrico
+	\[
+		f = e_1^* \wedge e_2^* + e_1^* \wedge e_3^* + e_1^* \wedge e_4^* + e_2^* \wedge e_3^*
+		+ e_2^* \wedge e_4^* + e_3^* \wedge e_4^*
+	\]
+\end{ej}
+\begin{proof}
+	Primero vamos a ver que $rang(f) \geq 2$. Para ello, vamos a ver que
+	$rang(M_B(u \wedge v)) \leq 2$. Tenemos que
+	\[
+		u \wedge v = u \otimes v - u \otimes v \implies M_B(u\wedge v) = M_B(u \otimes v)
+		- M_B(v \otimes u)
+	\]
+	Como hemos visto en el ejercicio \ref{rango_tens}, $rang(M_B(u \otimes v)) =1$ por lo
+	tanto
+	\[
+		rang(M_B(u \wedge v)) \leq rang(M_B(u \otimes v)) + rang(M_B(v \otimes u)) = 2
+	\]
+	Suponemos ahora que $rang(f)= 1$, entonces $\exists u,v \in E^*$ tales que
+	\[
+		f = u \wedge v \implies M_B(f) = \begin{pmatrix}
+		0 & 1 & 1 & 1 \\ -1 & 0 & 1 & 1 \\ -1 & -1 & 0 & 1 \\ -1 & -1 & -1 & 0
+		\end{pmatrix} = M_B(u \wedge v)
+	\]
+	Pero esto no puede ser, ya que $rang(M_B(f))=4$ y hemos visto que
+	$rang(M_B(u \wedge v)) \leq 2$. Una vez visto que $rang(f) \geq 2$, solo nos falta
+	encontrar $\{w_1,w_2,w_3,w_4\}$ tales que $f = w_1\wedge w_2 + w_3 \wedge w_4$ y habremos
+	demostrado que $rang(f) = 2$, si tomamos $w_1 = (1,1,0,0)^t$, $w_2=(0,1,1,1)^t$,
+	$w_3 = (0,0,0,1)^t$ y $w_4 = (0,0,1,0)^t$. En efecto
+	\begin{gather*}
+		M_B(w_1 \wedge w_2) = M_B(w_1 \otimes w_2) - M_B(w_2 \otimes w_1)= \\ \begin{pmatrix}
+			0 & 1 & 1 & 1 \\ 0 & 1 & 1 & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0
+		\end{pmatrix} - \begin{pmatrix}
+			0 & 0 & 0 & 0 \\ 1 & 1 & 0 & 0 \\ 1 & 1 & 0 & 0 \\ 1 & 1 & 0 & 0
+		\end{pmatrix} = \begin{pmatrix}
+			0 & 1 & 1 & 1 \\ -1 & 0 & 1 & 1 \\ -1 & -1 & 0 & 0 \\ -1 & -1 & 0 & 0
+		\end{pmatrix}
+	\end{gather*}
+	\begin{gather*}
+		M_B(w_3\wedge w_4) = M_B(w_1 \otimes w_2) - M_B(w_2 \otimes w_1)= \\ \begin{pmatrix}
+			0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0
+		\end{pmatrix} - \begin{pmatrix}
+			0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0
+		\end{pmatrix} = \begin{pmatrix}
+			0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & -1 & 0
+		\end{pmatrix}
+	\end{gather*}
+	\begin{gather*}
+		M_B(w_1 \wedge w_2 + w_3\wedge w_4) = M_B(w_1 \wedge w_2) + M_B(w_3 \wedge w_4)= 5\\ \begin{pmatrix}
+			0 & 1 & 1 & 1 \\ -1 & 0 & 1 & 1 \\ -1 & -1 & 0 & 0 \\ -1 & -1 & 0 & 0
+		\end{pmatrix} + \begin{pmatrix}
+			0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & -1 & 0
+		\end{pmatrix} = \begin{pmatrix}
+			0 & 1 & 1 & 1 \\ -1 & 0 & 1 & 1 \\ -1 & -1 & 0 & 1 \\ -1 & -1 & -1 & 0
+		\end{pmatrix} = M_B(f)
+	\end{gather*}
+\end{proof}
+
+\begin{ej}
+	Si $rang(f)=r$ y tenemos la descomposición minimal (**), ampliamos los vectores
+	$\{w_1,\dots, w_r\}$ hasta tener una base $B = \{w_1, \dots w_n\}$ de $E^*$. Calculad
+	$A = M_B(f)$. ¿Qué relación tiene $rang(f)$ con $rang(A)$? Deducid que las dos
+	definiciones de rango de $f$ (considerando $f \in T_2(E)$ o $f \in A_2(E)$) coinciden.
+\end{ej}
+\begin{proof}
+	Comenzamos calculando $M_B(f)$
+	\[
+		A = M_B(f) = M_B(w_1 \wedge w_2 + \cdots + w_{r-1} \wedge w_r) = M_B(w_1 \wedge w_2)
+		+ \cdots + M_B(w_{r-1} \wedge w_r)
+	\]
+	Ahora,
+	\[
+		M_B(w_i \wedge w_{i+1}) = \begin{pmatrix}
+			0 \\ & \ddots \\ & & 0 & 1 \\ & & -1 & 0 \\ & & & & \ddots \\ & & & & & 0
+		\end{pmatrix}
+	\]
+	Y por lo tanto,
+	\[
+		M_B(f) = A = \begin{pmatrix}
+			0 & \multicolumn{1}{c|}{1} \\ -1 & \multicolumn{1}{c|}{0} 
+			\\ \cline{1-2} && \ddots \\ \cline{4-5}
+			&&& \multicolumn{1}{|c}{0} & \multicolumn{1}{c|}{1} \\
+			&&&\multicolumn{1}{|c}{-1} & \multicolumn{1}{c|}{0} \\
+			\cline{4-5}
+			&&&&& 0 \\&&&&&& \ddots \\ &&&&&&& 0
+		\end{pmatrix}
+	\]
+	Claramente, $rang(A)=r= rang(f)$. Por lo tanto, $rang_{A_2(E)}(f) = rang(A) =
+	rang_{T_2(E)}(f)$ y las definiciones coinciden.
+\end{proof}
+
+\begin{ej}
+	Demostrad que cualquier matri< antisimétrica $A \in M_{n,n}(\real)$ tiene rango par
+	$r = 2k$. Además, existe $S \in M_{n,n}(\real)$ tal que
+	\[
+		S^tAS = \begin{pmatrix}
+			0 & Id_k & 0 &\\ -Id_k & 0 & 0 & \\ 0 & 0 & 0
+		\end{pmatrix}
+	\]
+\end{ej}
+\begin{proof}
+	Primero vamos a ver que toda matriz antisimétrica $A$, representa a un tensor $f$
+	antisimétrico.
+	\[
+		e_i^t Ae_j = a_{ij} \stackrel{\text{antisimétrica}}{=} -a_{ji} = - e_j^tAe_i
+	\]
+	Por lo tanto, $rang(A) = rang(f)$ y $rang(f)$ es par por definición.
+\end{proof}
+
+\end{document}

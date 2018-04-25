@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage[pdftex]{hyperref}
+\usepackage{amsmath,amsthm,amssymb,graphicx,mathtools,tikz,hyperref,enumerate}
+\usepackage{mdframed,cleveref,cancel,stackengine,pgfplots}
+
+\newmdenv[leftline=false,topline=false]{topright}
+\let\proof\relax
+\usepackage[utf8]{inputenc}
+\usetikzlibrary{positioning}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\q}{\mathbb{Q}}
+\newcommand{\cx}{\mathbb{C}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\let\k\relax
+\newcommand{\k}{\mathbf{k}}
+\newcommand{\ita}[1]{\textit{#1}}
+\newcommand\inv[1]{#1^{-1}}
+\newcommand\setb[1]{\left\{#1\right\}}
+\newcommand{\vbrack}[1]{\langle #1\rangle}
+\newcommand{\determinant}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\Po}{\mathbb{P}}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\car}{car}
+
+
+\hypersetup{
+	colorlinks,
+	linkcolor=blue
+}
+
+\newtheoremstyle{fctaylor}% name
+{\topsep}%         Space above, empty = `usual value'
+{\topsep}%         Space below
+{}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{\newline}%        Punctuation after thm head
+{04em}% Space after thm head: \newline = linebreak
+{\llap{#3 }#1}%          Thm head spec
+
+\theoremstyle{fctaylor}
+\newtheorem{proof}{Demostración}[subsection]
+
+
+
+ 
+\begin{document}
+\date{}
+
+\title{Cálculo Integral}
+ 
+\maketitle
+
+\begin{proof}[2.1.1]
+	Test del entorno
+\end{proof}
+
+\end{document}

@@ -1,0 +1,39 @@
+package me.commandcraft.chestbank;
+
+import org.bukkit.Bukkit;+
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import me.commandcraft.chestbank.bank.BankManager;
+
+public class ChestBank extends JavaPlugin {
+
+	private static ChestBank instance;
+	private static BankManager bankManager;
+	
+	public void onEnable() {
+		instance = this;
+		bankManager = new BankManager();
+		configuration = new Configuration();
+	}
+	
+	public void onDisable() {
+		
+	}
+	
+	public void registerEvent(Listener event) {
+		Bukkit.getPluginManager().registerEvents(event, this);
+	}
+	
+	public static ChestBank getInstance() {
+		return instance;
+	}
+	
+	public static BankManager getBankManager() {
+		return bankManager;
+	}
+	
+	public static Configuration getConfiguration() {
+		return configuration;
+	}
+}

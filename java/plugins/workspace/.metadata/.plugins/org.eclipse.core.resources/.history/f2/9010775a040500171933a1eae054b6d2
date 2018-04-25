@@ -1,0 +1,30 @@
+package me.commandcraft.parkshooter;
+
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class CommandExec {
+	
+	public CommandExec(JavaPlugin plugin) {
+		Set<String> commands = plugin.getDescription().getCommands().keySet();
+		String pack = this.getClass().getPackage().getName() + ".commands.";
+		for (String command : commands) {
+			try {
+				Class<?> exec = Class.forName(pack + StringUtils.capitalize(command) + "Exec");
+				plugin.getCommand(command).setExecutor((CommandExecutor) exec.newInstance());
+			} catch (Exception e) {
+				Logger.severe("Disable because can't load command: " + command);
+				Bukkit.getPluginManager().disablePlugin(plugin);
+			}
+			try {
+				Class<?> tab = Class.forName(pack + StringUtils.capitalize(command) + "Tab");
+				plugin.getCommand(command).setTabCompleter((TabCompleter) tab.newInstance());
+			} catch (Exception e) {}
+		}
+	}
+}

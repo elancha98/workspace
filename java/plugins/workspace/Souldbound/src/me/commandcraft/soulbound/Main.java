@@ -1,0 +1,43 @@
+package me.commandcraft.soulbound;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin {
+
+	public void onEnable() {
+		Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
+	}
+	
+	public void onDisable() {
+		
+	}
+	
+	public boolean onCommand(CommandSender sender, Command cmd, String ul, String[] args) {
+		if (cmd.getName().equalsIgnoreCase("soulbound")) {
+			if (args.length == 0) {
+				sender.sendMessage(ChatColor.RED + "usage: /soulbound <group>");
+				return true;
+			}
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(ChatColor.RED + "only players can do that");				
+				return true;
+			}
+			Player player = (Player) sender;
+			ItemStack item = player.getItemInHand();
+			if (item == null || item.getType().equals(Material.AIR)) {
+				player.sendMessage(ChatColor.RED + "You dont have an item selected");
+				return true;
+			}
+			ItemStack n = Utils.setSoulBound(item, args[0]);
+			player.setItemInHand(n);
+		}
+		return true;
+	}
+}

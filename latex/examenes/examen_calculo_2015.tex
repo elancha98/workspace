@@ -1,0 +1,334 @@
+\documentclass[DIN, pagenumber=false, fontsize=11pt, parskip=half]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\setlength{\parindent}{0em}
+
+\setkomafont{section}{\normalfont\bfseries\Large}
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\pdv[2]{\frac{\partial#1}{\partial#2}}
+
+\newcommand{\mytitle}[1]{{\center\Huge\textbf{#1}}}
+\newcounter{apartado}
+\newcommand{\myapartado}[0]{\stepcounter{apartado}\alph{apartado})}
+%\newenvironment{apartado}{
+%    \stepcounter{apartado}
+%    \alph{apartado}) 
+%}{}
+\newcommand{\mysection}[1]{\setcounter{apartado}{0}\textbf{\section*{#1}}}
+
+%===================================
+\begin{document}
+\mytitle{\hfill Final cálculo diferencial 2015 \hfill}
+
+
+%===================================
+\mysection{Ejercicio 1}
+a) $ f(0) = f(0x) = 0f(x) = 0$
+\\ \\
+b) La esfera de radio unidad (K) esta trivialmente acotada, por ejemplo por $B_2(0,0)$ y es cerrada
+ya que 
+\[
+\forall \{ x^k \} \subset K \mid \{x^k\} \to q \implies \left\{ \norm{x^k} \right\} \to \norm{q}
+\iff
+1 = \norm{q} \implies q \in K \implies K \text{ cerrado}
+\]
+Y como $K$ es cerrado y acotado, $K$ es compacto. Como $f$ es continua (de clase $C^\infty$),
+por el teorema de Weierstrass, $f$ toma valores extremos en $K$, en particular, denotaremos como
+$p$ al valor minimo de $f$ en $K$
+\\ \\
+c) Tomamos $m = f(p)$ entonces:
+\[
+f\left( \frac{x}{\norm{x}} \right) = \frac{f(x)}{\norm{x}^2}
+\implies f(x) = \norm{x}^2f \left( \frac{x}{\norm{x}} \right) \geq \norm{x}^2f(p) = \norm{x}^2m
+\]
+\\ \\
+e) $f$ es diferenciable en el origen si (y solo si):
+\[
+0 = \lim_{h \to 0} \frac{f(h) - f(0) - Df(0)(h)}{\norm{h}}
+\iff
+\lim_{h \to 0} \frac{f(h) - Df(0)(h)}{\norm{h}} = 0
+\]
+Pero
+ \[
+ \lim_{h \to 0} \frac{f(h)}{\norm{h}} = \lim_{h \to 0} f\left( \frac{h}{\sqrt{\norm{h}}} \right)
+ =
+ \lim_{h \to 0} f\left( \frac{h}{\norm{h}} \frac{\norm{h}}{\sqrt{\norm{h}}} \right)
+ =
+ \]
+ \[
+ =
+  \lim_{h \to 0} f\left(\sqrt{\norm{h}} \frac{h}{\norm{h}}  \right)
+  =
+  f \left( \lim_{h \to 0} \sqrt{\norm{h}} \frac{h}{\norm{h}} \right)
+  =
+  f(0) = 0
+ \]
+ Por lo tanto, tomando $Df(0) = 0$, tenemos que:
+ \[
+ 0 = \lim_{h \to 0} \frac{f(h) - f(0) - Df(0)(h)}{\norm{h}}
+ \]
+ Y $f$ es diferenciable en el origen y $Df(0) = 0$
+ \\ \\
+ d) Las derivadas parciales en el origen son $D_{e_i}f(0) = Df(0)e_i = 0 \quad \forall i = 1,\cdots,n$
+ 
+\newpage
+ %===============================
+\mysection{Ejercicio 2}
+a) Calculamos $Jf(0,1,-1)$: \[
+Jf(x, y, z) = 
+\begin{pmatrix}
+2xy + e^x & x^2 & 1
+\end{pmatrix}
+\implies
+Jf(0,1,-1) =
+\begin{pmatrix}
+1 & 0 & 1
+\end{pmatrix}
+\]
+Observamos que $det(\frac{\partial f}{\partial x}) \neq 0$ y que $f$ es de clase $C^\infty$, por lo tanto,
+por el teorema de la funcion implicita:
+\[
+\begin{aligned}
+	\exists  ! g \colon A \subset \mathbb{R}^2 &\to \mathbb{R} \\
+	(y, z) &\mapsto g(y, z) = x
+\end{aligned}
+\quad \text{tal que}
+\quad
+f(g(y, z), y, z) = 0 \quad \forall (y, z) \in A \subset \mathbb{R}^2
+\]
+Calculamos ahora $P_2(g, (1,-1))$ que es:
+\[
+P_2(g, a)(\phi) = g(a) + Jg(a)(\phi - a) + \frac{1}{2}(\phi - a)^tHg(a)(\phi-a) \quad a = (1,-1)
+\]
+Calculamos ahora $Jg(a)$:
+\[
+Jg(a) = -\left(\pdv{f}{x}(p) \right)^{-1} \begin{pmatrix} \pdv{f}{y}(p) & \pdv{f}{z}(p) \end{pmatrix}
+=
+-(1)^{-1} \begin{pmatrix} 0 & 1 \end{pmatrix} = \begin{pmatrix} 0 & -1 \end{pmatrix}
+\]
+Calculamos ahora $Hg(a)$. Para ello derivamos implicitamente. Sabemos que $f(g(y, z), y, z) = 0$
+y por lo tanto (Llamando $g(y, z) = x$):
+\begin{equation} \label{eq:p}
+0 = \pdv{f}{y} = x^2 + 2xy\pdv{x}{y} + e^x\pdv{x}{y}
+\iff
+x^2 + \pdv{x}{y}\left( 2xy + e^x \right) = 0
+\end{equation}
+Calculamos ahora $\pdv{^2x}{y \partial y}$, repitiendo el mismo proceso:
+\[
+0 = 2x\pdv{x}{y} +
+\pdv{^2x}{y \partial y} \left( 2xy + e^x \right) + \pdv{x}{y} \left( 2y\pdv{x}{y} + 2x + e^x \pdv{x}{y} \right)
+\]
+De donde se obtiene (sustituyendo):
+\[
+\pdv{^2x}{y \partial y}(1,-1) = 0
+\]
+Ahora derivando parcialmente respecto a $z$ en la ecuacion~\eqref{eq:p} tenemos:
+ \[
+ 0 = 2x\pdv{x}{z} + \pdv{^2x}{z \partial y} \left( 2xy +e^x \right) +
+ \pdv{x}{y} \left( 2y \pdv{x}{z} + e^x \pdv{x}{z} \right)
+ \implies
+ \pdv{^2x}{z \partial y}(1,-1) = 0
+ \]
+ Como $f $ es de clase $C^\infty$, entonces $\pdv{^2x}{z\partial y} = \pdv{^2x}{y \partial z} = 0$. 
+ Repetimos ahora el proceso para obtener $\pdv{^2x}{z \partial z}$:
+ \[
+ 0 = 2xy \pdv{x}{z} + e^x\pdv{x}{z} + 1
+ \iff
+ 0 = \pdv{x}{z} \left(2xy + e^x \right) +1
+ \]
+ \[
+ \pdv{^2x}{z \partial z} \left( 2xy + e^x \right) + \pdv{x}{z} \left( 2y\pdv{x}{z} + e^x \pdv{x}{z} \right) = 0
+ \implies
+ \pdv{^2x}{z \partial z}(1,-1) = -3
+ \]
+Y $Hg(a) = \begin{pmatrix} 0 & 0 \\ 0& -3 \end{pmatrix}$. Para concluir:
+\[
+P_2(g, a)(y, z) = 0+ \begin{pmatrix} 0 & -1 \end{pmatrix}
+\left( \begin{pmatrix}y \\ z \end{pmatrix} - \begin{pmatrix} 1 \\ -1 \end{pmatrix} \right) + 
+\frac{1}{2}\left( \begin{pmatrix} y & z \end{pmatrix} - \begin{pmatrix} 1 & -1 \end{pmatrix} \right)
+\begin{pmatrix} 0 & 0 \\ 0 & -3 \end{pmatrix}
+\left( \begin{pmatrix} y \\ z \end{pmatrix} - \begin{pmatrix} 1 \\ -1 \end{pmatrix} \right)
+\]
+\[
+P_2(g, a)(y, z) = -3z^2 -4z+1
+\]
+\\ \\ \\
+b) Sabemos que $J(f + g) = Jf +Jg$ (si $f$ y $g$ son diferenciables) y por lo tanto,
+si $h(y, z) = g(y, z) + t(y, z)$ (con $t(y, z) = -y^2 + 2y + z$) entonces $Jh(y, z) = Jg(y, z) + Jt(y, z)$
+ya que tanto $t$ como $g$ son de clase $C^\infty$ y
+\[
+Jh(1, -1) = \begin{pmatrix} 0 & -1 \end{pmatrix} + \begin{pmatrix} 0 & 1\end{pmatrix}
+= \begin{pmatrix} 0 & 0 \end{pmatrix}
+\]
+Por lo tanto $(1,-1)$ es punto critico. Vamos ahora a clasificarlo, para ello
+calulamos $Hh(1, -1)$, teniendo en cuenta que $Hh(y, z) = Hg(y, z) + Ht(y, z)$ (de nuevo ya que
+$g$ y $t$ son de clase $C^\infty$):
+\[
+Ht(y, z) = \begin{pmatrix} -2 & 0 \\ 0 & 0 \end{pmatrix}
+\implies
+Hh(1,-1) = \begin{pmatrix}0 & 0 \\ 0 & -3 \end{pmatrix} + \begin{pmatrix} -2 & 0 \\ 0 & 0 \end{pmatrix}
+= \begin{pmatrix} -2 & 0 \\ 0 & -3 \end{pmatrix}
+\]
+Y por lo tanto $(1,-1)$ es un maximo, ya que $Hh(1,-1)$ es definida negativa (todos los
+$vap$s son negativos)
+%=================
+ \newpage
+ \mysection{Ejercicio 3}
+ a) Primero calculamos $Jf(x, y)$:
+ \[
+ Jf(x, y) = \begin{pmatrix}
+ -y^2e^{y-x^2}2x &
+ 2ye^{y-x^2} + y^2e^{y-x^2}
+ \end{pmatrix}
+ \]
+ De la primera componente observamos que vale 0 $\iff \begin{cases} x =0 \\ y = 0 \end{cases}$
+ \\
+ La segunda, vale 0 $\iff \begin{cases} y = 0 \\ y = -2 \end{cases}$
+ \\
+ De donde obtenemos que los puntos criticos son $(0,-2)$ y $(x, 0) \quad \forall x \in \mathbb{R}$. Calculamos ahora $Hf(x, y)$:
+ \[
+ Hf(x, y) =
+ \begin{pmatrix}
+ 4y^2x^2e^{y-x^2} - 2y^2e^{y-x^2} & -4xye^{y-x^2} - 2xy^2e^{y-x^2} \\
+ -4xye^{y-x^2} -2xy^2e^{y-x^2} & 2e^{y-x^2} + 4ye^{y-x^2} + y^2e^{y-x^2}
+ \end{pmatrix}
+\]
+\[
+Hf(0,-2) = \begin{pmatrix}
+-8e^{-2} & 0 \\
+0 & -2e^{-2}
+\end{pmatrix}
+\]
+Y por lo tanto $f(0,-2)$ es maximo, ya que es definda negativa porque todos los $vap$s son negativos
+\[
+Hf(x, 0) =
+\begin{pmatrix}
+0 & 0 \\
+0 & 2e^{-x^2}
+\end{pmatrix}
+\quad \text{que es semidefinida positiva}
+ \]
+ Para caracterizar los puntos $(x, 0)$ observamos que $f(x, y) \geq 0 \quad \forall (x, y) \in \mathbb{R}^2 $
+ y que $f(x, 0) = 0 \quad \forall x \in \mathbb{R}^2$ y por lo tanto son minimos
+\\ \\ \\ \\
+b) Los puntos criticos de $f$ en $K$ son $(0,0)$. Miramos ahora los puntos de la frontera $x = 0$.
+Para ello definimos la funcion:
+\[
+F(x, y, \lambda) = y^2e^{y-x^2} + \lambda x
+\]
+\[
+JF(x, y, \lambda) =
+\begin{pmatrix} -2xy^2e^{y-x^2} + \lambda & 2ye^{y-x^2} + y^2e^{y-x^2} & x \end{pmatrix}
+\]
+\[
+JF(x, y, \lambda) = 0 \iff
+\begin{cases}
+-2xy^2e^{y-x^2} + \lambda = 0 \\
+ 2ye^{y-x^2} + y^2e^{y-x^2} = 0 \\
+ x = 0
+\end{cases}
+\implies
+x = 0, \lambda = 0, y = \begin{cases} -2 \\ 0 \end{cases}
+\]
+Ahora la frontera $y = 1$:
+\[
+F(x, y, \lambda) = y^2e^{y-x^2} + \lambda (y-1)
+\implies
+JF(x, y, \lambda) =
+\begin{pmatrix} -2xy^2e^{y-x^2} & 2ye^{y-x^2} + y^2e^{y-x^2} + \lambda & y - 1 \end{pmatrix}
+\]
+\[
+JF(x, y, \lambda) = 0 \iff x = 0, y = 1, \lambda = -3e
+\]
+Con la frontera $x^2 = y$:
+\[
+F(x, y, \lambda) = y^2e^{y-x^2} + \lambda (x^2 - y)
+\implies
+JF(x, y, \lambda) =
+\begin{pmatrix} -2xy^2e^{y-x^2} + 2\lambda x & 2ye^{y-x^2} + y^2e^{y-x^2} - \lambda &
+x^2 - y \end{pmatrix}
+\]
+\[
+JF(x, y, \lambda) = 0 \iff x = 0, y = 0, \lambda = 0
+\]
+Ahora con la restriccion $x=0$ y $y=1$:
+\[
+F(x, y, \lambda_1, \lambda_2) = y^2e^{y-x^2} + \lambda_1 x + \lambda_2 (y-1) \implies
+\]
+\[
+\implies JF(x, y, \lambda_1, \lambda_2) = 
+\begin{pmatrix}
+-2xy^2e^{y-x^2} + \lambda_1 & 2ye^{y-x^2} + y^2e^{y-x^2} + \lambda_2 & x & y
+\end{pmatrix}
+\]
+\[
+JF(x, y, \lambda_1, \lambda_2) = 0 \iff x=0,y=0,\lambda_1=0,\lambda_2=0
+\]
+Ahora con la restriccion $x=0$ y $x^2=y$:
+\[
+F(x, y, \lambda_1, \lambda_2) = y^2e^{y-x^2} + \lambda_1 x + \lambda_2 (x^2 - y) \implies
+\]
+\[
+\implies JF(x, y, \lambda_1, \lambda_2) = 
+\begin{pmatrix}
+-2xy^2e^{y-x^2} + \lambda_1 + 2\lambda_2x & 2ye^{y-x^2} + y^2e^{y-x^2} - \lambda_2 & x & x^2 - y
+\end{pmatrix}
+\]
+\[
+JF(x, y, \lambda_1, \lambda_2) = 0 \iff x=0,y=0,\lambda_1=0,\lambda_2=0
+\]
+Ahora con $y=1$ y $x^2=y$:
+\[
+F(x, y, \lambda_1, \lambda_2) = y^2e^{y-x^2} + \lambda_1 (y-1) + \lambda_2 (x^2 - y) \implies
+\]
+\[
+\implies JF(x, y, \lambda_1, \lambda_2) = 
+\begin{pmatrix}
+-2xy^2e^{y-x^2} + 2\lambda_2x & 2ye^{y-x^2} + y^2e^{y-x^2} +\lambda_1 - \lambda_2 & y-1 & x^2 - y
+\end{pmatrix}
+\]
+\[
+JF(x, y, \lambda_1, \lambda_2) = 0 \iff x=\pm 1, y =1, \lambda_1 = 1-3e, \lambda_2=1
+\]
+Por ultimo, tomamos como restriccion $x=0$, $y=1$, $x^2=y$:
+\[
+F(x, y, \lambda_1, \lambda_2, \lambda_3) = y^2e^{y-x^2} + \lambda_1 x + \lambda_2 (y-1) +
+\lambda_3 (x^2 - y) \implies
+\]
+\[
+\implies JF(x, y, \lambda_1, \lambda_2, \lambda_3) = 
+\begin{pmatrix}
+-2xy^2e^{y-x^2} + \lambda_1 + 2\lambda_2 x & 2ye^{y-x^2} + y^2e^{y-x^2} + \lambda_2 - \lambda_3
+& x & y-1 & x^2 - y
+\end{pmatrix}
+\]
+\[
+JF(x, y, \lambda_1, \lambda_2, \lambda_3) \neq 0 \quad
+\forall (x, y, \lambda_1, \lambda_2, \lambda_3) \in \mathbb{R}^5
+\]
+Los candidatos a maximo y aminimo son:
+\[
+\begin{cases}
+(0,0) \\
+(0,1) \\
+(1, 1)
+\end{cases}
+\implies
+\begin{cases}
+f(0, 0) = 0 \\
+f(0, 1) = e \\
+f(1, 1) = 1
+\end{cases}
+\implies
+\begin{cases}
+\text{maximo: } (0, 1) \\
+\text{minimo: } (0, 0)
+\end{cases}
+\]
+\end{document}

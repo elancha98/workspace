@@ -1,0 +1,35 @@
+package me.commandcraft.testcommand;
+
+import java.util.List;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_8_R3.command.VanillaCommandWrapper;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import net.minecraft.server.v1_8_R3.CommandAbstract;
+import net.minecraft.server.v1_8_R3.CommandException;
+import net.minecraft.server.v1_8_R3.ICommand;
+import net.minecraft.server.v1_8_R3.ICommandListener;
+
+public class Main extends JavaPlugin {
+
+	public void onEnable() {
+		try {
+			CommandExec.init(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void onDisable() {
+		
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		List entities = CommandExec.getEntities(sender, args[0]);
+		sender.sendMessage("Length: " + entities.size());
+		return true;
+	}
+}

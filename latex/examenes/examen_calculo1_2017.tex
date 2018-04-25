@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{mathtools}
+\usepackage{amsfonts}
+
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+\title{FACULTAD DE MATEMATICAS Y ESTADISTICA \\
+Calculo en una Variable. Curso 2016-2017 \\
+\Large \textbf{Resolucion del examen final extraordinario del 6 de julio de 2017} }
+\date{}
+\maketitle
+
+\section*{Enunciado}
+\begin{enumerate}
+\item Teoria
+\begin{enumerate}
+\item Enunciad y demostrad el teorema de Bolzano sobre ceros de funciones continuas.
+\item  Dada una funcion continua $f: \mathbb{R} \longrightarrow \mathbb{R}$, consideramos
+la funcion
+\[
+G(x) = \int_x^{x^2} f(t)dt
+\]
+Razonad que la funcion $G$ es derivable y probad que existe $c \in (0,1)$ con $G'(c)=0$.
+\item Sea $I \subset \mathbb{R}$ un intervalo abierto y $f:I \longrightarrow \mathbb{R}$
+una funcion tal que existe un numero ral $r > 1$ con $\abs{f(x) - f(y)} < \abs{x - y}^r$ para
+cualquier $x, y \in I$. Probad que $f$ es derivable. ¿Que mas se puede decir sobre esta funcion?
+\end{enumerate}
+\item \begin{enumerate}
+\item Sea $f$ una funcion derivable en el punto $a \in \R$. Determinad el limite de la sucesion
+de termino general
+\[
+n \left( f\left( a + \frac{2}{n} \right) - 3f\left(a +\frac{1}{n} \right) + 2f(a)\right)
+\]
+\item Calculad, usando polinomios de Taylor, el valor de la integral
+$\displaystyle \int_0^{1/2} \frac{\sin x}{x} dx$ con un error inferior a $10^{-3}$,
+\end{enumerate}
+\item Conderamos las funciones
+\[
+f(x) = \frac{\cos x}{1 + \sin^2 x}, \quad \quad g(x)=1-\frac{2x}{\pi}
+\]
+\begin{enumerate}
+\item Determinad el dominio, los extremos y el recorrido de la funcion $f$.
+\item Probad que existe $	\varepsilon > 0$ tal que $f(x) > g(x)$ si $x \in (0, \varepsilon)$ y,
+en cambio, $f(x) < g(x)$ si $x \in (\pi/2-\varepsilon, \pi/2)$.
+\item Probad que existe $c \in (0,\pi/2)$ con $f(c) =g(c)$
+\item Probad que $\displaystyle \int_0^{\pi/2}f = \int_0^{pi/2}g$.
+\item Probad el resultado del apartado (c) a partir de la igualdad del apartado (d).
+\item Determinad $f^{(k)}(0)$ para $k=4$ y para $k=2017$.
+\end{enumerate}
+\end{enumerate}
+\section*{Solucion}
+\begin{enumerate}
+\item \begin{enumerate}
+\item Mirar teoria.
+\item Vemos que 
+\[
+G(x) = \int_x^{0}f(t)dt + \int_0^{x^2}f(t)dt = \int_0^{x^2}f(t)dt - \int_0^x f(t)dt
+\]
+Consideramos ahora $\displaystyle F(x) = \int_0^x f(t)dt$, que es derivable por el teorema
+fundamental del Calculo. Y, por lo tanto, $G(x) = F(x^2) - F(x)$ es derivable por ser composicion
+y suma de funciones derivables. Consideramos ahora $G(0) = 0$ y $G(1) = 0$ (Como se puede
+observar de la definicion de $G$). Aplicando el teorema del valor medio, obtenemos
+que existe $c \in (0,1)$ tal que
+\[
+G'(c) = \frac{G(1)-G(0)}{1-0}=0
+\]
+\item Para cualquier $c \in I$, consideramos
+\[
+\abs{\lim_{h \to 0} \frac{f(c+h) - f(c)}{h}} = \lim_{h \to 0} \frac{\abs{f(c+h) - f(c)}}{\abs{h}}
+\leq \lim_{h \to 0} \frac{\abs{c+h-c}^r}{\abs{h}} = \lim_{h \to 0}\abs{h}^{r-1} = 0
+\]
+Ya que $r > 1$. Por lo tanto, $f$ es derivable en todo $I$ y ademas $f'(x)=0$ $\forall x \in I$, es
+decir, $f$ es constante.
+\end{enumerate}
+\item \begin{enumerate}
+\item Consideramos 
+\[
+\lim_{n \to \infty} \frac{f\left( a+\frac{2}{n} \right) - 3f \left( a + \frac{1}{n} \right) + 2f(a)}{1/n} =
+2\lim_{n \to \infty} \frac{f \left( a+\frac{2}{n}\right) - f(a)}{2/n} -
+3\lim_{n \to \infty} \frac{f\left(a+\frac{1}{n}\right) - f(a)}{1/n}
+\]
+Como $f$ es derivable en $a$, el limite de la sucesion es $2f'(a) - 3f'(a) = -f'(a)$.
+\item Consideramos la funcion $\displaystyle F(x) = \int_0^{x} \frac{\sin t}{t}dt$. Y calculamos su
+desarrollo en serie de Taylor. Para ello, primero calculamos el desarrollo en serie de
+$f(x)=\frac{\sin x}{x}$:
+\[
+f(x) = \frac{1}{x} \left(  x - \frac{x^3}{6} + \frac{x^5}{120} + \cdots \right)
+\quad \quad
+f(x) = 1 - \frac{x^2}{6} + \frac{x^4}{120} + \cdots
+\]
+Entonces ahora:
+\[
+F(x) = \int_0^{x} f(t)dt = x - \frac{x^3}{18} + \frac{x^5}{600} + \cdots
+\]
+Por lo tanto $F(1/2) = \frac{29203}{57600} + o(x^9)$, y podemos aproximar el valor de la integral
+por $\displaystyle F(1/2) = \int_0^{1/2}\frac{\sin t}{t}dt \approx \frac{29203}{57600}$
+\end{enumerate}
+\item \begin{enumerate}
+\item \begin{description}
+\item [Dominio] Todo $\R$ (Ya que el denominador es siempre distinto de 0)
+\item [Extremos] Primero calculamos la derivada
+$\displaystyle f'(x) = \frac{-(\sin^2x+1)\sin x - 2\sin x \cos^2x}{(\sin^2 x + 1)^2}$ que se anula
+si y solo si 
+\[
+-\sin^3x - \sin x - 2\sin x \cos^2x = 0 \iff
+\begin{cases}
+x = n\pi \quad (n \in \mathbb{Z}) \\
+x = n\pi - \frac{1}{2}cos^{-1}(-5) \quad (n \in \mathbb{Z}) \\
+x = n\pi + \frac{1}{2}cos^{-1}(-5) \quad (n \in \mathbb{Z})
+\end{cases}
+\]
+Si $x = n\pi \pm \frac{1}{2}cos^{-1}(-5)$ entonces encontramos puntos de inflexion. Si $x = 2n\pi$,
+entonces encontramos maximos, cuyo valor es $f(2n\pi) = 1$ y si $x = (2n+1)\pi$ entonces
+encontramos minimos, cuyo valor es $f((2n+1)\pi) = -1$.
+\item [Recorrido] $[-1,1]$. Ya que la funcion es $2\pi$-periodica (ya que tambien lo son $\sin$ y
+$\cos$) y entre $[-\pi,\pi]$ se alcanza el maximo en $0$ con $f(0) = 1$ y el minimo en $\pi$ con
+$f(\pi) = -1$, como ademas $f$ es continua, recorre todos los valores entre $-1$ y $1$. 
+\end{description}
+\item Consideramos $f'(0) = 0$ y $g'(0) = -2/\pi$, y por lo tanto, $g$ decrece mas rapido que $f$,
+lo cual nos garantiza que existe $\varepsilon_1$ tal que $g(x) < f(x)$ en $(0,\varepsilon_1)$. De
+la misma manera, $f'(\pi/2) = -1/2$ y $g'(\pi/2) = -2/\pi$, por lo tanto, (siguiendo el razonamiento
+anterior), existe $\varepsilon_2$ tal que $g(x)>f(x)$ $\forall x \in (\pi/2-\varepsilon_2, \pi/2)$.
+Ahora resta tomar $\varepsilon = \min \{\varepsilon_1, \varepsilon_2 \}$.
+\item Tomando el resultado del apartado anterior, definimos la funcion $h(x) = f(x) - g(x)$.
+Consideramos $h\left( \frac{\varepsilon}{2} \right)$ (el $\varepsilon$ calculado en el apartado
+anterior) que es mayor a 0 por el apartado anterior, y $h \left(\frac{\pi-\varepsilon}{2} \right)$
+que es menor que 0. Aplicando ahora Bolzano, existe
+$c \in \left( \frac{\varepsilon}{2}, \frac{\pi - \varepsilon}{2} \right) \subset (0,1)$ tal que $h(c)=0$,
+es decir, $f(c) = g(c)$.
+\item 
+\end{enumerate}
+\end{enumerate}
+\end{document}

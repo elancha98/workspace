@@ -1,0 +1,9 @@
+name: ParkShooter
+description: Simple
+version: 1.0
+author: CommandCraft
+main: me.commandcraft.parkshooter.ParkShooter
+
+commands:
+  test:
+    description: used to test

@@ -1,0 +1,10 @@
+name: MineCubeStand
+description: Simple
+version: 1.0
+author: CommandCraft
+main: me.commandcraft.cubestand.CubeStand
+
+commands:
+  mstand:
+    description: Used to add/remove commands to armor stands
+    usage: /mstand <remove:add> <c:p> <command>

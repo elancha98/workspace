@@ -1,0 +1,9 @@
+name: TEST
+description: Simple
+version: 1.0
+author: CommandCraft
+main: me.commandcraft.test.Main
+
+commands:
+  test:
+    description: A test command

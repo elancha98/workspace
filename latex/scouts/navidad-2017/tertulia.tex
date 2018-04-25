@@ -1,0 +1,85 @@
+\documentclass[72pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{fancyhdr}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage[explicit]{titlesec}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\newlength{\w}
+\setlength{\w}{\textwidth / 5 - 1.18pt}
+
+\newcommand*\getlength[1]{\number#1}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textit{Grupo Scout 109 Monte Clavijo} \\}
+\lhead{Campamento de Navidad 2017 \\ Nieva de Cameros (La Rioja)} %CAMPAMENTO Y LUGAR
+\cfoot{\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}}
+
+\titleformat{\section}
+  {\Large\bfseries}{\thesection}{5em}{#1}[{\titlerule}]
+
+\begin{document}
+\large
+\fontencoding{T1}\fontfamily{lmss}\fontseries{m}\fontshape{n}\selectfont
+\begin{tabular}{|p{2cm}|c|}
+\hline
+\multirow{5}{*}{\includegraphics[width=2cm]{logo}} & \textbf{CLAN} \\ % RAMA
+\cline{2-2}
+& \textbf{TERTULIA} \\ %TITULO
+\cline{2-2}
+& \parbox{\textwidth-4cm}{Fecha y momento del dia: \textbf{29 diciembre - tarde}} \\ %Fecha
+& \parbox{\textwidth-4cm}{Duracion: \textbf{1.5 horas}} \\ %Duracion
+& \parbox{\textwidth-4cm}{Destinatarios/as: \textbf{jovenes de 17 a 21 años}} \\ %Destinatarios
+\hline
+\end{tabular}
+
+\section*{DESCRIPCI\'ON} 
+Esta actividad va a consistir en un tertulia sobre cotilleos y su veracidad o
+falsedad con relación a la temática de la acampada: la televisión.
+
+\section*{OBJETIVOS}
+\begin{itemize}
+    \item Dialogar todos juntos.
+    \item Conocer un poco más a todas las personas.
+    \item Desarrollar la astucia.
+\end{itemize}
+
+\section*{DESARROLLO}
+Nos sentaremos en una mesa, con bolis y papel, cada persona escribirá
+varios cotilleos (mínimo 2) siendo algunos falsos y otros verdaderos,
+posteriormente se introducirán todos en una caja y luego se sacarán y se
+irán leyendo uno por uno, dialogándose entre todos si se cree que son
+verdad o no, con la decisión final se preguntará al polígrafo(persona o
+personas del cotilleo) por la respuesta final y se verá si hemos acertado.
+
+\section*{MATERIALES} 
+\begin{itemize}
+    \item Papel
+    \item Boli
+    \item Caja
+\end{itemize}
+
+\section*{SUGERENCIAS}
+\begin{itemize}
+    \item Tomarse la actividad con humor.
+\end{itemize}
+
+\section*{EVALUACION} 
+\begin{itemize}
+    \item ¿Han participado adecuadamente?
+    \item ¿Han surgido problemas?
+\end{itemize}
+
+\section*{FUENTE}
+G. S. 109 Monte Clavijo
+\end{document}

@@ -1,0 +1,156 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{titling}
+
+\usepackage{tikz}
+\tikzstyle{every node}=[circle, draw, fill=black!50, inner sep=0pt, minimum width=4pt]
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+\begin{document}
+
+\title{Examen extraordinario Calculo I 2013}
+\date {}
+\maketitle
+
+\begin{enumerate}
+\item (3 puntos)
+\begin{enumerate}
+\item Definid continuidad uniforme. Enunciad y demostrad el teorema de Heine.
+\item Probad que la funcion $f(x) = \sin(x/4)$ no es uniformemente continua en $(0,1]$.
+\end{enumerate}
+
+\item (3 puntos)
+\begin{enumerate}
+\item Probad que la funcion $h : (0, \infty) \longrightarrow \mathbb{R}$ dada por 
+$h(x) = 2x + 1 - 2\sqrt{x(x+1)}$es decreciente, estrictamente positiva y tiende a 0
+cuando $x \to \infty$.
+\item Fijado un valor $x > 0$, se considera la ecuacion en $z$:
+\[
+\sqrt{x+1} - \sqrt{x} = \frac{1}{2\sqrt{x+z}}.
+\]
+\begin{enumerate}
+\item A partor del teorema de Bolzano, probad que hay un $z \in [0,1]$ que es solucion de la
+ecuacion anterior
+\item Lo mismo, pero aplicando ahora el teorema del Valor Medio
+\item Probad tambien que esta solucion es unica
+\end{enumerate}
+\end{enumerate}
+\item (4 puntos) \\
+Seaan $g_1, g_2 : [a, b]  \longrightarrow \mathbb{R}$ funciones continuas. Sea tambien
+$f : \mathbb{R} \longrightarrow \mathbb{R}$ una funcion continua tal que
+$\forall x, 0 < f(x) \leq k < 1$ donde $k$ es una constante. Se define la socesion
+$(a_n)_{n \in \mathbb{N}}$ como:
+\[
+a_n = \int_0^1 \left( f(x) \right)^n dx.
+\]
+\begin{enumerate}
+\item Probad que si $g_1(x) > g_2(x)$, $\forall x \in [a, b]$, entonces
+$\displaystyle \int_a^b g_1(x)dx > \int_a^b g_2(x)dx$.
+\item Si, ademas, $g_2(x) > 0$, $\forall x \in [a, b]$, probad que existe $c \in [a,b]$, tal que:
+\[
+\int_a^b g_1(x)g_2(x)dx = g_1(x)\int_a^bg_2(x)dx
+\]
+\item Probad que $\displaystyle \forall n \in \mathbb{N}, \frac{a_{n+1}}{a_n} \leq k$.
+\item Probad que $(a_n)$ es decreciente, esta acotada inferiormente y tiene limite
+\item Probad que el limite vale 0
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+%==========================
+\title{Solucion}
+\date{}
+\maketitle
+
+\begin{enumerate}
+\item \begin{enumerate}
+\item Mirar teoria.
+\item Sea $\varepsilon = 0.5$, entonces, $\forall \delta$, existen $x = 1/n, y = 2/(n+1) \in (0, 1]$,
+donde $n$ es el menor numero par tal que $3/\delta < (n+1)$. Entonces:
+\[
+\abs{x - y} = \abs{\frac{1}{n} - \frac{2}{n+1}} = \abs{\frac{3n+1}{n(n+1)}} < \abs{\frac{3n}{n(n+1)}} =
+\abs{\frac{3}{n+1}} < \delta.
+\]
+Pero, por otro lado,
+\[
+\abs{ \sin{\frac{\pi}{x}} - \sin{\frac{\pi}{y}} } = \abs{\sin n\pi - \sin \frac{(n+1)\pi}{2}} =
+\abs{0 - \sin \frac{\pi}{2} } = 1 > 0.5 = \varepsilon.
+\]
+\\ \\ \\
+\end{enumerate}
+
+%===========
+\item \begin{enumerate}
+\item $h$ es decreciente si y solo si $\forall x, \varepsilon \in (0, \infty)$,
+$h(x) - h(x+\varepsilon) \geq 0$,veamos ahora que se cumple:
+\[
+h(x) - h(x+\varepsilon) = 2\varepsilon - 2\sqrt{x(x+1)} + 2\sqrt{(x+\varepsilon)(x+\varepsilon+1)} =
+\]
+\[
+= 2\varepsilon - 2\sqrt{x^2+x} +
+2\sqrt{x^2 + x + 2x\varepsilon+ \varepsilon^2 + \epsilon} \geq 2\varepsilon \geq 0.
+\]
+Veamos ahora que $h$ es estrictamente positiva:
+\[
+h(x) = 2x + 1 - 2\sqrt{x(x+1)} = 2\sqrt{x^2 + x + \frac{1}{4}} - 2\sqrt{x^2+x} > 0.
+\]
+Y que $\displaystyle \lim_{x \to \infty} h(x) = 0$:
+\[
+\lim_{x \to \infty} h(x) = \lim_{x \to \infty} 2\sqrt{x^2 + x + \frac{1}{4}} - 2\sqrt{x^2+x} = 0
+\]
+\item \begin{enumerate}
+\item Tomamos la funcion $g(z) = 2\sqrt{x^2+x + z(x+1)} - 2\sqrt{x^2+xz} - 1$. Vemos que $g$ es
+continua y que
+\[
+g(0) = 2\sqrt{x^2+x} - 2x - 1 = -h(x) < 0
+\]
+(como hemos visto en el apartado a), ademas:
+\[
+g(1) = 2\sqrt{x^2+2x+1} - 2\sqrt{x^2+x} -1 = 2(x+1) - 1 -2\sqrt{x^2+x} = h(x) > 0.
+\]
+Por lo tanto, por el teorema de Bolzano, existe $z_0 \in [0,1]$, tal que $g(z_0) = 0$, es decir, $z_0$
+es solucion de la ecuacion.
+\item Primero construimos la funcion $f(z) = \sqrt{x+z}$, que es derivable en $[0,1]$. Ahora, por
+el teorema del valor medio, existe $z_0 \in [0,1]$ tal que
+$\displaystyle f'(z_0) = \frac{f(1) - f(0)}{1 - 0}$, es decir, existe $z_0$ tal que:
+\[
+f'(z_0) = \frac{1}{2\sqrt{x+z_0}} = \sqrt{x+1} - \sqrt{x} = f(1) - f(0).
+\]
+Y por lo tanto, $z_0$ es solucion de la ecuacion.
+
+\item Recuperamos la funcion $g(z) = 2\sqrt{x^2+x + z(x+1)} - 2\sqrt{x^2+xz} - 1$ (definida en el
+apartado i), que es derivable en $[0,1]$. Consideramos ahora
+\[
+g'(z) = \frac{x+1}{\sqrt{x^2+x+z(x+1)}} - \frac{x}{\sqrt{x^2+xz}}.
+\]
+Y resolvemos la ecuacion $g'(z) = 0$:
+\[
+g'(z) = 0 \iff \frac{x+1}{\sqrt{x^2+x+z(x+1)}} = \frac{x}{\sqrt{x^2+xz}} \iff
+\]
+\[
+\iff
+(x+1)\sqrt{x^2+xz} = x\sqrt{x^2+x+z(x+1)} \iff
+\]
+\[
+\iff
+x^4 + zx^3 + 2x^3 + 2zx^2 + x^2 +xz = x^4 +zx^3+x^3+zx^2
+\iff
+x^3 + zx^2 + x^2 +xz = 0
+\]
+Que no tiene solucion ya que $x,z>0$. Por lo tanto la ecuacion $g'(z) = 0$ no tiene ninguna
+solcuion en el intervalo $[0,1]$  y por consiguiente, $g(z)$ tiene como mucho una raiz (en ese
+intervalo), la ya encontrada $z_0$.
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+\end{document}

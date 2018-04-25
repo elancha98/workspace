@@ -1,0 +1,45 @@
+package me.commandcraft.chestbank.bank;
+
+import java.util.List;
+
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.event.Listener;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+
+
+public class BankManager implements Listener {
+	
+	private List<Bank> banks;
+	
+	public void addBank(Bank bank) {
+		banks.add(bank);
+	}
+	
+	public void addBank(Location loc) {
+		addBank(new Bank(loc));
+	}
+	
+	public void addBank(Block b) {
+		addBank(b.getLocation());
+	}
+}
+
+class CCHolder implements InventoryHolder {
+	
+	private int id;
+
+	public CCHolder(int id) {
+		this.id = id;
+	}
+	
+	@Override
+	public Inventory getInventory() {
+		return null;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+}

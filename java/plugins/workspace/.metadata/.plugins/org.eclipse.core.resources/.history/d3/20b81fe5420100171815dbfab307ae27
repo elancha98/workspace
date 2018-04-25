@@ -1,0 +1,38 @@
+package me.commandcraft.chestbank;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+
+public class CommandExec implements CommandExecutor {
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (args.length < 2) {
+			sender.sendMessage(ChatColor.RED + "usage:");
+			sender.sendMessage(ChatColor.RED + "/chestbank set <group> <rows>");
+			sender.sendMessage(ChatColor.RED + "/chestbank add <group>");
+			return false;
+		}
+		if (args[0].equals("set")) {
+			int rows;
+			try {
+				rows = Integer.parseInt(args[1]);
+			} catch (NumberFormatException e) {
+				sender.sendMessage(ChatColor.RED + "Invalid number of rows");
+				return false;
+			}
+			ChestBank.getBankManager().setBank(args[0], rows);
+		} else if (args[0].equals("add")) {
+			if 
+		} else usage(sender);
+		return false;
+	}
+	
+	public void usage(CommandSender sender) {
+		sender.sendMessage(ChatColor.RED + "usage:");
+		sender.sendMessage(ChatColor.RED + "/chestbank set <group> <rows>");
+		sender.sendMessage(ChatColor.RED + "/chestbank add <group>");
+	}
+}

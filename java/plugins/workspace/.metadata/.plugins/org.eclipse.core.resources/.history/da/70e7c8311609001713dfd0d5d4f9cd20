@@ -1,0 +1,14 @@
+package me.commandcraft.testcommand;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin {
+
+	public void onEnable() {
+		CommandExec.setCommands(this);
+	}
+
+	public void onDisable() {
+
+	}
+}

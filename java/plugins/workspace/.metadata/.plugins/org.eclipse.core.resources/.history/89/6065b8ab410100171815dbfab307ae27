@@ -1,0 +1,52 @@
+package me.commandcraft.chestbank.bank;
+
+import java.util.List;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.Inventory;
+
+import me.commandcraft.chestbank.Utils;
+
+public class BankManager implements Listener {
+
+	List<Bank> banks;
+
+	@EventHandler
+	public void onChestOpen(InventoryOpenEvent event) {
+		Location location = Utils.getTarget(event.getPlayer());
+		Player p = (Player) event.getPlayer();
+		for (int i = 0; i < banks.size(); i++) {
+			if (banks.get(i).hasLocation(location)) {
+				event.setCancelled(true);
+				if (Utils.hasGroup(p, banks.get(i).getGroupname())) banks.get(i).openBank(i, p);
+				else p.sendMessage(ChatColor.RED + "You don't have permissions to open that bank");
+				return;
+			}
+		}
+	}
+
+	@EventHandler
+	public void onBankClose(InventoryCloseEvent event) {
+		if (!(event.getPlayer() instanceof Player)) return;
+		Inventory inventory = event.getInventory();
+		if (inventory.getHolder() instanceof CCHolder) {
+			int index = ((CCHolder) inventory.getHolder()).getId();
+			banks.get(index).saveContents(inventory,
+					(Player) event.getPlayer());
+		}
+	}
+
+	public void load() {
+
+	}
+
+	public void save() {
+
+	}
+}

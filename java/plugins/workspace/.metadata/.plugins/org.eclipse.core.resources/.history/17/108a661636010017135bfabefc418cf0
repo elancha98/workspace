@@ -1,0 +1,18 @@
+package me.commandcraft.chestbank;
+
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+public class Configuration {
+
+	private YamlConfiguration config;
+	
+	public String getTitle() {
+		if (config.isSet("bank_title")) return config.set("bank_title", "ChestBank");;
+		return config.getString("bank_title");
+	}
+	
+	public void save() {
+		
+	}
+}

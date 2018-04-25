@@ -1,0 +1,47 @@
+\documentclass[bookmarks=true]{beamer}
+
+\setbeamertemplate{footline}[page number]
+\setbeamercolor{structure}{bg=yellow, fg=black}
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[utf8]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% \usepackage{movie15}
+\usepackage{multimedia}
+\usepackage{fourier-orns}
+
+%  \usepackage{caption}
+\usepackage[font=scriptsize]{caption}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{amsmath,amssymb}
+\usepackage[numbers]{natbib}
+%\usepackage{paralist}
+\usepackage{color}
+\definecolor{olivegreen}{rgb}{85, 107, 47}
+
+
+\begin{document}
+
+\begin{frame}
+\frametitle{Slide Title Here}
+% 
+% \centering
+% \includemovie{6.5cm}{6.5cm}{waves}
+
+\movie[
+  height = 6cm,
+  width = 6cm,
+  showcontrols,
+  poster
+] 
+{}{waves}
+
+\end{frame}
+
+\end{document}

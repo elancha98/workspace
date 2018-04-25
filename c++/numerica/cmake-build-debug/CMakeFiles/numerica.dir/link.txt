@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/numerica.dir/main.cpp.o CMakeFiles/numerica.dir/Matrix.cc.o CMakeFiles/numerica.dir/matrices.cc.o  -o numerica 

@@ -1,0 +1,77 @@
+package me.commandcraft.parkshooter;
+
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.ProxiedCommandSender;
+import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.craftbukkit.v1_11_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_11_R1.command.CraftBlockCommandSender;
+import org.bukkit.craftbukkit.v1_11_R1.command.ProxiedNativeCommandSender;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftMinecartCommand;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.minecart.CommandMinecart;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import net.minecraft.server.v1_11_R1.DedicatedServer;
+import net.minecraft.server.v1_11_R1.ICommandListener;
+import net.minecraft.server.v1_11_R1.MinecraftServer;
+import net.minecraft.server.v1_11_R1.PlayerSelector;
+
+public class CommandExec {
+	
+	public static void init(JavaPlugin plugin) {
+		Set<String> commands = plugin.getDescription().getCommands().keySet();
+		String pack = CommandExec.class.getPackage().getName() + ".commands.";
+		for (String command : commands) {
+			try {
+				Class<?> exec = Class.forName(pack + StringUtils.capitalize(command) + "Exec");
+				plugin.getCommand(command).setExecutor((CommandExecutor) exec.newInstance());
+			} catch (Exception e) {
+				Logger.severe("Disable because can't load command: " + command);
+				Bukkit.getPluginManager().disablePlugin(plugin);
+			}
+			try {
+				Class<?> tab = Class.forName(pack + StringUtils.capitalize(command) + "Tab");
+				plugin.getCommand(command).setTabCompleter((TabCompleter) tab.newInstance());
+			} catch (Exception e) {}
+		}
+	}
+	
+	public static List<T extends Entity> getEntities(CommandSender sender, String p) {
+		ICommandListener listener = getListener(sender);
+		return PlayerSelector.getPlayers(listener, p, (Class<? extends Entity>) Entity.class);
+	}
+	
+	@SuppressWarnings("deprecation")
+	private static ICommandListener getListener(final CommandSender sender) {
+        if (sender instanceof Player) {
+            return ((CraftPlayer)sender).getHandle();
+        }
+        if (sender instanceof BlockCommandSender) {
+            return ((CraftBlockCommandSender)sender).getTileEntity();
+        }
+        if (sender instanceof CommandMinecart) {
+            return ((CraftMinecartCommand)sender).getHandle().getCommandBlock();
+        }
+        if (sender instanceof RemoteConsoleCommandSender) {
+            return ((DedicatedServer)MinecraftServer.getServer()).remoteControlCommandListener;
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            return ((CraftServer)sender.getServer()).getServer();
+        }
+        if (sender instanceof ProxiedCommandSender) {
+            return ((ProxiedNativeCommandSender)sender).getHandle();
+        }
+        throw new IllegalArgumentException("Cannot make " + sender + " a vanilla command listener");
+    }
+}

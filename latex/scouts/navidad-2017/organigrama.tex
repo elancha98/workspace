@@ -1,0 +1,61 @@
+\documentclass[72pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{fancyhdr}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage[explicit]{titlesec}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\newlength{\w}
+\setlength{\w}{\textwidth / 5 - 1.18pt}
+
+\newcommand*\getlength[1]{\number#1}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textit{Grupo Scout 109 Monte Clavijo} \\}
+\lhead{Campamento de Navidad 2017 \\ Nieva de Cameros (La Rioja)} %CAMPAMENTO Y LUGAR
+\cfoot{\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}
+	\includegraphics[width=\getlength{\w}sp]{logo}\includegraphics[width=\getlength{\w}sp]{logo}}
+
+\titleformat{\section}{\Large\bfseries}{\thesection}{5em}{#1}[{\titlerule}]
+
+\title{ORGANIGRAMA}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \rowcolor{blue!50} \cellcolor{blue!10} & 27 & 28 & 29 & 30 \\
+    \hline
+    \cellcolor{yellow!50} Mañana 1 & \cellcolor{gray!80} & \multirow{2}{*}{Marcha} & 
+    \multirow{2}{*}{Taller de lámparas} & \multirow{2}{*}{Limpieza!!} \\
+    \cline{1-2}
+    \cellcolor{yellow!50} Mañana 2 & Grand Prix Scout & & & \\
+    \hline
+    \cellcolor{yellow!50} & \multicolumn{4}{c|}{COMIDA} \\
+    \hline
+    \cellcolor{yellow!50} Tarde 1 & Pasapalabra & \multirow{2}{*}{Ducha y reflexión} &
+    Tertulia & \cellcolor{gray!80} \\
+    \cline{1-2} \cline{4-5}
+    \cellcolor{yellow!50} Tarde 2 & Entrenamiento Jedi &  & Promesas  &
+    \cellcolor{gray!80} \\
+    \hline
+    \cellcolor{yellow!50} & \multicolumn{4}{c|}{CENA} \\
+    \hline
+    \cellcolor{yellow!50} Noche & Cluedo en vivo & Juego común & Playback &
+    \cellcolor{gray!80} \\
+    \hline
+\end{tabular}\end{center}
+
+\end{document}

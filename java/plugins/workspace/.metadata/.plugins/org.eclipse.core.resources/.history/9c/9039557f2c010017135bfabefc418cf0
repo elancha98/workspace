@@ -1,0 +1,75 @@
+package me.commandcraft.chestbank.bank;
+
+import java.util.List;
+import java.util.Map;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.Main;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+
+import me.commandcraft.chestbank.ChestBank;
+import me.commandcraft.chestbank.Utils;
+
+
+public class Bank implements Listener {
+	
+	private List<Bank> banks;
+	private Map<String, String[]> items;
+	private String groupname;
+	
+	public Bank() {
+		
+	}
+	
+	public void addBank(Bank bank) {
+		banks.add(bank);
+	}
+	
+	public void addBank(Location loc) {
+		addBank(new Bank(loc));
+	}
+	
+	public void addBank(Block b) {
+		addBank(b.getLocation());
+	}
+	
+	@EventHandler
+	private void onBankClick(InventoryOpenEvent event) {
+		Player p = (Player) event.getPlayer();
+		Location location = Utils.getTarget(p);
+		if (location == null) return;
+		for (int i = 0; i < banks.size(); i++) {
+			if (banks.get(i).equals(location)) {
+				String[] groups = ChestBank.getPermission().getPlayerGroups(p);
+				for (int j = 0; j < groups.length; j++) {
+					if (groups[j].equals(groupname)) {
+						openBank(i, p);
+						return;
+					}
+				}
+				p.sendMessage(ChatColor.RED + "You don't have permission to access that bank");
+				return;
+			}
+		}
+	}
+	
+	private void openBank(int index, HumanEntity p) {
+		Inventory inv = Bukkit.createInventory(new CCHolder(), 27, ChestBank.getConfiguration().getTitle());
+		
+	}
+}
+
+class CCHolder implements InventoryHolder {	
+	public Inventory getInventory() {
+		return null;
+	}
+}

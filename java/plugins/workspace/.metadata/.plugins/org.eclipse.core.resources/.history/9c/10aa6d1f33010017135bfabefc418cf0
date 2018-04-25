@@ -1,0 +1,16 @@
+package me.commandcraft.chestbank.bank;
+
+import java.util.List;
+
+import org.bukkit.event.Listener;
+
+public class BankManager implements Listener {
+
+	List<Bank> banks;
+	
+	
+	
+	public void save() {
+		
+	}
+}

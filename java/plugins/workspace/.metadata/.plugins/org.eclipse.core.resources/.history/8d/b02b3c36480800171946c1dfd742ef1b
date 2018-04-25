@@ -1,0 +1,90 @@
+package me.commandcraft.testcommand;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+public class CommandExec {
+	
+	private static Object wrapper;
+	@SuppressWarnings("rawtypes")
+	private static Map<String, List> entities = new HashMap<String, List>();
+
+	public static void init(JavaPlugin plugin) throws Exception {
+		setWrapper();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static List getEntities(CommandSender sender, String selector) {
+		String uuid = UUID.randomUUID().toString();
+		try {
+			wrapper.getClass().getMethod("execute", CommandSender.class, String.class, String[].class)
+				.invoke(wrapper, sender, "", new String[] {selector, uuid});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entities.remove(uuid);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static void putEntities(String uuid, List ent) {
+		entities.put(uuid, ent);
+	}
+	
+	private static void setWrapper() throws Exception{
+		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+		Class<?> vanilla = Class.forName("org.bukkit.craftbukkit." + version + ".command.VanillaCommandWrapper");
+		Class<?> cmdabs = Class.forName("net.minecraft.server." + version + ".CommandAbstract");
+		/*
+		Class<?> enhancer = Class.forName("net.sf.cglib.proxy.Enhancer");
+		Class<?> callback = Class.forName("net.sf.cglib.proxy.Callback");
+		Object e = enhancer.newInstance();
+		enhancer.getMethod("setSuperclass", Class.class).invoke(e, cmdabs);
+		enhancer.getMethod("setCallback", callback).invoke(e, new Interceptor(version));
+		Object tmp = enhancer.getMethod("create").invoke(e);*/
+		Enhancer e = new Enhancer();
+		e.setSuperclass(cmdabs);
+		e.setCallback(new Interceptor(version));
+		
+		wrapper = vanilla.getConstructor(cmdabs).newInstance(e.create());
+	}
+}
+
+class Interceptor implements MethodInterceptor {
+	
+	private Method get_players;
+	private Class<?> entity;
+	
+	protected Interceptor(String version) throws ClassNotFoundException {
+		entity = Class.forName("net.minecraft.server." + version + ".Entity");
+		Class<?> selector = Class.forName("net.minecraft.server." + version + ".PlayerSelector");
+		Method[] methods = selector.getDeclaredMethods();
+		for (Method method : methods) {
+			if (method.getName().equals("getPlayers")) get_players = method;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object intercept(Object t, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+		String name = method.getName();
+		if (name.equals("compareTo")) return 0;
+		if (name.equals("execute")) {
+			List list = (List) get_players.invoke(null, args[0], ((String[]) args[1])[0], entity);
+			CommandExec.putEntities(((String[]) args[1])[1], list);
+		}
+		return null;
+	}
+	
+	
+}

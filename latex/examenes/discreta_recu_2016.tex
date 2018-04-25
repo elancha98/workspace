@@ -1,0 +1,180 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{titling}
+
+\usepackage{tikz}
+\tikzstyle{every node}=[circle, draw, fill=black!50, inner sep=0pt, minimum width=4pt]
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+
+\begin{document}
+
+\title{Examen final matematica discreta 2016}
+\date {}
+\maketitle
+
+\begin{enumerate}
+\item Sean $m$ y $n$ enteros pares con $1 \leq m \leq n$. Consideramos la rejilla formada por los
+puntos $(i, j)$ con $0 \leq i \leq 2n$ y $0 \leq j \leq 2m$. Consideramos caminos en la rejilla
+formados por pasos hacia la derecha $(1,0)$ y hacia arriba $(0,1)$,
+\begin{enumerate}
+\item Dad una formula para el numero de caminos que van de $(0,0)$ a $(2n,2m)$ y que pasan
+por el punto $(m,m)$.
+\item Dad una formulla para el numero de caminos que van de $(0,0)$ a $(2n,2m)$ y que no pasan
+por el punto $A = (n/2,m/2)$ ni por el punto $B = (n, m)$
+\end{enumerate}
+
+\item Resolved la recurrencia:
+\[
+a_{n+1} - \alpha a_n = \beta^n, \quad a_0 = \lambda,
+\]
+con $\alpha,\beta, \lambda$ numeros reales.
+
+\item Sea $T$ un arbol con $n$ vertices sin vertices de grado 2. Provad que mas de la mitad de los
+vertices son hojas.
+
+\item Sea $G$ un grafo con $n$ vertices y $m$ aristas que no contiene triangulos (ciclos de longitud
+3)
+\begin{enumerate}
+\item Si $xy$ es una arista de $G$, provad que $g(x) + g(y) \leq n$.
+\item Deducid que \( \sum_{x \in V} g(x)^2 \leq mn \).
+\item Utilizad la desigualdad de Cauchy-Schwarz para concluir que $m \leq n^2/4$. \newline
+[$\left( \sum_{i=1}^n a_ib_i \right)^2 \leq \left( \sum_{i=1}^n a_i^2 \right)
+\left( \sum_{i=1}^n b_i^2 \right), a_i, b_i \in \mathbb{R}.$]
+\end{enumerate}
+\end{enumerate}
+
+%==========
+\newpage
+\title{Solucion}
+\date{}
+\maketitle
+
+
+\begin{enumerate}
+\item
+
+\item Primero resolvemos la recurrencia general:
+\[
+x - \alpha = 0 \implies x = \alpha.
+\]
+Si $\alpha \neq \beta$, tenemos:
+\[
+a_n = A \alpha^n + B\beta^n,
+\]
+con $a_0 = \lambda$ y $a_1 = 1 + \alpha\lambda$. Y por lo tanto
+\[
+\begin{cases}
+\lambda = A + B \\
+1 + \alpha\lambda = A\alpha + B\beta
+\end{cases}
+\implies
+\begin{cases}
+A = \lambda - \frac{1}{\beta - \alpha} = \frac{\lambda\beta - \lambda\alpha - 1}{\beta - \alpha} \\
+B = \frac{1}{\beta - \alpha}
+\end{cases}.
+\]
+Si $\alpha = \beta$, entonces:
+\[
+a_n = A\alpha^n + Bn\alpha^n,
+\]
+con $a_0 = \lambda$ y $a_1 = 1 + \alpha\lambda$.
+Por lo tanto:
+\[
+\begin{cases}
+\lambda = A \\
+1 + \alpha\lambda = A\alpha + B\alpha \\
+\end{cases}
+\implies
+\begin{cases}
+A = \lambda \\
+B = \frac{1}{\alpha}
+\end{cases}.
+\]
+
+\item Sean $\{ x_1, \cdots, x_n \}$ los vertices de $T$, entonces se tiene que:
+\[
+\sum_{i=1}^n g(x_i) =2n-2
+\]
+(por ser $T$ un arbol). Sabemos que todo vertice tiene grado al menos 1 (ya que $T$ es conexo)
+y suponemos que al menos $n/2$ vertices tienen grado distinto de 1 (que no son hojas), es decir,
+grado mayor o igual que 3 (ya que no hay vertices de grado 2). Distinguimos ahora dos casos:
+
+Si $n$ es par, entonces suponemos SPG (Sin Perdida de 
+Generalidad) que los vertices $x_1, \cdots, x_{n/2}$ son los que tienen grado mayor o igual que 3.
+Entonces:
+\[
+\sum_{i=1}^{n/2} g(x_i) + \sum_{i=n/2 +1}^n g(x_i) = \sum_{i=1}^n g(x_i) =2n-2.
+\]
+Pero por otro lado:
+\[
+2n-2 =\sum_{i=1}^{n/2} g(x_i) + \sum_{i=(n+2)/2}^n g(x_i) \geq 3 \frac{n}{2} + \frac{n}{2} - 1 = 2n-1.
+\]
+Lo cual es una contradiccion.
+
+Si $n$ es impar, suponemos SPG que los vertices $x_1, \cdots, x_{(n+1)/2}$ son los que tienen
+grado mayor o igual que 3. Entonces:
+ \[
+ \sum_{i=1}^{(n+1)/2} g(x_i) + \sum_{i=(n+3)/2}^n g(x_i) = \sum_{i=1}^n g(x_i) =2n-2.
+ \]
+ Pero por otro lado:
+\[
+2n-2 =\sum_{i=1}^{(n+1)/2} g(x_i) + \sum_{i=(n+3)/2}^n g(x_i) \geq
+3 \frac{n+1}{2} + \frac{n-1}{2}  = 2n + 1
+\]
+Lo cual es una contradiccion.
+
+\item \begin{enumerate}
+\item Llamamos $S_x$ alconjunto de los vertices adyacentes a $x$ y $S_y$ al conjunto de los
+vertices adyacentes a $y$. Entonces, $g(x) + g(y) = \lvert S_x \rvert + \lvert S_y \rvert$, ademas,
+$\lvert S_x + S_y \rvert \leq n$. Observamos ahora que $S_x$ y $S_y$ son dijuntos, ya que, si
+existiera $z \in S_x$ y $z \in S_y$, entonces el ciclo $xyz$ seria un triangulo. Por lo tanto $S_x$ y
+$S_y$ son dijuntos y $g(x) + g(y) = \lvert S_x \rvert + \lvert S_y \rvert = \lvert S_x + S_y \rvert \leq n$
+
+\item Sea $x$ un vertice de $G$, sea $g$ su grado y sean $y_1, \cdots, y_g$ los vertices adyacentes
+a $x_0$, entonces:
+\[
+\left( g(y_1) + g \right) + \cdots + \left( g(y_g) + g \right) \leq gn
+\]
+(por el apartado a), o, reescribiendo:
+\[
+g^2 \leq gn - g(y_1) - \cdots - g(y_g),
+\]
+Llamando $g_x$ a $g(x_1) + \cdots + g(y_g)$, $g(y_0)^2 \leq g(x)n - g_x$. Entonces (siendo 
+$z_1, \cdots, z_n$ los vertices de $G$):
+\[
+\sum_{i=1}^n g(z_i)^2 \leq \sum_{i=1}^n \left( g(z_i)n - g_{z_i} \right) = 2mn - \sum_{i=1}^n g_{z_i}.
+\]
+Observamos ahora que $\sum_{i=1}^n g_{z_i} = \sum_{i=1}^n g(z_i)^2$, ya que $\forall z_i \in G$,
+$g(z_i)$ aparece en la parte izquierda exactamente $g(z_i)$ veces, y por lo tanto son iguales,
+sustiyendo en la desigualdad anterior:
+\[
+\sum_{i=1}^n g(z_i)^2 \leq 2mn - \sum_{i=1}^n g(z_i)^2
+\implies
+\sum_{i=1}^n g(z_i)^2 \leq mn
+\]
+
+\item Sean $z_1, \cdots, z_n$ los vertices de $G$, entonces sea $a_i = g(z_i)$ y $b_i = 1$
+($i = 1, \cdots, n$), y se tiene que:
+\[
+\begin{dcases}
+\sum_{i=1}^n a_ib_i =\sum_{i=1}^n g(z_i) = 2m \\
+\sum_{i=1}^n a_i^2 = \sum_{i=1}^n g(z_i)^2 \leq mn \\
+\sum_{i=1}^n b_i^2 = \sum_{i=1}^n 1 = n
+\end{dcases}.
+\]
+Por lo tanto, aplicanco Cauchy-Schwarz:
+\[
+4m^2 \leq (mn)(n) = mn^2 \implies m \leq n^2/4
+\]
+\end{enumerate}
+\end{enumerate}
+\end{document}

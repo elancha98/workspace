@@ -1,0 +1,21 @@
+package me.commandcraft.parkshooter;
+
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class CommandExec {
+	private static CommandExecutor[] commands;
+	
+	public CommandExec(JavaPlugin plugin) {
+		Set<String> commands = plugin.getDescription().getCommands().keySet();
+		String pack = this.getClass().getPackage().getName() + ".commands";
+		for (String command : commands) {
+				Class<?> exec = Class.forName(pack + "." + StringUtils.capitalize(command) + "Exec");
+				plugin.getCommand(command).setExecutor(exec.newInstance());
+			plugin.getCommand(command).setTabCompleter("");
+		}
+	}
+}

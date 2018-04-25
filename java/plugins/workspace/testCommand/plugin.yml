@@ -1,0 +1,9 @@
+name: ShowCase
+description: Simple
+version: 1.0
+author: CommandCraft
+main: me.commandcraft.testcommand.Main
+
+commands:
+  test:
+    description: a test command

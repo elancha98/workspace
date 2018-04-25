@@ -1,0 +1,115 @@
+package me.commandcraft.parkshooter.commands;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Entity;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import me.commandcraft.parkshooter.Logger;
+import net.minecraft.server.v1_8_R3.CommandAbstract;
+
+public class CommandExec {
+
+	private static Object vanilla;
+	@SuppressWarnings("rawtypes")
+	private static Map<String, List> selectors;
+
+	public static void init(JavaPlugin plugin) {
+		Set<String> commands = plugin.getDescription().getCommands().keySet();
+		String pack = CommandExec.class.getPackage().getName() + ".";
+		for (String command : commands) {
+			try {
+				Class<?> exec = Class.forName(pack + StringUtils.capitalize(command) + "Exec");
+				plugin.getCommand(command).setExecutor((CommandExecutor) exec.newInstance());
+			} catch (Exception e) {
+				Logger.severe("Disable because can't load command: " + command);
+				Bukkit.getPluginManager().disablePlugin(plugin);
+			}
+			try {
+				Class<?> tab = Class.forName(pack + StringUtils.capitalize(command) + "Tab");
+				plugin.getCommand(command).setTabCompleter((TabCompleter) tab.newInstance());
+			} catch (Exception e) {
+			}
+		}
+		try {
+			setWrapper();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void setWrapper() throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException {
+		
+		String VERSION = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+		Class<?> wrapper = Class.forName("org.bukkit.craftbukkit." + VERSION + ".command.VanillaCommandWrapper");
+		Class<?> cmdabs = Class.forName("net.minecraft.server." + VERSION + ".CommandAbstract");
+		Class<?> selector = Class.forName("net.minecraft.server." + VERSION + ".PlayerSelector");
+		final Class<?> entity = Class.forName("net.minecraft.server." + VERSION + ".Entity");
+		Method tmp = null;
+
+		for (Method method : selector.getDeclaredMethods()) {
+			if (method.getName().equals("getPlayers")) tmp = method;
+		}
+
+		final Method get_players = tmp;
+		
+		Object abs = Proxy.newProxyInstance(cmdabs.getClassLoader(),
+				new Class[]{cmdabs}, new InvocationHandler() {
+
+					private Method getPlayers = get_players;
+
+					@Override
+					public Object invoke(Object proxy, Method method,
+							Object[] args) throws Throwable {
+						String name = method.getName();
+						if (name.equals("compareTo")) return 0;
+						if (name.equals("getusage")) return null;
+						if (name.equals("getCommand")) return null;
+						if (name.equals("execute")) {
+							@SuppressWarnings("rawtypes")
+							List list = (List) getPlayers.invoke(null, args[0],
+									((String[]) args[1])[0], entity);
+							CommandExec.addToMap(((String[]) args[1])[1], list);
+						}
+						return null;
+					}
+				});
+
+		vanilla = wrapper.getConstructor(cmdabs).newInstance(abs);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Entity> getEntities(CommandSender sender, String selector) {
+		String uuid = UUID.randomUUID().toString();
+		try {
+			vanilla.getClass().getMethod("execute", CommandSender.class, String.class, String[].class)
+				.invoke(vanilla, sender, "", new String[] {selector, uuid});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return selectors.get(uuid);
+	}
+
+	public static void addToMap(String id, @SuppressWarnings("rawtypes") List l) {
+		selectors.put(id, l);
+	}
+}
+
+class CmdAbstrac extends Class<?> {
+	
+}

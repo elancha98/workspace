@@ -1,0 +1,1716 @@
+\chapter{Integración multiple}
+
+\section{Integral de Riemann sobre rectángulos compactos}
+
+\begin{defi}
+    Un rectángulo de $\real^n$ es un producto $A := I_1 \times \dots \times I_n$
+    donde $I_j \in \real$ son intervalos que suponemos acotados y no degenerados,
+    es decir, ni vacios, ni reducidos a un punto.
+
+    Si los $I_j$ son compactos o abiertos, también lo es $A$.
+\end{defi}
+
+\begin{defi}
+    La medida o volumen $n$-dimensional (o área si $n=2$) de un rectángulo
+    acotado $A = I_1 \times \cdots \times I_n$ es el producto de las longitudes
+    de sus costados, es decir
+    \[
+        \vol(A) = \text{long} (I_1) \times \dots \times \text{long} (I_n)
+    \]
+\end{defi}
+
+\begin{obs}
+    Recoredemos que denominamos partición de un intervalo compacto $[a,b]$ a un
+    subconjunto finito de puntos $\Pa=\setb{x_0,x_1,\dots,x_n}$ tales que
+    $a = x_0 < x_1 < \cdots < x_{N-1} < x_N = b$. La partición expresa el intervalo
+    como la unión de $N$ subintervalos
+    \[
+        [a,b] = [x_0,x_1] \cup \cdots \cup [x_{N-1},x_N]
+    \]
+\end{obs}
+\begin{obs*}
+    Una partición $\Pa^\prime$ se dice que es más fina que otra
+    $\Pa$ cuando $\Pa \subset \Pa^\prime$ (es decir, cuando
+    tiene más puntos).
+\end{obs*}
+
+\begin{defi}
+    Dado un rectángulo compacto $A = I_1 \times \cdots \times I_n$, denominamos
+    una partición $\Pa$ de $A$ al resultado de hacer una partición $\Pa_j$ a cada
+    intervalo $I_j$.
+    La partición de $A$ viene representada por $\Pa = \Pa_1 \times \cdots \times
+    \Pa_n$ y expresa el rectángulo $A$ como unión de $N = (\abs{\Pa_1}-1) \times
+    \cdots \times (\abs{\Pa_n}-1)$ subrectángulos más pequeños.
+\end{defi}
+
+\begin{obs*}
+    Sean $A^\prime,A^{\prime\prime}\subset A$ rectángulos de la partición, entonces
+    $\mathring{A^\prime} \cap \mathring{A^{\prime\prime}} = \emptyset$
+\end{obs*}
+
+\begin{lema}
+    Si $A$ es un rectángulo, y $\Pa$ una partición de $A$, se tiene que
+    \[
+        \vol(A) = \sum_{R \in \Pa} \vol(R)
+    \]
+\end{lema}
+
+\begin{defi}
+    Dadas dos particiones $\Pa = \prod\limits^n_{j=1} \Pa_j$ y
+    $P^\prime = \prod\limits^n_{j=1} \Pa^\prime_j$ de un rectángulo $A$. Diremos
+    que la partición $P^\prime$ es más fina que $\Pa$ si cada $\Pa^\prime_j$ es más
+    fina que $\Pa_j$ (es decir, $P_j \subset P^\prime_j$ $\forall j \iff \Pa
+    \subset \Pa$).
+
+    Entonces, cada subrectángulo de $\Pa$ es unión de subrectángulos de
+    $\Pa^\prime$
+\end{defi}
+
+\begin{defi}
+    Sea $A \subset \real^n$ un rectángulo compacto y $f \colon A \to \real$ una
+    función acotada. Sea $\Pa$ una partición de $A$. Para cada subrectángulo $R$
+    de $\Pa$ escribimos
+    \[
+        m_R = \inf_{x \in R} f(x) \qquad M_R = \sup_{x \in R} g(x)
+    \]
+    Denominamos suma inferior y suma superior de $f$ respecto a $\Pa$ a los números
+    \[
+        s(f;\Pa) = \sum_R m_R\vol(R) \qquad S(f;\Pa) = \sum_R M_R\vol(R)
+    \]
+\end{defi}
+
+\begin{obs}
+    Sea $\Pa$ una partición de $A$
+    \[
+        m_A\vol(A) \leq s(f;\Pa) \leq S(f;\Pa) \leq M_A\vol(A)
+    \]
+\end{obs}
+\begin{obs}
+    Si $\Pa$ y $\Pa^\prime$ son dos particiones y $\Pa^\prime$ es más fina que
+    $\Pa$, entonces
+    \[
+        s(f;\Pa) \leq s(f;\Pa^\prime) \leq S(f;\Pa^\prime) \leq S(f;\Pa)
+    \]
+\end{obs}
+
+\begin{lema}
+    Si $\Pa$ y $\Pa^\prime$ son dos particiones de un rectángulo $A$, existe una
+    partición $\Pa^{\prime\prime}$ de $A$ que es más fina que $\Pa$ y que
+    $\Pa^\prime$.
+\end{lema}
+
+\begin{col}
+    Si $\Pa, \Pa^\prime$ son dos particiones de $A$, entonces,
+    $s(f;\Pa) \leq S(f;\Pa^\prime)$. Por lo tanto,
+    $\setb{s(f;\Pa) \vert \Pa \text{ partición de } A}$ está acotado superiormente
+    y $\setb{S(f;\Pa) \vert\Pa\text{ partición de } A}$ está acotado inferiormente.
+\end{col}
+
+\begin{defi}
+    Sea $A$ un rectángulo compacto y sea $f \colon A \to \real$ una función
+    acotada. Denominamos integral inferior e integral superior de $f$ en $A$ a los
+    números
+    \[
+        \underline{\int}_A f = \sup_{\Pa} s(f;\Pa) \qquad \text{y} \qquad
+        \overline{\int}_A f = \inf_{\Pa} S(f;\Pa)
+    \]
+    donde el supremo y el ínfimo se toman sobre el conjunto de todas las posibles
+    particiones $\Pa$ de $A$. Obviamente, $\underline{\int}_A f \leq
+    \overline{\int}_A f$.
+\end{defi}
+
+\begin{defi}
+    Diremos que una función $f$ acotada, es integrable en $A$ cuando sus integrales
+    inferior y superior coinciden. En este caso, su valor común se denomina
+    integral de Riemmand de $f$ en $A$ y se denota por
+    \[
+        \int_A f, \quad \int_A f(x) \dif^nx, \quad \int_A f(x_1,\dots,x_n)
+        \dif x_1 \cdots \dif x_n \quad \text{o} \quad \int_A f \dif V
+    \]
+    En el caso de $n=2$ o $n=3$ se habla de integral doble o integral triple
+    respectivamente, ya que es habitual poner dos o tres signos de integral para
+    representarlas.
+\end{defi}
+
+\begin{prop}[Criterio de Riemman]
+    Sea $A \subset \real^n$ un rectángulo compacto y $f \colon A \to \real$ una
+    función acotada. $f$ es integrable Riemman sii $\forall \varepsilon > 0$,
+    $\exists \Pa$ partición de $A$ tal que $S(f;\Pa)-s(f;\Pa) < \varepsilon$.
+\end{prop}
+\begin{proof}
+    Cálculo I
+\end{proof}
+
+\begin{example*}
+    \begin{itemize}
+        \item[]
+        \item Si $f \colon A \to \real$ constante, entonces  $f(x) = c$ y
+            $m_R = M_R = c$ $\forall R$
+            \[
+                s(f;\Pa) = \sum_R m_R \vol(R) = c \sum_R \vol(R)
+                = c\vol(A) = S(f;\Pa)
+            \]
+            Por lo tanto, $f$ es integrable Riemman, y además
+            \[
+                \int_A f = c\vol(a) \implies \int_A 1 = \vol(A)
+            \]
+        \item Consideramos la función $f \colon [0,1] \times [0,1] \to \real$
+            definida por $f(x,y) = \begin{cases}
+                0 \quad \text{si } x,y \in \q \\
+                1 \quad \text{En otro caso}
+            \end{cases}$, entonces, $m_R = 0$ y $M_R = \vol(R)$ para todo
+            $R$, y entonces
+            \[
+                \underline{\int}_A f = 0 \qquad
+                \overline{\int}_A f = \vol(A) = 1\times1 = 1
+            \]
+            Y por lo tanto, $f$ no es integrable Riemman.
+    \end{itemize}
+\end{example*}
+
+\begin{prop}[Linealidad]\label{prop:lin_int}
+    Sea $A$ un rectángulo compacto y $f,g \colon A \to \real$ integrables Riemman.
+    Entonces
+    \begin{enumerate}[i)]
+        \item $f+g$ es integrable Riemman y $\int_A (f+g) = \int_A f+\int_A g$.
+        \item Si $\lambda \in \real$, entonces $\lambda f$ es integrable
+            Riemman y $\int_A (\lambda f) = \lambda \int_A f$.
+    \end{enumerate}
+
+    Es decir, $\text{Rie}(A) = \setb{f \colon A \to \real \vert f \text{ integrable
+    Riemman}}$ es un $\real$-espacio vectorial y
+    \[
+        \begin{aligned}
+            \text{Rie}(A) &\to \real \\ f &\mapsto \int_A f
+        \end{aligned}
+    \]
+    es una forma lineal.
+\end{prop}
+\begin{proof}
+    \begin{enumerate}[i)]
+        \item Observamos que $\inf(f) + \inf(g) \leq \inf(f+g)$ y que
+            $\sup(f)+\sup(g) \geq \sup(f+g)$, y por lo tanto,
+            \[
+                m_R(f) + m_R(g) \leq m_R(f+g) \leq M_R(f+g) \leq
+                M_R(f) + M_R(g)
+            \]
+            Por lo tanto, para toda $\Pa$ partición de $A$
+            \[
+                s(f;\Pa) + s(g;\Pa) \leq s(f+g;\Pa) \leq S(f+g;\Pa)
+                \leq S(f;\Pa) + S(g;\Pa)
+            \]
+            Y por último
+            \[
+                \underline{\int}_A f + \underline{\int}_A g \leq
+                \underline{\int}_A f+g \leq \overline{\int}_A f+g \leq
+                \overline{\int}_A f + \overline{\int}_A g
+            \]
+            Como $f,g$ son integrables Riemman, $(f+g)$ tambi\item n lo es
+            y vale $\int_A f + \int_A g$
+        \item Suponemos que $\lambda > 0$, entonces,
+            \[
+                \inf (\lambda f) = \lambda \inf (f) \implies
+                \underline{\int}_A (\lambda f) = \lambda
+                \underline{\int}_A f
+            \]
+            Análogamente,
+            \[
+                \sup(\lambda f) = \lambda \sup(f) \implies
+                \overline{\int}_A (\lambda f) = \lambda
+                \overline{\int}_A f
+            \]
+            Y por lo tanto, $\int_A (\lambda f) = \lambda \int_A f$.
+            Y para demostrar el caso de $\lambda < 0$, usaremos que
+            $\int_A (-f) = - \int_A f$.
+    \end{enumerate}
+\end{proof}
+
+\begin{prop}[Positividad]\label{prop:pos_int}
+    Sea $f \colon A \to \real$ integrable Riemman. Si $f \geq 0$, entonces
+    $\int_A f \geq 0$.
+\end{prop}
+\begin{proof}
+    \[
+        f \geq 0 \implies s(f;\Pa) \geq 0 \implies \underline{\int}_A f \geq 0
+        \implies \int_A f \geq 0
+    \]
+\end{proof}
+
+\begin{col}
+    Sean $f,g \colon A \to \real$ integrables Riemman. Si $f \leq g$, entonces
+    \[
+        \int_A f \leq \int_A g
+    \]
+    Sean $m,M \in \real$ tales que $m < f(x) < M$ $\forall x \in A$. Entonces
+    $m\vol(A) \leq \int_A f \leq M\vol(A)$.
+\end{col}
+
+\begin{proof}
+    \[
+        f \leq g \implies g - f \geq 0 \stackrel{\ref{prop:pos_int}}{\implies}
+        \int_A (g-f) \geq 0 \stackrel{\ref{prop:lin_int}}{\implies} \int_A g -
+        \int_A f \geq 0 \implies \int_A g \geq \int_A f
+    \]
+\end{proof}
+
+\begin{prop}
+    Sea $A$ un rectángulo compacto, sea $f \colon A \to \real$ una función acotada,
+    sea $\Pa$ una partición de $A$ y $\xi = \left(\xi_k\right)$ una familia de
+    puntos $\xi_k \in R_k$, donde $R_k$ son los rectángulos de la partición. Se
+    define la suma de Riemman
+    \[
+        R(f,\Pa,\xi) = \sum_k f(\xi_k)\vol(R_k)
+    \]
+    Si $f$ es integrable Riemman entonces, en un sentido que habría que precisar,
+    $R(f,\Pa,\xi)$ se aproxima al valor de $\int_A f$ a medida que la malla de
+    $\Pa$ (el máximo de las longitudes de los costados de los rectángulos $R_k$ de
+    $\Pa$) tiende a 0.
+\end{prop}
+
+\section{Conjuntos de medida nula}
+
+\begin{defi}
+    Diremos que un subconjunto $T \subset \real^n$ tiene medida ($n$-dimensional)
+    cero o medida nula, si, $\forall \varepsilon > 0$ Se puede recubrir $T$ con
+    una familia numerable de rectángulos compactos tales que la suma de sus
+    medidas $n$-dimensionales sea $< \varepsilon$. En otras palabras, hay una
+    sucesión (finita o infinita) de rectángulos compactos $R_k$ tales que
+    \[
+        T \subset \bigcup_k R_k \quad \text{y} \quad \sum_k \vol(R_k) <
+        \varepsilon
+    \]
+\end{defi}
+\begin{obs*}
+    En la definición es irrelevante usar rectángulos compactos o retángulos
+    abiertos.
+\end{obs*}
+\begin{obs}
+    Todo conjunto finito tiene medida nula.\\
+    Si $T$ tiene medida nula, entonces todo $S \subset T$ tiene medida nula
+\end{obs}
+\begin{prop} \label{prop_2_2_3}
+    La reunión de una familia numerable de conjuntos de medida nula tiene
+    medida nula.
+\end{prop}
+\begin{proof}
+    Si $T = \bigcup\limits_{i \in \n} T_i$ donde $T_i$ tiene medida nula para todo
+    $i$. Recubrimos $T_i$ con rectángulos compactos $R_{ik}$ ($k \in \n$) tal que
+    $\sum\limits_k \vol(R_{ik}) < \frac{\varepsilon}{2^{i+1}}$. Entonces,
+    $T = \bigcup\limits_{i,k} R_{ik}$ y
+    \[
+        \sum_{i,k} \vol(R_{i,k}) = \sum_i \left( \sum_k \vol(R_{i,k}) \right) <
+        \sum_i \frac{\varepsilon}{2^{i+1}} = \varepsilon
+    \]
+\end{proof}
+
+\begin{col*}
+    Todo conjunto numerable tiene medida nula
+\end{col*}
+
+\begin{example*}
+    \begin{itemize}
+        \item[]
+        \item $\begin{rcases} \z \subset \real \\ \q \subset \real\end{rcases}$
+            Son conjuntos de medida nula, porque son numerables
+        \item El conjunto de Cantor $K \subset \real$ tiene medida nula, pero
+            no es numerable.
+        \item En $\real^3$, $T = [0,1]\times[0,1]\times\{0\}$, tiene medida
+            nula, ya que
+            \[
+                T \subset [0,1] \times [0,1] \times
+                \left[\frac{\varepsilon}{2},\frac{\varepsilon}{2}
+                \right] (\vol(R)=\varepsilon) \implies
+                \real^2\times\{0\}
+            \]
+            Ya que
+            \[
+                \real^2 \times \{0\} = \bigcup_{(k,l) \in \z^2}
+                [k,k+1] \times [l,l+1] \times \{0\}
+            \]
+
+            (unión numerable de $R$ con medida nula).
+        \item Si $a < b$, entonces $[a,b] \subset \real$ no tiene medida nula.
+    \end{itemize}
+\end{example*}
+\begin{col}
+    Dentro de $\real^n$, el subespacio, $\real^m \times \{0\} \subset \real^n$
+    tiene medida nula.
+\end{col}
+
+\begin{defi}
+    Diremos que un subconjunto $A \subset \real^n$ tiene contenido
+    ($n$-dimensional) cero o contenido nulo, si $\forall \varepsilon > 0$, hay un
+    recubrimiento finito de $A$ por rectángulos compactos $R_i$ tal que
+    \[
+        \sum \vol(R_i) < \varepsilon
+    \]
+\end{defi}
+\begin{obs*}
+    En la definición, se pueden substituir los rectángulos compactos por
+    rectángulos abiertos.
+\end{obs*}
+\begin{obs*}
+    Un conjunto de contenido cero, tiene medida cero.
+\end{obs*}
+\begin{obs*}
+    Que un conjunto tenga medida cero, no implica que tenga contenido cero.
+\end{obs*}
+
+\begin{prop}
+    Si $A \subset \real^n$ es compacto y tiene medida cero, entoces tiene contenido
+    cero.
+\end{prop}
+\begin{proof}
+    Sea $\varepsilon > 0$, existe una sucesión $(R_i)$ de rectángulos abiertos tal
+    que
+    \[
+        A \subset \bigcup_i R_i \qquad \qquad \sum_i \vol(R_i) < \varepsilon
+    \]
+    Como $A$ es compacto, un número finito de los $R_i$ recubren $A$ (condición
+    de Heine-Borel de compacto) y la suma de sus volúmenes es $< \varepsilon$.
+\end{proof}
+
+\begin{lema}
+    Si $a < b$, $[a,b] \subset \real$ no tiene contenido cero. Más precisamente,
+    sea $\{R_1,\dots,R_n\}$ un recubrimiento de $[a,b]$ por intervalos compactos.
+    Entonces, $\sum\limits^{n}_{i=1} \text{long}(R_i) \geq b-a$
+\end{lema}
+\begin{proof}
+    Hacemos inducción sobre $n$. Si $n = 1$, el resultado es trivial. Ahora,
+    suponemos cierto el resultado anterior para $n$ y consideramos
+    $\{R_1,\dots,R_{n+1}\}$ un recubrimiento de $[a,b]$ por intervalos compactos.
+    Podemos suponer, sin p\'erdida de generalidad, que $a \in R_1$, por tanto,
+    $R_1 = [\alpha,\beta]$ donde $\alpha \leq a \leq \beta$. Ahora, hay dos
+    opciones. Si $\beta \geq b$, entonces $\text{long}(R_1) \geq b - a$ y ya está.
+    Si $\beta< b$, entonces, $[\beta,b]$ está recubierto por$\{R_2,\dots,R_{n+1}\}$
+    y por hipótesis de inducción $\sum\limits^{n+1}_{i=2} \text{long}(R_i) \geq
+    b - \beta$. Por tanto, $\sum\limits^{n+1}_{i=1} \text{long}(R_i) \geq
+    (\beta - a) + (b - \beta) = b - a$.
+\end{proof}
+\begin{col*}
+    Si $a < b$, $[a,b]\subset \real$, no tiene medida nula.
+\end{col*}
+\begin{obs*}
+    De la misma manera, un rectángulo compacto no degenerado de $\real^n$ no
+    tiene medida nula.
+\end{obs*}
+\begin{col*}
+    Si un conjunto $A \subset \real^n$ tiene un punto interior, entonces, no tiene
+    medida nula.
+\end{col*}
+
+\begin{obs}
+    Un conjunto de contenido nulo es, necesariamente, acotado. Pero hay conjuntos
+    acotados de medida nula, que no son de contenido nulo.
+\end{obs}
+\begin{prop}
+    Sea $D\subset \real ^{n-1}$ acotado, $f\colon D \to \real$ uniformemente contínua.
+    El grafo de $f$, $\graf \left( f \right) = \left\{ \left( x, f \left(
+    x \right) \right) | x \in D \right\}$, tiene medida nula.
+\end{prop}
+\begin{proof}
+    Sea $\varepsilon > 0$. Sea $R \supset D $ un rectángulo compacto de volumen
+    $\left| R \right|$.
+    \[
+        \exists \delta > 0 \; \tq \; d\left( x, y \right) < \delta \implies d\left(
+        f\left( x \right), f\left( y \right) \right) < \frac{\varepsilon}{\left|
+        R \right|}.
+    \]
+    Partimos ahora $R$ en subrectángulos compactos $I_k$ suficientemente pequeños
+    como para que cada uno de ellos esté contenido en una bola de radio
+    $\frac{\delta}{2}$. Entonces, $f\left( I_k \right) \subset J_k$, siendo
+    $J_k$ un intervalo compacto de longitud menor o igual a
+    $\frac{\varepsilon}{\left| R \right|}$. Además, $\graf \left( f \right)
+    \subset \bigcup_k I_k \times J_k $. Finalmente,
+    \[
+        \sum_k \vol \left( I_k \times J_k \right) = \sum_k \vol \left( I_k \right)
+        \cdot \vol \left( J_K \right) \leq \sum_k \vol \left( I_k \right) \cdot
+        \frac{\varepsilon}{\left| R \right|} = \varepsilon.
+    \]
+\end{proof}
+\begin{col*}
+    Si $D \subset \real ^{n-1}$ es compacto y $f\colon D \to \real$ contínua,
+    $\graf \left( f \right) \subset \real^n$ tiene medida nula.
+\end{col*}
+\begin{col*}
+    Si $D \subset \real ^{n-1}$ es abierto y $f\colon D \to \real$ contínua,
+    $\graf \left( f \right) \subset \real^n$ tiene medida nula.
+\end{col*}
+\begin{proof}
+    Cualquier punto de $D$ está contenido en una bola cerrada (que es un conjunto
+    compacto) de centro en coordenadas racionales y radio racional. Además, como el
+    conjunto de bolas de centro en coordenadas racionales y radio racional es
+    el producto cartesiano de conjuntos numerables, es a su vez numerable. Así pues,
+    $D$ es la unión numerable de conjuntos compactos, sean estos $K_i$. Entonces,
+    $\graf \left( f \right) \subset \bigcup_{i\in \n} \graf \left( f_{|K_i} \right)$.
+    Finalmente, por el corolario anterior y la proposición \ref{prop_2_2_3},
+    $\graf \left( f \right) $ tiene medida nula.
+
+\end{proof}
+\begin{defi}
+    Diremos que un \textit{cuadrado} es un rectángulo cuyos lados tienen la misma
+    longitud.
+\end{defi}
+\begin{prop*}
+    Sea $Q$ un cuadrado en $\real ^n$. Si la longitud de su lado es $l$, su volumen
+    es $l^n$ i su diámetro (en la norma euclideana de $\real^n$) es $l\sqrt{n}$.
+\end{prop*}
+\begin{prop}
+    Sea $Z \subset \real^n$ de medida nula. Para toda $\varepsilon >0$ existe una
+    familia numerable de cuadrados compactos $Q_k$ tales que $Z\subset
+    \bigcup_{k \in \n} Q_k$ y $\sum_{k \in \n} \vol \left( Q_k \right) <
+    \varepsilon$.
+\end{prop}
+\begin{lema}
+    Sean $A\subset \real^n$ un rectángulo compacto y $f\colon A \to \real^n$ una
+    función lipschitziana. Si $Z \subset A$ tiene medida nula, $f\left(Z \right)$
+    tiene medida nula.
+\end{lema}
+\begin{proof}
+    Más adelante.
+\end{proof}
+\begin{prop}
+    Sea $f \colon U \to \real^n$ de clase $\C ^1$ en un conjunto abierto $U \subset
+    \real ^n$. Si $Z \subset U$ tiene medida nula, $f\left( Z \right) $ tiene
+    medida nula.\\
+    El resultado es falso si $f$ es solamente $\C ^0$. Un ejemplo de esto es la
+    curva de Peano.
+\end{prop}
+\begin{proof}
+    Más adelante.
+\end{proof}
+\begin{col}
+    Toda subvariedad $M \subset \real^n$ de clase $C^1$ de dimensión $m<n$ tiene
+    medida nula.
+\end{col}
+
+\section{El Teorema de Lebesgue}
+\begin{defi}
+    Sean $X$ un espacio métrico y $f\colon X \to \real$. Llamamos
+    \textit{oscilación} de $f$ sobre $E \subset X$ a
+    \[
+        \omega\left( f, E \right) := \sup_{x, y \in E} \left| f\left( x\right) -
+        f\left( y\right)\right|.
+    \]
+    También se llama a este valor diámetro de $f\left( E\right) \in \left[
+    0, +\infty \right]$. $\omega\left( f, E \right)$ es zero si y solo si $f_{|E}$ es
+    constante y $+\infty$ si y solo si $f_{|E}$ no es acotada.
+\end{defi}
+\begin{obs}
+    $E \subset E^{\prime} \implies \omega\left( f, E\right) \leq \omega\left( f, E^{
+    \prime}\right)$.
+\end{obs}
+\begin{lema}
+    Si $f\colon E \to \real$ es acotada, $\omega \left( f, E \right)= \sup_{x\in E}
+    f\left( x\right) - \inf_{x\in E} f\left( x\right)$.
+\end{lema}
+\begin{defi}
+    Sean $f\colon X \to \real$, $a\in X$. Llamamos oscilación de $f$ en $a$ a
+    \[
+        \omega\left( f, a\right) := \lim_{r\to 0} \omega\left( f, B\left( a, r
+        \right) \right).
+    \]
+\end{defi}
+\begin{obs*}
+    \[
+        \omega\left( f, a\right) = \inf_{r>0} \omega\left( f, B\left(
+        a, r\right) \right).
+    \]
+\end{obs*}
+\begin{lema}
+    \[
+        f\colon X \to \real \text{  es contínua en $a$} \iff \omega\left( f, a\right)
+        = 0.
+    \]
+\end{lema}
+\begin{proof}
+    $\implies$ \\
+    Supongamos que $f$ es contínua en $a$. Entonces,
+    \[
+        \forall \varepsilon > 0, \exists \delta > 0 \; \tq \; d\left(x, a \right)
+        <\delta \implies \left| f\left(x \right) - f\left( a \right) \right|
+        < \varepsilon.
+    \]
+    Sean $x, y \in B\left( x, \delta \right)$. Tenemos que
+    \[
+        \begin{gathered}
+            \left| f\left(x \right) - f\left( y \right) \right| \leq
+            \left| f\left(x \right) - f\left( a \right) \right| +
+            \left| f\left(a \right) - f\left( y \right) \right| \leq 2\varepsilon
+            \implies \\
+            \implies \omega\left( f, B\left( a, \delta \right) \right) \leq
+            2\varepsilon \implies \omega \left( f, a \right) =0.
+        \end{gathered}
+    \] \\
+    $\impliedby$ \\
+    Supongamos $\omega \left( f, a \right) = 0$. Sea $\varepsilon > 0, \exists \delta > 0 \tq \omega \left( f, \text{B}\left(a, \delta \right) \right) < \varepsilon$. Per tant, $|f(x) - f(a)| < \varepsilon$ si $\text{d}\left( x, a \right) < \delta \implies f$ continua en a.
+\end{proof}
+\begin{example*}
+    Sea $f: \real \to \real$
+    \begin{enumerate}
+        \item $f(x) = \begin{cases}
+            \frac{1}{x} & \text{si } x \neq 0 \\
+            0 & \text{si } x = 0
+            \end{cases}$ \\
+            $\omega \left( f, 0 \right) = \lim_{r \to 0} \omega \left( f, \text{B} \left( 0, r \right) \right) = \infty \implies f$ no es continua en $x = 0$.
+        \item $f(x) = \begin{cases}
+            \sin \frac{1}{x} & \text{si } x \neq 0 \\
+            0 & \text{si } x = 0
+            \end{cases}$ \\
+            $\omega \left( f, 0 \right) = \lim_{r \to 0} \omega \left( f, \text{B} \left( 0, r \right) \right) = 2 \implies f$ no es continua en $x = 0$.
+    \end{enumerate}
+\end{example*}
+\begin{lema} \label{lema:2.3.6}
+    Sea $a \tq \omega \left( f, a \right) < c. \exists \delta \tq \omega \left( f, \text{B}(a, \delta \right) < c.$
+\end{lema}
+\begin{proof}
+    Por contrarecíproco. $\forall \delta \omega \left( f, \text{B} \left( a, \delta \right) \right) \geq c \implies \omega \left( f, a \right) \geq c$. Contradicción.
+\end{proof}
+\begin{prop}
+    Sea $X$ un espacio métrico, $f : X \to \real$. El conjunto $a = \{ x \in X | \omega \left( f, x \right) < c \}$ es abierto.
+\end{prop}
+\begin{proof}
+    Sea $a \in A \tq \omega \left( f, a \right) < c, c > 0$. Por el lema \ref{lema:2.3.6} $\exists \delta \tq \omega \left( f, \text{B} \left( a, \delta \right) \right) < c$. \\
+    Sea $b \in \text{B} \lp a, \delta \rp, \exists \delta' \tq \text{B} \lp b, \delta' \rp \subset \text{B} \lp a, \delta \rp$.
+    \[
+    \omega \lp f, \text{B} \lp b, \delta' \rp \rp \leq \omega \lp f, \text{B} \lp a, \delta \rp \rp < c \stackrel{\ref{lema:2.3.6}}{\implies} \omega \lp f, b \rp < c
+    \]
+    Por tanto, $b \in A$ i B$\lp a, \delta \rp \subset A \implies a$ es un punto interior de $A \implies A$ es abierto.
+\end{proof}
+\begin{col*}
+    Si $X$ es compacto, $\{x \in X | \omega \lp f, x \rp \geq c\}$ es compacto.
+\end{col*}
+\begin{proof}
+    Todo conjunto cerrado de un espacio compacto es compacto.
+\end{proof}
+\begin{lema}\label{lema:teo_lebesgue}
+    Sea $A \subset \real^n$ rectángulo compacto. Sean $T_1, \dots, T_n \subset A$ rectángulos compactos $\tq A = \bigcup_{i=1}^n T_i$. Existe una partición $\Pa$ de $A$ t.q. para cada subrectángulo $R$ de $\Pa$, existe un $i$ t.q. $R \subset T_i$.
+\end{lema}
+\begin{proof}
+    $A = I_1 \times \dots \times I_k \times \dots \times I_n \implies \Pa = \Pa_1 \times \dots \times \Pa_n$ cada
+    \[ \Pa_k = \{x_0 = a, x_{1^-}, x_{1^+}, \dots, x_{i^-}, x_{i^+}, \dots, x_{n^-}, x_{n^+}, b\}, \]
+    donde $x_{i^-}, x_{i^+}$ son los extremos inferiores y superiores (respectivamente) de $T_i$. Por construcción, $R \subseteq T_i$.
+\end{proof}
+\begin{lema*}\label{lema:uno_lebesgue}
+    Sea $A \subseteq \real^n$ rectángulo compacto, $f : A \to \real, f$ fitada. Suposem $\forall x  \in A, \omega \lp f, x \rp < \varepsilon$. Entonces existe una partición $\Pa$ de $A \tq S \lp f, \Pa \rp - s \lp f, \Pa \rp < \varepsilon \vol \lp A \rp$.
+\end{lema*}
+\begin{proof}
+    Sea $x \in A$, existe un rectángulo compacto $R_x \subset A \tq x \in \mathring{R}_x$ (interior relativo a $A$) i $\omega \lp f, R_x \rp = M_{R_x} - m_{R_x} < \varepsilon$. \\
+    Sean $R_{x_i}$ un conjunto finito de los $R_x$ que recubren $A$. Sea $\Pa$ una partición de $A \tq$ cada subrectángulo de $\Pa$ esté dentro de uno de los $R_{x_i}$, para cada cada subrectángulo $R$ de $\Pa$, $M_R - m_R < varepsilon$. Enonces,
+    \[ S \lp f,\Pa \rp = s \lp f,\Pa \rp = \sum_{R \in \Pa} (M_R - m_r) \vol \lp R \rp < \varepsilon \sum_{R \in \Pa} vol \lp R \rp = \varepsilon \vol \lp A \rp. \]
+\end{proof}
+\begin{col*}
+    $f$ continua $\implies f$ integrable Riemann (ya que $f$ continua $\implies \forall x \omega \lp f, x \rp = 0$).
+\end{col*}
+\begin{lema*}[2]\label{lema:dos_lebesgue}
+    Sean $A \subset \real^n$ rectángulo compacto, $f : A \to \real$ fitada, $c > 0$. Si $f$ es integrable Riemann, el conjunto $B_c = \{x \in A | \omega \lp f, x \rp \geq c\}$ tiene mesura nula.
+\end{lema*}
+\begin{proof}
+    Sea $\varepsilon > 0$, aplicando el criterio de Riemann, existe una partición $\Pa$ de $A \tq S \lp f, \Pa \rp - s \lp f, \Pa \rp < c\varepsilon$. \\
+    Observamos que
+    \[
+        A = A_1 \cup A_2 \qquad A_1 = \bigcup_{R \in \Pa} \mathring{R}
+    \]
+    $A_2$ tiene medida nula por ser unión finita de subconjuntos de subespacios de
+    $\dim < n$. Ahora, separamos los subrectángulos de $\Pa$ en dos clases
+    \begin{itemize}
+        \item $\Pa^\prime$ subrectángulos $R$ tal que $B_c$ corta a $R \implies$ en
+            todos ellos, $M_R - m_r \geq c$.
+        \item $\Pa^{\prime\prime}$ el resto.
+    \end{itemize}
+    Tenemos
+    \begin{gather*}
+        c \sum_{R \in \Pa^\prime}\vol\left( R \right) \leq
+        \sum_{R \in \Pa^\prime}\left( M_R - m_R \right) \vol\left( R \right) \leq
+        \sum_{R \in \Pa} \left( M_R -m_R \right)\vol \left( R \right) =\\=
+        S(f, \Pa) - s(f, \Pa) < c\varepsilon \implies \sum_{R \in \Pa^\prime}
+        \vol\left( R \right) < \varepsilon
+    \end{gather*}
+    Así pues, hemos recubierto $B_c \cap A_1$ con un número finito de rectángulos de
+    volumenes $< \varepsilon$. Tambi\'en podemos hacerlo con $B_c \cap A_2$, ya que
+    tiene medida nula $\implies$ podemos recorrer $B_c$ con rectángulos de volumenes
+    $< 2\varepsilon \implies B_c$ tiene medida nula.
+\end{proof}
+
+\begin{defi*}
+    Sea $f \colon A \to R$. Definimos discontinuidad de $f$ como
+    \[
+        \disc\left( f \right) = \setb{x \in A \vert x \text{ no es continua en }A}.
+    \]
+\end{defi*}
+
+\begin{teo}[de Lebesgue]
+    Sean $A \subseteq \real^n$ un rectángulo compacto, $f \colon A \to \real$ una
+    función acotada. $f$ es integrable Riemman en $A$ si y solo si
+    $\disc\left( f \right)$ tiene medida nula.
+\end{teo}
+
+\begin{proof}
+    Por comodidad, llamaremos $B = \disc\left( f \right)$ y $B_c = \setb{x \in A
+    \vert \omega\left( f, x \right) \geq c}$.
+
+    \bimplies
+
+    Sea $f$ integrable Riemman en $A$. Observamos que
+    \[
+        B = \bigcup_{k \geq 1} B_{\sfrac{1}{k}}
+    \]
+    por el lema \hyperref[lema:dos_lebesgue]{2}, $B_{\sfrac{1}{k}}$ tienen medida
+    nula. Como es una unión numerable, $B$ tiene medida nula.
+
+    \bimpliedby
+
+    Suponemos que $B$ tiene medida nula. Sea $\varepsilon > 0$ y $B_\varepsilon
+    \subset B$, que tiene medida nula y es compacto, por el lema
+    \hyperref[lema:dos_lebesgue]{2}, por lo tanto, tiene contenido nulo y, por lo
+    tanto, existen rectángulos compactos $T_1, \dots, T_N \subset A$ tales que
+    \[
+        B_\varepsilon = \bigcup_{i = 1}{N} T_i \qquad
+        \sum_{i=1}{N}\vol\left( T_i \right) < \varepsilon
+    \]
+    Sea $\Pa$ una partición de $A$. Separamos los subrectángulos $R$ en los
+    siguientes tipos
+    \begin{itemize}
+        \item $R_1$: $R$ está dentro de algún $T_i$
+        \item $R_2$: el resto.
+    \end{itemize}
+
+    Tenemos ahora que
+    \[
+        \sum_{R \in R_1}\left( M_R - m_R \right)\vol\left( R \right) \leq
+        \left( M_A -m_A \right)\sum^{N}_{i=1} \vol\left( T_i \right) <
+        \left( M_A - m_A \right) \varepsilon
+    \]
+    Ahora, si $R \in R_2$, entonces $R$ no conta a $B_\varepsilon$, por lo tanto,
+    $w(f,x) < \varepsilon$ $\forall x \in R$, por el lema
+    \hyperref[lema:uno_lebesgue]{1}, existe una partición $\Pa_R$ de $R$ tal que
+    $S\left( f, \Pa_R \right) - s\left( f, \Pa_R \right) < \varepsilon
+    \vol \left( R \right)$.
+
+    Podemos refinar $\Pa$ a una partición $\Pa^\prime$ tal que todos sus
+    subrectángulos, est\'en dentro de los subrectángulos de $\Pa_R$ (por el lema
+    \hyperref[lema:teo_lebesgue]{teórico})
+    \begin{gather*}
+        S\left( f, \Pa^\prime \right) - s\left( f, \Pa^\prime \right) =
+        \sum_{R^\prime \in R_1} \left( M_{R^\prime} - m_{R^\prime} \right)
+        \vol \left( R^\prime \right) + \sum_{R^\prime \in R_2}
+        \left( M_{R^\prime} - m_{R^\prime}\right) \vol\left( R^\prime \right)
+        < \\ < \left( M_A - m_A \right)\varepsilon + \sum_{R^\prime \in R_2}
+        \varepsilon \vol\left( R^\prime \right) = \varepsilon \left(
+        \left( M_A - m_A \right) + \vol \left( A \right)\right)
+    \end{gather*}
+    Teniendo en cuenta que
+    \[
+        \sum_{R \in R_2} \sum_{R^\prime \in R} \left( M_{R^\prime} -
+        m_{R^\prime}\right) \vol\left( R^\prime \right) < \sum_{R \in R_2}
+        \varepsilon \vol\left( R \right)
+    \]
+    Ahora, tan solo queda obervar que $\varepsilon \left( \left( M_A - m_A \right)
+    + \vol \left( A \right)\right)$ lo podemos hacer tan pequeño como queramos.
+\end{proof}
+
+\begin{defi}
+    Una propiedad que se satisface para todos los puntos de un conjunto $A$,
+    excepto en un conjunto $N \subset A$ de medida nula, se dice que se satisface
+    casi para todo.
+\end{defi}
+
+\begin{prop}
+    Toda función $f \colon A \to \real$ continua sobre un rectángulo compacto es
+    integrable.
+\end{prop}
+
+\section{Integral de Riemman sobre conjuntos más generales}
+
+ \begin{defi}
+    Un subconjunto $C \subset \real^n$ se dice que es admisible si es acotado y $\fr(C)$ es de medida nula.
+ \end{defi}
+ \begin{obs}
+    Sea $X$ un espacio métrico, $C \subset X \colon \fr(C) = \overline{C} \setminus \mathring{C} = \overline{C} \cap \overline{\lp X \setminus C \rp} = X \setminus \lp \inte(C) \cup \ext(C) \rp$ y $X = \inte(C) \cup \fr(C) \cup \ext(C)$.
+ \end{obs}
+ \begin{lema}
+    \begin{enumerate}[(1)]
+        \item[]
+        \item $\fr \lp A\cup A' \rp, \fr \lp A\cap A' \rp, \fr \lp A\setminus A' \rp \subset \fr(A)\cup\fr(A')$.
+        \item $A \subset X$, $B \subset Y \implies \fr \lp A \times B\rp = \lp \fr(A)\times \overline{B} \rp \cup \lp \overline{A} \times \fr(B) \rp$.
+    \end{enumerate}
+\end{lema}
+\begin{col}
+    \begin{enumerate}[(1)]
+        \item[]
+        \item $A$, $A' \subset \real^n$ admisibles $\Longrightarrow A\cup A'$, $A\cap A'$ i $A\setminus A'$ son admisibles.
+        \item $A \subset \real^m, B \subset \real^n$ son admisibles $\implies A\times B \subset \real^{m+n}$ es admisible.
+    \end{enumerate}
+\end{col}
+
+\begin{example}
+    \begin{enumerate}[(1)] \item[]
+        \item Los rectángulos compactos y los rectángulos abiertos acotados son admisibles.
+        \item Las bolas euclideanas son admisibles.
+        \item Existen conjuntos de medida nula que no son admisibles. Por ejemplo, $A=\q \cap \lp 0, 1 \rp$.
+        \item Existen conjuntos abiertos y acotados que no son admisibles.
+        \item Existen conjuntos compactos que no son admisibles.
+    \end{enumerate}
+\end{example}
+
+\begin{defi}
+    Sea $X$ un espaci métrico, y sea $C\subset X$. Definimos la función característica de $C$ como
+    \begin{align}
+        \chi_C \colon X &\to \real \\
+        x &\mapsto \chi_C \lp x \rp = \begin{cases} 1 \text{ si } x \in C \\ 0 \text{ si } x \notin C \end{cases}
+    \end{align}
+\end{defi}
+
+\begin{lema}
+    Sea $X$ un espacio métrico, sea $C \in X$ y sea $\chi_C$ si función característica.
+    \[
+        \disc \lp \chi_C \rp = \fr \lp C \rp
+    \]
+\end{lema}
+\begin{proof}
+    \begin{itemize} \item[]
+        \item $\ext \lp C \rp$
+            \[
+                \forall a \in \ext \lp C \rp, \, \exists r > 0 \tq \chi_C \lp x \rp = 0 \; \forall x \in B \lp a, r \rp \implies \chi_C \text{ es continua en } \ext \lp C \rp .
+            \]
+        \item $\inte \lp C \rp$
+            \[
+                \forall a \in \inte \lp C \rp, \, \exists r > 0 \tq \chi_C \lp x \rp = 1 \; \forall x \in B \lp a, r \rp \implies \chi_C \text{ es continua en } \inte \lp C \rp .
+            \]
+        \item $\fr \lp C \rp$
+            \begin{gather*}
+                \forall a \in \fr \lp C \rp , \; \forall r > 0, \; \exists x \in B \lp a, r \rp \tq \chi_C \lp x \rp = 1 \text{ y } \\ \exists y \in B \lp a, r \rp \tq \chi_C \lp y \rp = 0 \implies a \in \disc \lp \chi_C \rp.
+            \end{gather*}
+    \end{itemize}
+\end{proof}
+
+\begin{col}
+    Sea $C \subset \real^n$ acotado.
+    \[
+        C \text{ es admisible } \iff \begin{cases} C \text{ es acotado } \\ \forall \text{ rect. compacto } R \supset C \text{ existe la integral de Riemann } \int_R \chi_C \end{cases}
+    \]
+\end{col}
+
+\begin{proof}
+    \begin{gather*}
+        C \text{ es admisible } \iff \left\{ \begin{array}{c}
+            C \text{ es acotado } \\
+            \fr \lp C \rp \text{ tiene medida nula }
+        \end{array} \right\} \iff \\
+            \iff \left\{ \begin{array}{c}
+            C \text{ es acotado } \\
+            \disc \lp \chi_C \rp \text{ tiene medida nula }
+        \end{array} \right\} \iff \\
+        \iff \left\{ \begin{array}{c}
+            C \text{ es acotado } \\
+            \disc \lp \lp \chi_C \rp _{|R} \rp \text{ tiene medida nula, } \forall R\supset C \text{ rectángulo compacto}
+        \end{array} \right\} \iff \\
+        \iff \left\{ \begin{array}{c}
+            C \text{ es acotado } \\
+            \forall \text{ rect. compacto } R \supset C \text{ existe la integral de Riemann } \int_R \chi_C
+        \end{array} \right\}.
+    \end{gather*}
+\end{proof}
+\begin{lema} \label{lema_2_4_9}
+    Sea $X$ un espacio métrico, sea $E \subset X$ y sea $g \colon E \to \real$. Sea $\tilde{g} \colon X \to \real$ la extensión de $g$ definida por
+    \[
+        \tilde{g} \lp x \rp = \begin{cases} g \lp x \rp \text{ si } x \in E \\ 0 \text{ si } x \notin E \end{cases}
+    \]
+    Entonces, $\disc \lp g \rp \subseteq \disc \lp \tilde{g} \rp \subseteq \disc \lp g \rp \cup \fr \lp E \rp$.
+\end{lema}
+\begin{proof}
+    \begin{itemize} \item[]
+        \item $\forall x \in \ext \lp E \rp, \; \tilde{g}$ es continua en $x$.
+        \item $\forall x \in \inte \lp E \rp, \; \tilde{g}$ es continua en $x \iff g$ es continua en $x $.
+        \item $\forall x \in \fr \lp E \rp, \; \tilde{g}$ es continua en $x \implies g$ es continua en $x $.
+    \end{itemize}
+\end{proof}
+\begin{defi}
+    Sea $C \subset \real^n$ un conjunto admisible, sea $f \colon C \to \real$ una función acotada y sea $R \supset C$ un rectángulo compacto. Definimos la extensión de $f$ a todo $R$ como
+    \begin{align*}
+        f \chi_C \colon R &\to \real \\
+        x &\mapsto f \chi_C \lp x \rp = \begin{cases} f \lp x \rp \text{ si } x \in C \\ 0 \text{ si } x \notin C \end{cases}
+    \end{align*}
+\end{defi}
+
+\begin{lema}
+    Sea $C \subset \real^n$ un conjunto admisible, sea $f \colon C \to \real$ una función acotada y sea $R \supset C$ un rectángulo compacto.
+    \[
+        f \chi_C \text{ es integrable Riemann en } R \iff \disc \lp f \rp \text{ tiene medida nula}.
+    \]
+\end{lema}
+
+\begin{proof}
+    Inmediata del lema \ref{lema_2_4_9} y del teorema de Lebesgue.
+\end{proof}
+
+\begin{lema}
+    Sea $C \subset \real^n$ un conjunto admisible, sea $f \colon C \to \real$ una función acotada y sean $R, R^{\prime} \supset C$ rectángulos compactos.
+    \[
+        \int_R f \chi_C = \int_{R^{\prime}} f \chi_C.
+    \]
+\end{lema}
+
+% A PARTIR D'AQUI RAUL
+\section{Propiedades de la integral}
+
+\begin{prop}[Linealidad i positividad]
+    Sea $E \subset \real^n$ mesurable Jordan. El conjunto $\rie(E)$ de funciones integrables Riemann en $E$ es un $\real$-espacio vectorial, y la integral:
+    \begin{align*}
+        \rie(E) &\to \real & \text{es una forma lineal positiva.} \\
+        f &\mapsto \int_E f & \lp f \geq 0 \to \int_E f \geq 0 \rp
+    \end{align*}
+\end{prop}
+
+\begin{proof}
+    Consecuencia de las mismas propiedades para un rectangulo compacto $A \supset E$.
+\end{proof}
+
+\begin{col}[Monotonía]
+    \[
+    f \leq g \Longrightarrow \int_E f \leq \int_E g.
+    \]
+\end{col}
+
+\begin{defi}
+    Sea $E$ mesurable Jordan, el valor medio de $f : E \to \real $:
+    \[
+    <f> := \frac{\int_E f}{\int_E 1} = \frac{1}{\vol(E)} \int_E f, \qquad \lp \vol(E) \neq 0 \rp.
+    \]
+\end{defi}
+
+\begin{teo}[del valor medio]
+    Si $m \leq f \leq M$:
+    \[
+    m \lp \vol(E) \rp \leq \int_E f \leq M \lp \vol(E) \rp.
+    \]
+\end{teo}
+
+\begin{proof}
+    Consecuencia de las últimas proposiciones.
+\end{proof}
+
+\begin{col}
+    \[
+    \vol(E) = 0 \Longrightarrow \int_E f = 0.
+    \]
+\end{col}
+
+\begin{teo}[del valor medio (alternativo)]
+    Sea $E$ mesurable Jordan y connexo; $f : E \to \real$ fitada y continua. Existe $x_o \in E$ tal que:
+    \[
+    \int_E f = f(x_o) \vol(E), \qquad \lp <f> = f(x_o) \rp
+    \]
+\end{teo}
+
+\begin{prop}
+    Sea $E \subset \real^n$ mesurable Jordan, $f : E \to \real$ integrable Riemann, $h : f(E) \to \real$ continua. Entonces $h \circ f$ es integrable Riemann.
+\end{prop}
+
+\begin{proof}
+    $\disc(h \circ f) \subset \disc(f)$ (medida nula) y teorema de Lebesgue.
+\end{proof}
+
+\begin{obs*}
+    $f,h$ integrables Riemann no implica $h \circ f$ integrable Riemann.
+\end{obs*}
+
+
+% A PARTIR D'AQUI OSCAR
+
+\section{El teorema de Fubini}
+
+\begin{lema*}
+    Siguin $B_i \subset \real \lp i\in I\rp$ no vacios i fitados inferiormente, $B = \bigcup_{i\in I} B_i$. Entonces
+    \[ \inf B = \inf\left\{\inf B_i | i\in I\right\}.\]
+\end{lema*}
+\begin{proof}
+    Ejercicio 2. Indicación: $B \colon \left\{ \inf B_i | i\in I\right\}$ tienen las mismas fitas inferiores.
+\end{proof}
+\begin{lema}\label{lema:2_6_1}
+    Sean $R, S$ conjuntos no vacios, $f \colon R\times S \to \real$ fitada inferiormente. Entonces
+    \[ \inf_{\lp x,y\rp\in R\times S} f\lp x,y\rp = \inf_{x\in R}\inf_{y\in S} f\lp x,y\rp. \]
+\end{lema}
+\begin{proof}
+    \begin{gather*}
+        R\times S = \bigcup_{x\in R} \lp \left\{x\right\}\times S\rp \implies f\lp R\times S\rp = \bigcup_{x\in R} f\lp\left\{ x\right\} \times S\rp \substack{\text{Lema}\\ \implies\\ \text{anterior}} \inf f\lp R\times S \rp = \\ = \inf \bigcup_{x\in R} f\lp \left\{x\right\} \times S\rp = \inf \inf_{x\in R} f\lp \left\{x\right\} \times S\rp \implies \inf_{\lp x,y\rp \in R\times S} f\lp x,y\rp = \inf_{x\in R} \inf_{y\in S} f\lp x,y\rp.
+    \end{gather*}
+\end{proof}
+\begin{lema}\label{lema:2_6_2}
+    Sean $g_j \colon R \to \real$ una familia de funciones fitadas inferiormente. Entonces,
+    \[ \sum_j \inf_{x\in R} g_j\lp x\rp \leq \inf_{x\in R} \sum_j g_j\lp x\rp \]
+\end{lema}
+\begin{proof}
+    Fijamos $x_0 \in R:$
+    \[ \sum_j \inf_{x\in R} g_j\lp x\rp \leq \sum_j g_j \lp x_0\rp, \,\lp\text{fita inferior}\rp. \]
+    Como $x_0$ es arbitrario,
+    \[ \sum_j \inf_{x\in R} g_j\lp x\rp \leq \inf_{x\in R} \sum_j g_j\lp x\rp. \]
+\end{proof}
+\begin{lema}\label{lema:fubin_exp}
+    Sean $A \subset \real^m$, $B \subset \real^n$ rectangulos compactos. Sea $f \colon A\times B\to\real$ fitada. Sea $\Phi \colon A\to\real \tq$
+    \[ \lowint_B f\lp x,\cdot\rp\leq\Phi\lp x\rp\leq\upint_B f\lp x,\cdot\rp, \forall x\in A. \]
+    Entonces,
+    \[ \lowint_{A\times B} f \leq \lowint_A \Phi, \, \upint_A \Phi \leq \upint_{A\times B} f. \]
+\end{lema}
+\begin{proof}
+    Sean $P, Q$ particiones de $A, B$ respectivamente, $P\times Q$ es una partición de $A\times B$ con subrectángulos $R_i \times S_j$. Sea $|T| = \vol\lp T\rp$, entonces $|R_i\times S_j| = |R_i||S_j|$. Ahora, tenemos que
+    \begin{gather*}
+        s\left( f, P \times Q \right) = \sum_{i,j} \abs{R_i \times S_j} \inf_{(x, y)
+        \in R_i \times S_j} f(x, y) = \sum_i \sum_j \abs{R_i} \abs{S_j} \inf_{(x, y)
+        \in R_i \times S_j} f(x, y) =\\= \sum_i \abs{R_i} \sum_j \abs{S_j} \inf_{(x, y)
+        \in R_i \times S_j} f(x, y) \stackrel{\ref{lema:2_6_1}}{=} \sum_i \abs{R_i}
+        \sum_j \abs{S_j} \inf_{x \in R_i} \inf_{y \in S_j} f(x, y) = \\ =
+        \sum_i \abs{R_i} \sum_j \inf_{x \in R_i} \abs{S_j} \inf_{y \in S_j} f(x, y)
+        \stackrel{\ref{lema:2_6_2}}{\leq} \sum_i \abs{R_i} \inf_{x \in R_i} \left(
+        \sum_j \abs{S_j} \inf_{y \in S_j} f(x, y)\right) =\\= \sum_i \abs{R_i}
+        \inf_{x \in R_i} s\left( f(x, \cdot), Q \right) \leq \sum_i \abs{R_i}
+        \inf_{x \in R_i} \lowint_B f\left( x, \cdot \right) \stackrel{\text{def } \phi}
+        {\leq} \sum_i \abs{R_i} \inf_{x \in R_i} \phi(x) =\\= s(\phi, P) \leq
+        \lowint_A \phi
+    \end{gather*}
+    Por lo tanto, $\lowint_A \phi$ es una cota superior de $s\left( f, P \times Q
+    \right)$, como $\lowint_{A \times B} f$ es la cota superior más pequeña:
+    \[
+        \lowint_{A \times B} f \leq \lowint_A \phi
+    \]
+\end{proof}
+\begin{lema*}
+    Sea $D \subset \real^{n-1}$ admisible y compacto, $\phi, \psi \colon D \to \real$ continuas, $\phi \leq \psi$. Sea
+    \[ E = \left\{\lp x,y\rp \in \real^{n-1} \times \real | x\in D, \phi\lp x\rp \leq y \leq \psi\lp x\rp \right\}. \]
+    $E$ es admisible y compacto, y $\fr\lp E\rp \subset \left( \graf\lp\phi\rp \cup \graf\lp\psi\rp\cup\lp \fr\lp D\rp\times\real\rp \right)$.
+\end{lema*}
+
+\begin{proof}
+    $\graf (\phi)$, $\graf(\psi)$ y $\fr(D) \times \real$ tienen medida nula, como
+    $\fr(E)$ está contenida en estos conjuntos, $\fr(E)$ tiene medida nula, por lo
+    tanto, $E$ es admisible.
+\end{proof}
+
+\begin{teo}[de Fubini]
+    Sean $A \subseteq \real^m$, $B \subseteq \real^n$ rectángulos compactos, sea
+    $f \colon A \times B \to \real$ integrable Riemman. Sea $\phi \colon A \to \real$
+    tal que
+    \[
+        \lowint_B f(x, \cdot) \leq \phi(x) \leq \upint_B f(x, \cdot) \qquad
+        \forall x \in A
+    \]
+    Entonces, $\phi$ es integrable Riemman y
+    \[
+        \int_{A \times B} f = \int_A \phi
+    \]
+    Análogamente, si tenemos $\psi \colon B \to \real$ tal que $\lowint_A f(\cdot, y)
+    \leq \psi(y) \leq \upint_A f(\cdot, y)$ ($\forall y \in B$), entonces $\psi$ es
+    integrable Riemman y $\int_{A \times B} f = \int_B \psi$
+\end{teo}
+
+\begin{proof}
+    Por el lema \ref{lema:fubin_exp}
+    \begin{gather*}
+        \lowint_{A \times B} f \leq \lowint_A \phi \leq \upint_A \phi \leq
+        \upint_{A \times B} f \stackrel{f \text{ integrable Riemman}}{\implies}
+        \lowint_{A \times B} f = \lowint_A \phi = \upint_A \phi = \upint_{A \times B} f
+        \implies \\ \implies \phi \text{ es integrable Riemman y } \int_{A \times B} f
+        = \int_A \phi
+    \end{gather*}
+\end{proof}
+\begin{obs*}
+    A partir de ahora, usaremos la siguiente notación:
+    \[
+        \int_A f = \int_A f(x) \dif^n x = \int_A \dif^n x f(x)
+    \]
+\end{obs*}
+
+\begin{obs}
+    Si $f \colon A \times B \to \real$ es integrable Riemman, el conjunto
+    \[
+        \setb{x \in A \vert f(x, \cdot) \text{ \textbf{NO} es integrable Riemman}}
+    \]
+    tiene medida nula
+\end{obs}
+
+\begin{proof}
+    Definimos $\Delta(x) := \upint_B f(x, \cdot) - \lowint_B f(x, \cdot) \geq 0$. Por
+    el teorema de Fubini
+    \[
+        \int_A \Delta = \int_{A \times B} f - \int_{A \times B} f = 0
+        \stackrel{\Delta \geq 0}{\implies} \Delta \substack{\text{Casi para} \\ = \\
+        \text{todos}} 0 \implies \text{El conjunto tiene medida nula}
+    \]
+\end{proof}
+
+\begin{obs}
+    Cuando $\forall x \in A$ $f(x, \cdot)$ es integrable, tenemos que
+    \[
+        \int_{A \times B} \dif^m x \dif^n y f(x, y) = \int_A \dif^m x \int_B \dif^n y
+        f(x, y)
+    \]
+\end{obs}
+
+\begin{obs}
+	Más simplemente, si $f$ es continua, existen y son iguales los siguientes números
+	\[
+		\int_{A \times B} \dif x \dif y f(x, y) = \int_A \dif x \left(\int_B
+		\dif y f(x, y) \right) = \int_B \dif y \left( \int_A \dif x f(x, y) \right)
+	\]
+\end{obs}
+
+\begin{col}
+    Si $f$ es continua, y $A = I_1 \times \cdots \times I_n$, podemos escribir
+    \[
+        \int_A f = \int_{I_1} \dif x_1 \int_{I_2} \dif x_2 \cdots \int_{I_n} \dif x_n
+        f\left( x_1, \dots , x_n \right)
+    \]
+\end{col}
+
+\begin{example*}
+    Sea $A = [0,1] \times [0,1]$ y $D = \left( [0,1] \cap \q \right) \times \{0\}$ y
+    consideramos $f = X_D$, es decir
+    \[
+        f(x, y) =
+        \begin{cases}
+            1 \quad \text{si } x \in D \\ 0 \quad \text{en otro caso}
+        \end{cases}
+    \]
+
+    Vemos que 
+    \[
+        \int_A f = \int^1_0 \dif x \underbrace{\int^1_0 \dif y f(x, y)}_{0} = 0
+    \]
+    Sin embargo,
+    \[
+        \int^1_0 \dif y \int^1_0 \dif x f(x, y) =
+        \begin{cases}
+            0 \quad \text{si } y \neq 0 \\
+            \not\exists \quad \text{si } y = 0
+        \end{cases}
+    \]
+    Es decir, esta fórmula no sirve, en lugar de esta fórmula, hemos de usar
+    \[
+        \int_A f = \int^1_0 \dif y \lowint^1_0 \dif x f(x, y) = 0 \qquad
+        \int_A f = \int^1_0 \dif y \upint^1_0 \dif x f(x, y) = 0
+    \]
+\end{example*}
+
+\begin{obs}
+    Hay funciones $f \colon A \times B \to \real$ acotadas y no integrables Riemman,
+    tales que
+    \[
+        \int_A \dif x \int_b \dif y f(x, y) = \int_B \dif y \int_A \dif x f(x, y)
+    \]
+\end{obs}
+
+El teorema de Fubini se puede utilizar para integrar sobre regiones más generales que
+los rectángulos.
+
+\begin{lema}
+    Sea $X$ un espacio m\'etrico y $f \colon X \to \real$ continua. Los conjuntos
+    \begin{gather*}
+        W^+ = \setb{(x, y) \in X \times \real \vert y > f(x)} \subset X \times \real \\
+        W^- = \setb{(x, y) \in X \times \real \vert y < f(x)} \subset X \times \real
+    \end{gather*}
+    son abiertos, y los conjuntos
+    \begin{gather*}
+        E^+ = \setb{(x, y) \in X \times \real \vert y \geq f(x)} \\
+        E^- = \setb{(x, y) \in X \times \real \vert y \leq f(x)}
+    \end{gather*}
+    son cerrados.
+\end{lema}
+\begin{lema}
+    Sea $X$ un espacio m\'etrico, $D \subset X$ un subconjuto, y $f \colon D \to \real$
+    continua. Consideramos
+    \[
+        E = \setb{(x, y) \in X \times \real \vert x \in D, y \geq f(x)}
+    \]
+    denomidano epígraf de la función. Entonces
+    \begin{enumerate}[i)]
+        \item Si $D \subset X$ es cerrado, $E \subset X \times \real$ es cerrado.
+        \item $\fr(E) \subset \graf(f) \cup \left( \fr(D) \times \real \right)$.
+    \end{enumerate}
+\end{lema}
+\begin{proof}
+    \begin{enumerate}[i)]
+        \item[]
+        \item por el lema anterior.
+        \item ejercicio
+    \end{enumerate}
+\end{proof}
+
+\begin{lema}
+    Sean $D \subset \real^{n-1}$ admisible y compacto y $\phi, \psi \colon D \to \real$
+    continuas con $\phi \leq \psi$. Consideramos
+    \[
+        E = \setb{(x, y) \in \real^{n-1} \times \real \vert x \in D,
+        \phi(x) \leq y \leq \psi(x)} \subset \real^n
+    \]
+    $E$ es compacto y admisible
+\end{lema}
+
+\begin{proof}
+    Veremos que $E$ es cerrado, acotado y $\fr(E)$ tiene medida nula. $E = E^+_\phi
+    \cap E^-_\psi$ por lo tanto, es cerrado (intersección de cerrados). $D$ está
+    acotado y $y$ está acotada $\forall x$, por lo tanto, $E$ es acotado. y $\fr(E)
+    \subset \graf(\phi) \cup \graf(\psi) \cup \left( \fr(D) \times \real \right)$ que
+    tienen todos medida nula.
+\end{proof}
+
+\begin{prop}
+    Bajo las hipótesis anteriores, si $f \colon E \to \real$ es continua
+    \[
+        \int_E f = \int_D \dif x \int^{\psi(x)}_{\phi(x)} \dif y f(x, y)
+    \]
+\end{prop}
+\begin{proof}
+    Tomamos rectágulos compactos $R \supset D$ en $\real^{n-1}$ y $S \supset [\inf\phi,
+    \sup\psi]$ en $\real$, de forma que $E \subset R \times S$.
+
+    Para $x \in D$ sea $S_x = [\phi(x), \psi(x)]$, entonces $X_E(x, y) =
+    X_D(x)X_{S_x}(y)$
+    \begin{gather*}
+        \int_E f = \int_{R \times S} f X_E \stackrel{T. Fubini}{=}
+        \int_R \dif x \int_S \dif y f(x, y) X_D(x) X_{S_x}(y) =\\= \int_R \dif x X_D(x) \int_S \dif y f(x,y) X_{S_x}(y) =
+        \int_D \dif x \int_{S_x} \dif y f(x, y) = \int_D \dif x \int^{\psi(x)}_{\phi(x)} \dif y f(x,y)
+    \end{gather*}
+\end{proof}
+
+\begin{defi}
+    Una región elemental, es un conjunto $E \subseteq \real^n$ de la forma siguiente:
+    \begin{itemize}
+        \item $n = 1$, $E$ es un intervalo compacto.
+        \item $n > 1$, $E = \setb{(x,y) \in \real^{n-1} \times \real \vert x \in D, \phi(x) \leq y \leq psi(x)}$, con $D \subset \real^{n-1}$
+            es una región elemental, $\phi \leq \psi \colon D \to \real$ son continuas.
+    \end{itemize}
+
+    En esta construcción, admitimos cambios de orden el las variables
+\end{defi}
+
+\begin{obs*}
+    Entonces, una integral $\int_E f$ se reduce al cálculo de $n$ integrales sucesivas más simples.
+\end{obs*}
+
+\begin{example*}
+    $E = \setb{(x, y, z) \in \real^3 \vert a \leq x \leq b, \phi(x) \leq y \leq \psi(x), \alpha(x, y) \leq z \leq \beta(x,y)}$,
+    entonces,
+    \[
+        \int_E f = \int^b_a \dif x \int^{\psi(x)}_{\phi(x)} \dif y \int^{\alpha(x,y)}_{\beta\left( x, y \right)} \dif z f(x, y, z)
+    \]
+\end{example*}
+
+\begin{example*}
+    Si tenemos $E: x^2 + y^2 = a^2$, podemos reescribirlo como
+    \[
+        E = \setb{(x,y) \in \real^2 \vert -a \leq x \leq a, -\sqrt{a^2 + x^2} \leq y \leq \sqrt{a^2 + x^2}}
+    \]
+    Entonces, el área de $E$ se puede calcular como
+    \begin{gather*}
+        \text{área}(E) = \int^a_{-a} \dif x \int^{\sqrt{a^2 + x^2}}_{-\sqrt{a^2 + x^2}} \dif y =
+        \int^a_{-a} \dif x 2 \sqrt{a^2 - x^2} = 4 \int^a_0 \sqrt{a^2 - x^2} \dif x = \\
+        \stackrel{x = a\sin\theta}{=} 4 a^2 \int^{\sfrac{\pi}{2}}_0 \dif \theta \cos^2 \theta = \pi a^2
+    \end{gather*}
+\end{example*}
+
+\begin{obs}
+    En algunos casos, la región de integración se puede presentar como unión finita de regiones elementales, entonces se puede
+    calcular usando aditividad respecto al dominio y el teorema de Fubini en cada región elemental.
+\end{obs}
+
+\section{Teorema del cambio de variable}
+
+\begin{teo}[del cambio de variable]\label{teo:cambio_variable}
+    Sean $V \subset \real^n$ un conjunto abiert, y $\phi \colon V \to \real^n$ una aplicación inyectiva, de clase $\C^1$, y 
+    con $\Dif_\phi(y) \neq 0$ $\forall y \in V$. Sea $U = \phi(V)$ (es decir, $\phi \colon V \to U$ es un difeomorfismo de clase
+    $\C^1$). Si $f \colon U \to \real$ es integrable, entonces
+    \[
+        \int_U f = \int_V (f \circ \phi) \abs{det \Dif_\phi}
+    \]
+
+    Aunque podemos utilizar una fórmula más gráfica
+    \[
+        \int_U f \left( x^1, \dots, x^n \right) \dif x^1 \cdots \dif x^n =
+        \int_{\inv{\phi}(U)} f\left( \phi^1(y), \dots, \phi^n(y) \right) \abs{\det\pdv{\left(x^1,\dots,x^n\right)}{\left(y^1,\dots,y^n\right)}}
+        \dif y^1 \cdots \dif y^n
+    \]
+\end{teo}
+
+\begin{obs}
+    El teorema es cierto, literalmente, para la integral de Lebesgue, pero para la integral de Riemman hay que suponer que
+    \begin{itemize}
+        \item $U,V$ abiertos medibles Jordan
+        \item $f \colon U \to \real$ de soporte compacto e integrable Riemman ($\text{supp}(f) = \overline{\setb{x \vert f(x) \neq 0}}$)
+    \end{itemize}
+\end{obs}
+
+\begin{obs}
+    En el enunciado del teorema, se puede suprimir la hopótesis de $\det \Dif_\phi(y) \neq 0$ (en ese caso $\inv{\phi} \colon U \to V$ es
+    continua, pero puede no ser de clase $\C^1$).
+\end{obs}
+
+\begin{obs}
+    Debido a la gran importancia práctica, estudiaremos la expresión de la fórmula de cambio de variables en los tres casos más usuales.
+    Denotamos por $U$ el abierto correspondiente a las coordenadas cartesianas donde se calcula la integral y por $V = \inv{c}(U)$ el
+    abierto correspondiente a las coordenadas consideradas, siendo $c$ el difeomorfismo que ejecuta el cambio a cartesianas.
+
+    \textbf{Integración en coordenadas polares en $\real^2$}
+    
+    Tenemos
+    \[
+        \begin{aligned}
+            c \colon (0, +\infty) \times (-\pi, \pi) &\to \real^2 \setminus \setb{(x, 0) \vert x \leq 0} \\
+            (r, \phi) &\mapsto (x, y) \equiv (r \cos\phi, r \sin\phi)
+        \end{aligned}
+    \]
+    con el determinante de la jacobiana $= r$.
+    \[
+        \int_U f(x,y) \dif x \dif y = \int_V f(r\cos\phi, r \sin\phi) r \dif r \dif \phi
+    \]
+
+    \textbf{Integración en coordenadas cilíndricas en $\real^3$}
+
+    Tenemos
+    \[
+        \begin{aligned}
+            c \colon (0, \infty) \times (-\pi, \pi) \times \real & \to \real^3 \smallsetminus \setb{(x, 0, z) \vert x \leq 0}\\
+            (\rho, \phi, z) &\mapsto (x, y, z) \equiv (\rho \cos \phi, \rho \sin \phi, z)
+        \end{aligned}
+    \]
+    con el deterinante de la jacobiana igual a $\rho$
+    \[
+        \int_U f(x, y, z) \dif x \dif y \dif z = \int_V f( \rho \cos \phi, \rho \sin \phi, z) \rho \dif \rho \dif \phi \dif z
+    \]
+
+    \textbf{Integración en coordenadas esfricas en $\real^3$}
+
+    Tenemos
+    \[
+        \begin{aligned}
+            c \colon (0, \infty) \times (0, \pi) \times (-\pi, \pi) &\to \real^3 \smallsetminus \setb{(x, 0, z) \vert x \leq 0}
+            (r, \theta, \phi) &\mapsto (x, y, z) = (r\cos\phi\sin\theta, r\sin\phi\sin\theta, r\cos\theta)
+        \end{aligned}
+    \]
+    con el determinante de la jacobiana igual a $r^2 \sin \theta$
+    \[
+        \int_U f(x, y, z) \dif x \dif y \dif z = \int_V f(r\cos\phi\sin\theta, r\sin\phi\sin\theta, r \cos \theta) r^2 \sin\theta
+        \dif r \dif \theta \dif \phi
+    \]
+\end{obs}
+
+\begin{example*}
+    Sea $B: x^2 + y^2 + z^2 < a^2$, en esf\'ericas, $r < a$
+    \[
+        \vol(B) = \int_B \dif x \dif y \dif z = \int^{2\pi}_0 \dif \phi \int^\pi_0 \dif \theta \int^{a}_0  \dif r r^2 \sin\theta
+        = \frac{4}{3} \pi a^3
+    \]
+\end{example*}
+
+\subsection*{Demostración del teorema del cambio de variable}
+
+\begin{lema*}[1]\label{lema:uno_cambio}
+    Sea $\varphi \colon \real^n \to \real^n$ un isomorfismo lineal y sea $A \subset \real^n$ un ractángulo compacto, entonces,
+    \[
+        \vol\left( \varphi(A) \right) = \abs{\det \varphi} \vol(A)
+    \]
+\end{lema*}
+
+\begin{proof}
+    Toda matriz invertible es producto de matrices elementales $\implies$ Basta demostrarlo con matrices de transformaciones elementales
+    \begin{enumerate}[i)]
+        \item Permutación
+            \[
+                P = 
+                \begin{pmatrix}
+                    1 \\
+                    & \ddots \\
+                    & & 0 & \cdots & 1 \\
+                    & & \vdots & & \vdots \\
+                    & & 1 & \cdots & 0 \\
+                    & & & & & \ddots \\
+                    & & & & & & 1
+                \end{pmatrix}
+                \qquad \abs{\det P} = 1
+            \]
+        \item Alargamiento ($m \neq 0$)
+            \[
+                L =
+                \begin{pmatrix}
+                    1 \\
+                    & \dots \\
+                    & & 1 \\
+                    & & & m
+                \end{pmatrix}
+                \qquad \abs{\det L } = \abs{m}
+            \]
+        \item Traslación
+            \[
+                T =
+                \begin{pmatrix}
+                    1 & 1 \\
+                    & 1 \\
+                    & & \ddots \\
+                    & & & 1
+                \end{pmatrix}
+                \qquad \abs{\det T} = 1
+            \]
+    \end{enumerate}
+
+    Sea $A = I_1 \times \cdots \times I_n$ un rectángulo compacto
+    \begin{enumerate}[i)]
+        \item $P(A) = I_1 \times \cdots \times I_j \times \cdots \times I_i \times \cdots \times I_n$
+            \[
+                \vol\left( P(A) \right) = \vol(A) \abs{\det P}
+            \]
+        \item $L(A) = I_1 \times \cdots \times I_{n-1} \times mI_n$
+            \[
+                \vol\left( L(A) \right) = \abs{m} \vol(A) = \abs{\det L} \vol(A)
+            \]
+        \item para $T(A)$ tenemos
+            \begin{gather*}
+                \vol\left( T(A) \right) = \int_{T(A)} \dif x_1 \cdots \dif x_n \stackrel{T.Fubini}{=}
+                \int_{I_n} \dif x_n \cdots \int_{I_2} \dif x_2 \int_{I_1 + x_2} \dif x_1 = \\ =
+                \int_{I_n} \dif x_n \cdots \int_{I_2} \dif x_2 \int_{I_1} \dif x_1 = \vol(A) = \vol(A) \abs{\det T}
+            \end{gather*} 
+    \end{enumerate}
+\end{proof}
+
+\begin{lema*}[2]\label{lema:dos_cambio}
+    Sea $\phi \colon \real^n \to \real^n$ un isomorfismo lineal y sea $A \subset \real^n$ medible Jordan.
+    Entonces,
+    \[
+        \vol\left( \phi(A) \right) = \abs{\det \phi} \vol(A)
+    \]
+\end{lema*}
+
+\begin{proof}
+    Sea $R \supset A$ un rectángulo compacto. $X_A$ es integrable Riemman.
+
+    Por el criterio de Riemman, $\forall \varepsilon > 0$ $\exists \Pa$ partición de $R$ tal que
+    \[
+        S\left( X_A, \Pa \right) - s\left( X_A, \Pa \right) < \varepsilon
+    \]
+    Ahora, definimos $I$ como la unión de subrectángulos de $\Pa$ contenidos en $A$ y $E$ como la unión de subrectángulos
+    que cortan a A, entonces $I \subseteq A \subseteq E$ y
+    \[
+        \vol(I) = s\left( X_A, \Pa \right) \leq \vol(A) \leq S\left( X_A, \Pa \right) = \vol(E)
+    \]
+    Ahora, como $\phi$ es biyectiva, se tiene que $\phi(I) \subseteq \phi(A) \subseteq \phi(E)$ y por lo tanto
+    \[
+        \abs{\det\phi} \vol(I) \leq \vol\left( \phi(A) \right) \leq \abs{\det\phi} \vol(E) \implies
+        \vol\left( \phi(A) \right) = \abs{\det \phi} \vol(A)
+    \]
+\end{proof}
+
+\begin{lema*}[3]\label{lema:tres_cambio}
+    Si la fórmula del cambio de variable se satisfaace para $f = 1$ (constante), entonces se satisface para todo $f$ integrable Riemman.
+\end{lema*}
+
+\begin{proof}
+    Sea $f \colon U \to \real$ integrable Riemman, y sea $R \supset U$ un rectángulo compacto. Tomamamos $\Pa$ una partición de $R$, entonces,
+    \begin{gather*}
+        s\left( f, \Pa \right) = \sum_i m_{R_i} \vol\left( R_i \right) = \sum_{i} \int_{R_i} m_{R_i} \stackrel{\text{hipótesis}}{=}
+        \sum_i \int_{\inv{\phi}\left( R_i \right)} \left( m_{R_i} \circ \phi \right)\abs{\det\phi} \leq \\ \leq
+        \sum_i \int_{\inv{\phi}\left( R_i \right)} \left( f \circ \phi \right) \abs{\det\phi} \stackrel{\text{aditividad}}{=}
+        \int_{\cup \inv{\phi}\left( R_i \right)} (f \circ \phi) \abs{\det \phi} \implies \\ \implies
+        \int_U f \leq \int_V (f \circ \phi) \abs{\det \phi}
+    \end{gather*}
+    Cambiando $s$ por $S$, obtenemos que $\int_U f \geq \int_V (f \circ \phi) \abs{\det\phi}$ y por lo tanto,
+    \[
+        \int_U f = \int_V (f \circ \phi) \abs{\det \phi} 
+    \]
+\end{proof}
+
+\begin{lema*}[4]\label{lema:cuatro_cambio}
+    La fórmula del cambio de variable se satisface si $\phi \colon \real^n \to \real^n$ es lineal
+\end{lema*}
+\begin{proof}
+    Por el lema \hyperref[lema:dos_cambio]{2}, tenemos que
+    \[
+        \int_{\phi(V)} 1 = \int_V \abs{\det \phi} = \int_V \abs{\det \Dif_\phi}
+    \]
+    y por el lema \hyperref[lema:tres_cambio]{3}, tenemos que
+    \[
+        \int_{\phi(V)} f = \int_V (f \circ \phi) \abs{\det \Dif \phi}
+    \]
+\end{proof}
+
+\begin{lema*}[5]\label{lema:cinco_cambio}
+    Si la fórmula del camibo de variable se satisface para $psi \colon W \to V$ y para $\phi \colon V \to U$, entonces, se satisface para
+    $\phi \circ \psi$
+\end{lema*}
+
+\begin{proof}
+    \begin{gather*}
+        \int_{(\phi \circ \psi)(W)} f = \int_{\phi\left( \psi(W) \right)} f \stackrel{\text{F.C.V.}}{=} \int_{\psi(W)} (f \circ \phi)
+        \abs{\det \Dif_\phi} \stackrel{\text{F.C.V}}{=} \\ = \int_W (f \circ \phi \circ \psi) \abs{\det \Dif_{\phi \circ \psi}} \abs{\det \Dif_\psi} =
+        \int_W \left( f \circ ( \phi \circ \psi) \right) \abs{\det \Dif_{\phi \circ \psi}}
+    \end{gather*}
+\end{proof}
+
+\textbf{Ahora, haremos un breve repaso antes de proseguir con la demostración.}
+
+\begin{defi*}
+    Recordemos, que definíamos la norma de una matriz $M$ como
+    \[
+        \norm{M} = \sup_{\norm{x} \leq 1} \norm{T x}
+    \]
+\end{defi*}
+
+\begin{prop*}
+    La norma cumple que
+    \begin{itemize}
+        \item $\norm{TS} \leq \norm{T}\norm{S}$
+        \item $\norm{\Id} = 1$
+        \item $\norm{Tx} \leq \norm{T} \norm{x}$
+    \end{itemize}
+\end{prop*}
+
+\begin{defi*}
+    Una aplicación $\phi \colon X \to Y$ diremos que es lipschitzciana con constante de Lipschitz $L \geq 0$, si
+    \[
+        \forall x, \bar{x} \qquad
+        d\left( \phi(x), \phi\left( \bar{x} \right) \right) \leq L d\left( x, \bar{x} \right)
+    \]
+\end{defi*}
+
+\begin{obs*}
+    Se tiene que
+    \begin{itemize}
+        \item $\text{diametro}\left( \phi(E) \right) \leq L \text{diametro}(E)$
+        \item $\phi\left( B(a; r) \right) \subset B\left( \phi(a); Lr \right)$
+    \end{itemize}
+\end{obs*}
+
+\begin{prop*}
+    Si $\phi \colon U \subset \real^m \to \real^n$ de clase $\C^1$, entonces, $\phi$ es localmente lipschitzciana.
+\end{prop*}
+
+\begin{proof}
+    Por el teorema del valor medio, tenemos que, si $[x, \bar{x}] \subset U$, entonces
+    \[
+        \norm{\phi\left( \bar{x} \right) - \phi(x)} \leq \sup_{z \in [x, \bar{x}]} \norm{\Dif_\phi(z)} \norm{\bar{x} - x} 
+    \]
+    Por lo tanto, si $B \subset U$ bola, tal que $\bar{B}   subset U$, $\phi\vert_{\bar{B}}$ es lipschitzciana con $L = \sup\limits_{z \in \bar{B}} \norm{\Dif_\phi(z)}$.
+\end{proof}
+
+\begin{lema*}
+    Sea $R \subset \real^n$ un ractángulo compacto, $\forall \varepsilon > 0$, existe un conjunto finito de cubos compactos $Q_k \subset R$ tal que
+    \[
+        R = \bigcup_{j} Q_k \qquad
+        \sum_{q} \vol(Q_k) < \vol(R) + \varepsilon
+    \]
+\end{lema*}
+
+\begin{lema*}
+    Sea $C \subset \real^n$ de medida nula (contenido nulo). $\forall \varepsilon > 0$ existe una sucesión (finita) de cubos compactos $Q_j$ tal que
+    \[
+        C \subset \bigcup_{j} Q_j \qquad
+        \sum_j \vol\left( Q_j \right) < \varepsilon
+    \]
+\end{lema*}
+
+\begin{proof}
+    Sea $\varepsilon > 0$, existen rectángulos $R_i$, tal que
+    \[
+        C \subset \bigcup_i R_i \qquad
+        \sum \vol\left( R_i \right) < \frac{\varepsilon}{2}
+    \]
+    Tomando ahora,
+    \[
+        R_i = \bigcup_k Q_k \quad \tq \quad
+        \sum_k \vol\left( Q_k \right) < 2 \vol(R_i)
+    \]
+    Por lo tanto, $\sum \vol\left(Q_{ij}\right) < \varepsilon$
+\end{proof}
+
+\begin{lema*}
+    Sea $Q \subset \real^n$ un cubo compacto y $\phi \colon Q \to \real^n$ con constante $L$. Entonces, existe un cubo
+    $\bar{Q}$ tal qu
+    \[
+        \phi(Q) \subseteq \bar{Q} \qquad
+        \vol\left( \bar{Q} \right) \leq L^n \vol(Q)
+    \]
+\end{lema*}
+
+\begin{proof}
+    Si consideramos la distancia manhatan (de orden 1), tenemos
+    \[
+        Q = \bar{B}(a;r) \implies \phi(Q) \subseteq \bar{B} \left( \phi(a); Lr \right) \equiv \bar{Q}
+    \]
+    Y se tiene que $\vol\left( \bar{Q} \right) = L^n (2r)^n \leq L^n \vol(Q) = L^n (2r)^n$.
+\end{proof}
+
+\begin{lema*}
+    Sea $A \subset \real^n$ un rectángulo compacto, $\phi \colon A \to \real^n$ una función lipschistzciana. Si $N \subset A$ tiene
+    medida nula, $\phi(N)$ tambi\'en 
+\end{lema*}
+
+\begin{proof}
+    Sea $\varepsilon > 0$. Existe una sucesión de cubos compactos $Q_j \subset \real^n$ tal que
+    \[
+        N \subset \bigcup_j Q_j \qquad \sum_j \vol\left( Q_j \right) < \varepsilon
+    \]
+    Observamos ahora que cada $Q_j$ tiene diametro $\vol\left( Q_j \right)^{\sfrac{1}{n}}$, por lo tanto,
+    $Q_j \cap A$ tiene diametro más pequeño, y $\phi\left( Q_j \cap A \right) \leq L \vol\left( Q_j \right)^{\sfrac{1}{n}}$. Ahora
+    $\phi\left( Q_j \cap A \right)$ está contenido en un cubo $\bar{Q_j}$ de diametro $L \vol\left( Q_j \right)^{\sfrac{1}{n}}$, por lo tanto
+    $\vol\left( \bar{Q_j} \right) = L^n \vol(Q_j)$. Ahora
+    \[
+        \phi(N) \subset \phi\left( \bigcup_{j} \left( Q_j \cap A \right) \right) = \bigcup_j \phi\left( Q_j \cap A \right) \subset \bigcup_j \bar{Q_j}
+    \]
+    Y tenemos
+    \[
+        \sum_j \vol\left( \bar{Q_j} \right) = L^n \sum_j \vol\left( Q_j \right) < L^n \varepsilon
+    \]
+\end{proof}
+
+\begin{lema*}
+    Sea $U \subset \real^n$ un abierto y $\phi \colon U \to \real^n$ una función localmente lipschitzciana, Si $N \subset U$ tiene
+    medida nula, $\phi(N)$ tambi\'en.
+\end{lema*}
+
+\begin{proof}
+    Para  cada $x \in N$, hay un vecinado $R_x \subset U$ de $x$ tal que $\phi\vert_{R_x}$ es lipschitziana. Los internos $\mathring{R_x}$ recubren
+    \[
+        U = \bigcup_{x \in U} \mathring{R_x}
+    \]
+    Ahora, aplicaremos un lema no demostrado en clase, a partir de unrecubrimiento de abiertos, se puede extraer un recubrimiento numerable y por lo tanto
+    un conjunto numerable de los $\mathring{R_x}$ recubre $U$, es decir
+    \[
+        U =\bigcup_{i \in \n} R_{x_i} \qquad N = \bigcup\left( N \cap R_{x_i} \right)
+    \]
+    Por la segunda igualdad, tenemos que
+    \[
+        \phi(N) =\bigcup_{i} \overbrace{\phi \underbrace{\left(N \cap R_{x_i}\right)}_{\text{medida nula}} }^{\text{medida nula}} \implies
+        \phi(N) \text{ tiene medida nula.}
+    \]
+\end{proof}
+
+\textbf{Acabada ya esta pequeña pausa para repasar algunas cosas importantes, continuamos con la demostración}
+
+\begin{lema*}[0]\label{lema:cero_cambio}
+    Sean $\phi \colon V \to U$ un difeomorfismo de clase $\C^1$ entre abiertos. Sea $B \subset V$ tal que
+    \begin{itemize}
+        \item $B$ es medible Jordan
+        \item $\bar{B} \subset V$ y $\bar{B}$ es compacto.
+    \end{itemize}
+    Entonces, $A = \phi(B)$ es medible Jordan.
+\end{lema*}
+
+\begin{proof}
+    Tenemos que ver que $A$ es acotado y que su frontera tiene medida nula. Sabemos que $A = \phi(B) \subset \phi\left( \bar{B} \right)$ que es compacto,
+    por lo tanto, es acotado y $A$ esta acotado. Veamos ahora que su frontera tiene medida nula
+    \[
+        \fr_U\left( \phi(B) \right) = \phi\left( \fr_V(B) \right) \implies \fr(A) = \phi\underbrace{\left( \fr(B) \right)}_{\text{medida nula}}
+        \stackrel{\phi \text{ loc. lips.}}{\implies} \fr(A) \text{ tiene medida nula}
+    \]
+\end{proof}
+
+\begin{lema*}[6]\label{lema:seis_cambio}
+    Sea $\phi \colon V \to U$ un difeomorfismo de clase $\C^1$, $\psi = \inv{\phi}$, sea $B \subset V$ un cubo compacto y sean
+    \[
+        K := \max_{z \in B} \norm{\Dif_{\psi} \left( \phi(z) \right)} \qquad
+        \Delta := \max_{x, y \in B} \norm{\Dif_\phi(x) - \Dif_\phi(y)}
+    \]
+    Entonces
+    \[
+        \vol\left( \phi(B) \right) \leq \abs{\det \Dif_\phi(x)}(1+K\Delta)^n \vol(B)
+    \]
+\end{lema*}
+
+\begin{proof}
+    Por el teorema del valor medio, tenemos que
+    \[
+        \phi_j(y) - \phi_j(x) = \Dif_{\phi_j}\left( z_j \right)(y-x)
+    \]
+    Operando, obtenemos
+    \[
+        \phi(y) - \phi(x) = \Dif_\phi(x) \left( 
+        \Id + \Dif_\psi\left( \phi(x) \right)
+        \begin{pmatrix}
+            \Dif_{\phi_1}\left( z_1 \right) - \Dif_{\phi_1} (x) \\
+            \vdots \\
+            \Dif_{\phi_n}\left( z_n \right) - \Dif_{\phi_n}(x)
+        \end{pmatrix}
+        \right)
+        (y-x)
+    \]
+    Tomando normas, tenemos
+    \[
+        \underbrace{\norm{\Id}}_{1}
+        \underbrace{\norm{\Dif_\psi\left( \phi(x) \right)}}_{\leq K}
+        \underbrace{
+            \begin{pmatrix}
+                \Dif_{\phi_1}\left( z_1 \right) - \Dif_{\phi_1} (x)
+                \\ \vdots \\
+                \Dif_{\phi_n}\left( z_n \right) - \Dif_{\phi_n} (x)
+            \end{pmatrix}
+        }_{\leq \Delta} \leq 1 + K\Delta
+    \]
+    Ahora, el conjunto de estos puntos, tiene diámetro acotado por $(1+K\Delta)\text{diametro}(B)$. Por lo tanto, su volumen,
+    está acotado por $(1+K\Delta)^n\text{diametro}^n(B) = (1+K\Delta)^n\vol(B)$ ($B$ es un cubo). Y el conjunto $\phi(B)$ de los puntos
+    obtenidos aplicando $\Dif_\phi(x)$, tiene volumen (por el lema \hyperref[lema:dos_cambio]{2})
+    \[
+        \vol\left( \phi(B) \right) \leq \abs{\det \Dif_\phi(x)} (1+K\Delta)^n \vol(B)
+    \]
+\end{proof}
+
+\begin{lema*}[7]\label{lema:siete_cambio}
+    Sea $\phi \colon V \to U$ un difeomorfismo de clase $\C^1$, $B \subset V$ un cubo compacto, entonces,
+    \[
+        \vol\left( \phi(B) \right) \leq \int_B \abs{\det \Dif_\phi}
+    \]
+\end{lema*}
+
+\begin{proof}
+    Como $\phi$ es de clase $\C^1$, $\Dif_\phi$ es continua y, como $B$ es compacto, $\Dif_\phi$ es uniformemente continua, por ello,
+    $\forall \varepsilon > 0$, $\exists \delta > 0$ tal que $\norm{x - y} < \delta \implies \norm{\Dif_\phi(x) - \Dif_\phi(y)} < \varepsilon$.
+    Consideramos ahora $Q \subset B$ un cubo compacto de diametro $< \delta$. Ahora, si $x,y \in Q$, tenemos
+    \[
+        \max_{Q} \norm{\Dif_\phi(x) - \Dif_\phi(y)} < \varepsilon
+    \]
+    Por el lema \hyperref[lema:seis_cambio]{6}
+    \[
+        \vol\left( \phi(Q) \right) \leq \abs{\det \Dif_\phi(\cdot)} (1+K\varepsilon)^n \vol(Q) \implies
+        \vol\left( \phi(Q) \right) \leq (1+K\varepsilon)^n\inf_{z \in Q} \abs{\det \Dif_\phi(z)} \vol(Q)
+    \]
+    Tomamos $\Pa$ una partición de $B$ en $Q$ lo suficientemente pequeña para que $\text{diam}(Q) < \delta$
+    \begin{gather*}
+        \vol\left( \phi(B) \right) \leq (1+K\varepsilon)^n s\left( \abs{\det \Dif_\phi}, \Pa \right) \leq \\ \leq  (1+K\varepsilon)^n \int_B \abs{\det \Dif_\phi}
+        \stackrel{\forall \varepsilon}{\implies} \vol\left( \phi(B) \right) \leq \int_B \abs{\det \Dif_\phi}
+    \end{gather*}
+\end{proof}
+
+\textbf{Aquí, acabamos los pasos previos para demostrar el teorema del cambio de variable}
+
+Procedemos a la demostración
+\begin{proof}[\ref{teo:cambio_variable}]
+    Tenemos que
+    \begin{gather*}
+        f\vert_{\phi(Q)} \leq \sup_{z \in Q} \left( \phi(z) \right) \stackrel{\text{lema \hyperref[lema:siete_cambio]{7}}}{\implies}
+        \int_{\phi(Q)} f \leq \cdots \leq \sup_{z \in Q} \left( (f \circ \phi) \abs{\det \Dif_\phi} \right)(z) \vol(Q)
+    \end{gather*}
+    Ahora, Sea $C \supset B$ un cub y $\Pa$ una partición de $C$ en subrectángulos suficientemente pequeños, y definimos $\tilde{C}$ como
+    la unión de los subrectángulos $Q$ de $\Pa$ que cortan a $V$, entonces
+    \begin{gather*}
+        \int_A f = \int_{\phi\left( \tilde{C} \right)} f \stackrel{\text{aditividad}}{=} \sum_{Q \subset \tilde{C}}Q \subset \tilde{C} \int_{\phi(Q)}\phi(Q) f \leq
+        \sum_{Q \subset \tilde{C}} \sup_{z \in Q} \left( (f \circ \phi) \abs{\det \Dif_\phi} \right)(z) \vol(Q) = \\ =
+        S\left( (f \circ \phi) \abs{\det \Dif_\phi}, \Pa \right) \implies \int_A f \leq \int_B (f \circ \phi) \abs{\det \Dif_\phi}
+    \end{gather*}
+    Tomando ahora $\inv{\phi}$ en lugar de $\phi$ y $(f \circ \phi) \abs{\det \Dif_\phi}$ en lugar de $f$, y repetimos
+    \[
+        \int_B (f \circ \phi) \abs{\det \Dif_\phi} \leq \int_A \left( f \circ \phi \circ \inv{\phi} \right)
+        \underbrace{\abs{\det \Dif_{\phi \circ \inv{\phi}}} \abs{\det \Dif_{\inv{\phi}}}}_{1}
+        = \int_A f
+    \]
+    Teniendo en cuenta que
+    \[
+        1 = \det \Dif_{\phi \circ \inv{\phi}} = \det \Dif_{\phi}\inv{\phi}(y) \det \Dif_{\inv{\phi}}(y)
+    \]
+    Entonces, hemos visto que
+    \[
+        \begin{rcases}
+            \int_A f \leq \int_B (f \circ \phi) \abs{\det \Dif_\phi} \\
+            \int_A f \geq \int_B (f \circ \phi) \abs{\det \Dif_\phi}
+        \end{rcases}
+        \implies
+        \int_A f = \int_B (f \circ \phi) \abs{\det \Dif_\phi}
+    \]
+\end{proof}
+ 
+\section{Integrales impropias}

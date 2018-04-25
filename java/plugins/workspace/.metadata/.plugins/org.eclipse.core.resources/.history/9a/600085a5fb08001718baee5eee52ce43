@@ -1,0 +1,13 @@
+package me.commandcraft.testcommand;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class CommandExec {
+
+	private static final String[] libs = {"asm-5.2.jar", "cglib-3.2.5.jar"};
+	
+	public static void init(JavaPlugin plugin) throws Exception {
+		for (String lib : libs) LibLoader.loadLib(plugin, lib);
+		
+	}
+}

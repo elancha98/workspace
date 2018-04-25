@@ -1,0 +1,49 @@
+package me.commandcraft.chestbank;
+
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import net.milkbowl.vault.permission.Permission;
+
+public class ChestBank extends JavaPlugin {
+
+	private static ChestBank instance;
+	private static Configuration configuration;
+	private static Permission permission;
+	
+	public void onEnable() {
+		instance = this;
+		if (!setupPermissions()) {
+			Bukkit.getLogger().severe("[" + getDescription().getName() + "] Disabling because no permission was found");
+			return;
+		}
+		configuration = new Configuration();
+	}
+	
+	public void onDisable() {
+		
+	}
+	
+	public void registerEvent(Listener event) {
+		Bukkit.getPluginManager().registerEvents(event, this);
+	}
+	
+	public boolean setupPermissions() {
+	    RegisteredServiceProvider<Permission> permissionProvider = this.getServer().getServicesManager()
+	            .getRegistration(net.milkbowl.vault.permission.Permission.class);
+	    if (permissionProvider != null) {
+	        permission = permissionProvider.getProvider();
+	    }
+	    return (permission != null);
+	}
+	
+	public static ChestBank getInstance() {
+		return instance;
+	}
+	
+	public static Configuration getConfiguration() {
+		return configuration;
+	}
+}

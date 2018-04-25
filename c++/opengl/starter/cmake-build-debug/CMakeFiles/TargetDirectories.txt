@@ -1,0 +1,3 @@
+/home/ernesto/Desktop/workspace/c++/opengl/starter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/ernesto/Desktop/workspace/c++/opengl/starter/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ernesto/Desktop/workspace/c++/opengl/starter/cmake-build-debug/CMakeFiles/starter.dir

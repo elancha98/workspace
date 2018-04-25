@@ -1,0 +1,12 @@
+package me.commandcraft.parkshooter;
+
+import org.bukkit.command.CommandExecutor;
+
+public class CommandExec {
+	private static CommandExecutor[] commands;
+	
+	public CommandExec() {
+		Package pack = this.getClass().getPackage();
+		for (Class<?> clas : pack.)
+	}
+}

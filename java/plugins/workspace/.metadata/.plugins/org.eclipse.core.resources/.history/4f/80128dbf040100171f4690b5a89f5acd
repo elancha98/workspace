@@ -1,0 +1,14 @@
+package me.commandcraft.chestbank;
+
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
+
+public class Utils {
+
+	private static YamlConfiguration configuration = new YamlConfiguration();
+	
+	public static String toString(ItemStack item) {
+		configuration.set("temp", item);
+		return configuration.saveToString();
+	}
+}

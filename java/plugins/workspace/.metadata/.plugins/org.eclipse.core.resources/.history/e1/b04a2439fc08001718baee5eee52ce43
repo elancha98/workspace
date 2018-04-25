@@ -1,0 +1,29 @@
+package me.commandcraft.testcommand;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class CommandExec {
+
+	private static final String[] libs = {"asm-5.2.jar", "cglib-3.2.5.jar"};
+	private static Object wrapper;
+	@SuppressWarnings("rawtypes")
+	private static Map<String, List> entities = new HashMap<String, List>();
+	
+	public static void init(JavaPlugin plugin) throws Exception {
+		for (String lib : libs) LibLoader.loadLib(plugin, lib);
+		setWrapper();
+	}
+	
+	public static List getEntities(CommandSender sender, String selector) {
+		
+	}
+	
+	private static void setWrapper() {
+		
+	}
+}
