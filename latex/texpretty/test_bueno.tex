@@ -1,0 +1,716 @@
+\chapter{Espacios m\'etricos y aplicaciones continuas}
+%\section{Distancias}
+
+\begin{eje}
+    Hay que comprobar que
+    \begin{enumerate}[i)]
+        \item $ d(x,y) \geq 0 \; \forall x,y \in X $ y que $ d(x,y) = 0 \iff x = y $, lo cual es trivial por la definición de $ d $.
+        \item $ d(x,y) = d(y,x) \; \forall x, y \in X $, que de nuevo, esinmediato por la definición.
+        \item $ d(x,y) \leq d(x,z) + d(z,y) \; \forall x, y, z \in X $, suponemos que $ x, y, z $ son distintos dos a dos. Entonces,
+            $ d(x,y) = 1 \leq d(x, z) + d(z, y) = 1 + 1 = 2 $.
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    De nuevo, hemos de comprobar que
+    \begin{enumerate}[i)]
+        \item $d_{\text{cent}}(x, y) \geq 0 \; \forall x, y \in X$. Esto es fácil de ver, ya que $d(c, x), d(c,y) \geq 0$, por lo tanto
+            $d_{\text{cent}}(x,y) = d(c,x) + d(c,y) \geq 0$.
+        \item $d_{\text{cent}}(x, y) = 0 \iff x = y$. Si $x = y \implies d_{\text{cent}}(x,y) = 0$ por definición. Y si $d_{\text{cent}}(x,y) = 0$,
+            hay dos posiblidades, o $x = y$ (y ya hemos acabado) o $d(c, x) = d(c,y) = 0$. Pero si ocurre lo segundo, entonces $x = c = y$.
+        \item $d_{\text{cent}}(x, y) = d_{\text{cent}}(y, x) \; \forall x, y \in X$. Esto es obvio ya que la suma es conmutativa y $d$ tambi\'en.
+        \item $d_{\text{cent}}(x,y) \leq d_{\text{cent}}(x, z) + d_{\text{cent}}(z, y)$. Vamos a ver que se cumple:
+            \[
+                d_{\text{cent}}(x, y) = d(c,x) + d(c,y) \leq d(c,x) + d(c,z) + d(c,z) + d(c,y) =
+                d_{\text{cent}}(x, z) + d_{\text{cent}}(z,y)
+            \]
+    \end{enumerate}
+    Ahora, dibujaremos las bolas. En azul, está $B\left( (0,0), 1 \right)$ y en rojo $B \left( \left(\frac{42}{100},\sqrt{\frac{2461}{10}}\right), 1\right)$:
+    \input{fig_code/bolas_2}
+\end{eje}
+
+\begin{eje}
+    Tenemos que comprobar que
+    \begin{enumerate}[i)]
+        \item $d(a,b) \geq 0 \; \forall a,b \in A^n$ y que $d(a,b) = 0 \iff a = b$, lo cual es trivial por la definición de $d$.
+        \item $d(a,b) = d(b,a) \; \forall a,b \in A^n$. Trivial por la definición.
+        \item $d(a, b) \leq d(a,c) + d(c, b)$. Sea $i \in R = \setb{j \vert a_j \neq b_j}$, entonces, se cumple al menos una de las dos siguientes afirmaciones
+            \[
+                \begin{cases}
+                    i \in P = \setb{j \vert a_j \neq c_j} \\
+                    i \in Q = \setb{j \vert c_j \neq b_j}
+                \end{cases}
+            \]
+            Por lo tanto, $R \subseteq P \cup Q \implies d(a,b) = \abs{R} \leq \abs{P \cup Q} \leq \abs{P} + \abs{Q} = d(a,c) + d(a,b)$.
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    Tenemos que comprobar que
+    \begin{enumerate}[i)]
+        \item $d(a,b) \geq 0 \;  \forall a,b \in \mathcal{S}(A)$, y que $d(a,b) = 0 \iff a = b$, lo cual es trivial por la definición.
+        \item $d(a,b) = d(b,a) \; \forall a,b \in \mathcal{S}(A)$, tambi\'en trivial por la definición.
+        \item $d(a,b) \leq d(a,c) + d(c,b)$. Podemos suponer sin p\'erdida de generalidad que $d(a,c) \geq d(b,c)$. Sea $s$ tal que $e^{-s} = d(a,c)$ y sea
+            $S$ tal que $e^{-S} = d(b,c)$, entonces, si $S = s$, entonces, $d(b, c) = d(a,c) \implies d(a, b) \leq d(a,c)$. Si $S > s$, entonces, 
+            $d(a, b) \leq d(a,c)$.
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item Sí que define una m\'etrica, ya que
+            \begin{enumerate}[i)]
+                \item $d(x,y) \geq 0$ y $d(x,y) = 0 \iff x = y$ son triviales.
+                \item $d(x,y) = d(y,x)$ es obvio.
+                \item $d(x,y) = \abs{e^x - e^y} = \abs{e^x - e^z + e^z - e^y} \leq \abs{e^x - e^z} + \abs{e^z - e^y} = d(x,z) + d(y,z).$
+            \end{enumerate}
+        \item No es una m\'etrica. Los puntos $x = \frac{\pi}{2}$ y $y = \frac{3\pi}{2}$ son distintos, pero $d(x, y) = 0$.
+        \item Sí que es una m\'etrica:
+            \begin{enumerate}[i)]
+                \item $d(x, y) \geq 0$ es trivial y $d(x,y) = 0 \iff \cos(x) = \cos(y) \iff x = y$.
+                \item $d(x, y) = d(y,x)$ es obvio.
+                \item Finalmente,
+                    \begin{align*}
+                        d(x, y) &= \abs{\cos(x) - \cos(y)} \\
+                        &= \abs{\cos(x) - \cos(z) + \cos(z) - \cos(y)} \\
+                        &\leq \abs{\cos(x) - \cos(z)} + \abs{\cos(z) - \cos(y)} = d(x,z) + d(z,y).
+                    \end{align*}
+            \end{enumerate}
+        \item Sí define una m\'etrica:
+            \begin{enumerate}[i)]
+                \item $d(x, y) \geq 0$ es trivial y $d(x, y) = 0 \iff \arctan(x) = \arctan(y) \iff x = y$.
+                \item $d(x, y) = d(y, x)$ es obvio.
+                \item Finalmente,
+                    \begin{align*}
+                        d(x, y) &= \abs{\arctan(x) - \arctan(y)} \\
+                        &= \abs{\arctan(x) - \arctan(z) + \arctan(z) - \arctan(y)} \\
+                        &\leq \abs{\arctan(x) - \arctan(z)} + \abs{\arctan(z) - \arctan(y)} \\
+                        &= d(x, z) + d(y,z).
+                    \end{align*}
+            \end{enumerate}
+    \end{enumerate}
+
+    En general, basta con que $f$ sea inyectiva para que $d_f(x,y) = \abs{f(x) - f(y)}$ sea una distancia. Vemos que si $f$ es inyectiva
+    \begin{enumerate}[i)]
+        \item $d(x,y) \geq 0$ por el valor absoluto. $d(x, y) = 0 \iff f(x) - f(y) = 0 \iff f(x) = f(y) \stackrel{f \text{ inyectiva}}{\iff} x = y$.
+        \item $d(x,y) = \abs{f(x) - f(y)} = \abs{f(y) - f(x)} = d(y,x)$.
+        \item $d(x,y) = \abs{f(x) - f(y)} = \abs{f(x) - f(z) + f(z) - f(y)} \leq \abs{f(x) - f(z)} + \abs{f(z) - f(y)}$ $ = d(x, z) + d(z, y)$.
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item Sí que es una m\'etrica, de hecho es la m\'etrica habitual en $\real^n$.
+            \input{fig_code/bolas_6ab}
+        \item Sí que es una distancia
+            \input{fig_code/bolas_6ab}
+        \item Sí que es una m\'etrica
+            \input{fig_code/bolas_6c}
+        \item No es una m\'etrica, por ejemplo, $d\left( (1,0), (1,1) \right) = 0$, pero $(1,0) \neq (1,1)$.
+        \item Sí que es una m\'etrica
+            \input{fig_code/bolas_6e}
+        \item No es una m\'etrica, por ejemplo, $d\left( (1,0), (1,1) \right) = 0$, pero $(1,0) \neq (1,1)$.
+        \item En general no  es una m\'etrica, si tomamos la distancia euclidiana, $d_{\text{eq}} \left( (1, 0) , (0.5, 0) \right) = 0.5 \implies
+            d\left( (1,0), (0.5, 0) \right) = \lfloor0.5 \rfloor = 0$.
+        \item En general no es una m\'etrica, por ejemplo si $A$ tiene un vep $v$ de vap $\lambda < 0$, entonces $d(v, 0) = \sqrt{(v - 0) A (v-0)^t}$ no existe,
+            ya que el contenido de dentro de la raiz es negativo.
+        \item Vemos que cumple que
+            \begin{enumerate}[i)]
+                \item $d(x, y) \geq 0$, sí, ya que $A$ es definida positiva y por lo tanto, $(x-y)A(x-y)^t \geq 0 \implies \sqrt{(x-y)A(x-y)^t} \geq 0$.
+                \item $d(x, y) = 0 \iff \sqrt{(x-y)A(x-y)^t} = 0 \iff (x-y)A(x-y)^t = 0 \stackrel{A \text{ def. pos.}}{\iff} x = y$.
+                \item $d(x, y) = \sqrt{(x-y)A(x-y)^t} = \sqrt{(-1)(y-x)A(-1)(y-x)^t} =$ \\ $\sqrt{(y-x)A(y-x)^t} = d(y, x)$
+                \item Se tiene que
+                    \begin{align*}
+                        d^2(x,y) &= (x-y)A(x-y)^t = (x-z+z-y)A(x-z+z-y)^t \\
+                        &= (x-z)A(x-z)^t + (x-z)A(z-y)^t + (z-y)A(x-z)^t\, + \\
+                        &\qquad\qquad + (z-y)A(z-y)^t \\
+                        &\leq (x-z)A(x-z)^t + 2 \abs{(x-z)A(z-y)^t} + (z-y)A(z-y)^t \\
+                        &\leq (x-z)A(x-z)^t + 2 \sqrt{(x-z)A(x-z)^t(z-y)A(z-y)^t} \,\,+ \\
+                        &\qquad\qquad + (z-y)A(z-y)^t \\
+                        &= \left( (x-z)A(x-z)^t + (z-y)A(z-y)^t \right)^2 \\
+                        &= \left( d(x,z) + d(z,y) \right)^2.
+                    \end{align*}
+                    Por lo tanto, $d(x,y) \leq d(x,z) + d(z,y)$.
+            \end{enumerate}
+            Ponemos un ejemplo, tomando
+            \[
+                A =
+                \begin{pmatrix}
+                    1 & 2 \\
+                    2 & 5
+                \end{pmatrix}
+            \]
+            \begin{center}
+                \input{fig_code/bolas_6i.pgf}
+            \end{center}
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item Comprobaremos las propiedades para $\bar{d}$:
+            \begin{enumerate}[i)]
+                \item $\bar{d}(x,y) \geq 0$ trivial por la definición.
+                \item $\bar{d}(x,y) = 0 \iff \bar{d}(x,y) = d(x,y) = 0 \iff x = y$.
+                \item $\bar{d}(x,y) = \bar{d}(y,x)$ trivial por la definición.
+                \item Si $d(x,y) < 1$ entonces $\bar{d}(x,y) = d(x,y) \leq d(x,z) + d(z,y) \leq \bar{d}(x,z) + \bar{d}(z,y)$. Si $d(x,y) \geq 1$,
+                    entonces $\bar{d}(x,y) = 1$, y $\bar{d}(x,z) + \bar{d}(z,y)$ es mayor o igual que 1, ya que, si $d(x,z) \geq 1$ o
+                    $d(z,y) \geq 1$ ya se cumple la desigualdad. En otro caso, se tiene que $\bar{d}(x,y) = 1 \leq d(x,y) \leq d(x,z) + d(z,y) =
+                    \bar{d}(x,z) + \bar{d}(z,y)$.
+            \end{enumerate}
+        \item Comprobamos las propiedades
+            \begin{enumerate}[i)]
+                \item $\bar{d}(x,y) \geq 0$ división de dos números positivos.
+                \item $\bar{d}(x,y) = 0 \iff d(x,y) = 0 \iff x = y$.
+                \item $\bar{d}(x,y) = \bar{d}(y,x)$ trivial por la definición.
+                \item 
+                    \begin{align*}
+                        \bar{d}(x,y) &= \frac{d(x,y)}{1 + d(x,y)} \leq \frac{d(x,z)}{1 + d(x,z)} + \frac{d(z,y)}{1 + d(z,y)} =
+                        \bar{d}(x,z) + \bar{d}(z,y) \iff \\
+                        &\iff \frac{d(x,y)}{1+d(x,y)} \leq \frac{d(x,z) + d(z,y) + 2d(x,z)d(z,y)}{1 + d(x,z) + d(z,y) + d(x,z)d(z,y)} \\
+                        &\iff d(x,y) + \cancel{d(x,y)d(x,z)} + \cancel{d(x,y)d(z,y)} + \cancel{d(x,y)d(x,z)d(z,y)} \leq \\
+                        &\qquad\qquad\leq d(x,z) + d(z,y) + 2d(x,z)d(z,y) + \cancel{d(x,y)d(x,z)} \,\,+ \\
+                            &\qquad\qquad\qquad\qquad +\cancel{d(x,y)d(z,y)} + \cancel{2}d(x,y)d(x,z)d(z,y) \\
+                        &\iff d(x,y) \leq d(x,z) + d(z,y) + 2d(x,z)d(z,y) + d(x,y)d(x,z)d(z,y).
+                    \end{align*}
+                    Lo cual es cierto ya que $d$ es una distancia.
+            \end{enumerate}
+        \item De nuevo, comprobamos
+            \begin{enumerate}[i)]
+                \item $\bar{d}(x,y) \geq 0 \iff d(x,y) \geq \frac{0}{\alpha}$ OK.
+                \item $\bar{d}(x,y) = 0 \iff d(x,y) = 0 \iff x = y$.
+                \item $\bar{d}(x,y) = \bar{d}(y,x)$ trivial.
+                \item $\bar{d}(x,y) = \alpha d(x,y) \leq \alpha \left( d(x,z) + d(z,y) \right) = \alpha d(x,z) + \alpha d(z,y) = \bar{d}(x,z) + \bar{d}(z,y)$.
+            \end{enumerate}
+        \item Comprobamos
+            \begin{enumerate}[i)]
+                \item $\bar{d}(x,y) \geq 0$ inmediato.
+                \item $\bar{d}(x,y) = 0 \iff d(x,y) = 0 \iff x = y$.
+                \item $\bar{d}(x,y) = \bar{d}(y,x)$ trivial.
+                \item $\bar{d}(x,y) = \left( d(x,y) \right)^c \leq \left( d(x,z) + d(z,y) \right)^c \leq d(x,z)^c + d(z,y)^c$, ya que la función $f(x) = x^c$ es
+                    cóncava.
+            \end{enumerate}
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item \label{item:conc_a} Como $f$ es cóncava, cumple la desigualdad $\alpha f(z) + (1-\alpha)f(t) \leq f\left( \alpha z + (1-\alpha)t \right)$, tomamos ahora
+            $z = 0$ y $t=x+y$, entonces, substituyendo para unos valores concretos de $\alpha$:
+            \begin{gather*}
+                \begin{rcases}
+                    \alpha = \frac{x}{x+y} \implies \frac{x}{x+y}f(0) + \frac{y}{x+y}f(x+y) \leq f\left( \frac{x}{x+y} 0 + \frac{y}{x+y}(x+y)\right) =f(y)\\
+                    \alpha = \frac{y}{x+y} \implies \frac{y}{x+y}f(0) + \frac{x}{x+y}f(x+y) \leq f\left( \frac{y}{x+y} 0 + \frac{x}{x+y}(x+y)\right) =f(x)
+                \end{rcases}
+                \implies\\ \implies
+                f(0) + f(x+y) \leq f(x) + f(y) \stackrel{f(0) \geq 0}{\implies} f(x+y) \leq f(x) + f(y)
+            \end{gather*}
+        \item Comporbamos las propiedades
+            \begin{enumerate}[i)]
+                \item $f$ creciente $\implies f(x) \geq f(0) = 0 \implies (f \circ d)(x,y) \geq 0$.
+                \item $(f \circ d)(x,y) = 0 \iff d(x,y) = 0 \iff x = y$.
+                \item $(f \circ d)(x,y) = f\left( d(x,y) \right) = f\left( d(y,x) \right) = (f \circ d)(y,x)$.
+                \item $(f \circ d)(x,y) = f\left( d(x,y) \right) \leq f\left( d(x,z) + d(z,y) \right) \stackrel{\ref{item:conc_a}}{\leq}f\left( d(x,z) \right) +
+                    f\left( d(z,y) \right) = (f \circ d)(x,z) + (f \circ d)(z,y)$.
+            \end{enumerate}
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    Veremos que $(a) \implies (b)$. Sea $U \subset X$ un abierto de $(X, d_2)$, entonces $\Id^{-1}(U) = U$, que es un abierto en $(X,d_1)$ y análogamente con $\Id^{-1}$.
+    
+    Veremos ahora que $(b) \implies (c)$. Sea $B_1(x, r)$ una bola abierta según la m\'etrica $d_1$ de centro $x$, entonces, por $(b)$, $\Id^{-1}\left( B_1(x,r) \right)$
+    es un abierto, y $x \in \Id^{-1}\left( B_1(x,r) \right)$. Por lo tanto, $\exists s \tq B_2(x,s) \subset \Id^{-1}\left( B_1(x,r) \right) = B_1(x,r)$. (la otra
+    implicación es análoga).
+
+    Por último, comprobaremos que $(c) \implies (a)$. Sea $U$ un abierto en $(X,d_1)$, entonces $\forall x \in U \; \exists r \tq B_1(x,r) \subset U$, pero por $(c)$,
+    $\exists s \tq x \in B_2(x,s) \subset B_1(x,r) \subset U \implies x$ es un punto interior en $(X, d_2)$, por lo tanto, $U$ es abierto en $(X, d_2)$ y la otra
+    implicación se demuestra de forma análoga.
+\end{eje}
+
+\begin{eje}
+    Sean $d_1, d_2$ dos m\'etricas fuertemente equivalentes. Sean $r \in \real$ y $x \in X$, entonces, $\exists s = \frac{r}{M} \in \real \tq B_2(x, s) \subset B_1(x, r)$.
+    De nuevo, la otra implicación es análoga.
+
+    Las m\'etricas $d_1(x,y) = \abs{x-y}$ y $d_2(x,y) = \abs{\frac{1}{x} - \frac{1}{y}}$ son equivalentes, pero no son fuertemente equivalentes.
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item Comprobemos que $D_1$ satisface las propiedades de las métricas. Por ser $d_1$ y $d_2$ métricas,
+        \begin{enumerate}[i)]
+            \item 
+            \[
+                D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = d_1 \left( x_1, y_1\right) + d_2 \left( x_2 , y_2 \right) \geq 0.
+            \]
+            \item 
+            \begin{gather*}
+                D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = d_1 \left( x_1, y_1\right) + d_2 \left( x_2 , y_2 \right) = 0 \iff \\
+                \iff \left\{ \begin{array}{c}
+                    d_1 \left( x_1, y_1 \right) = 0 \\
+                    d_2 \left( x_2, y_2 \right) = 0
+                \end{array} \right\} \iff \left\{ \begin{array}{c}
+                    x_1=y_1 \\
+                    x_2=y_2
+                \end{array} \right\} \iff \left( x_1, y_1 \right) = \left( x_2, y_2 \right).
+            \end{gather*}
+            \item 
+            \begin{gather*}
+                D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = d_1 \left( x_1, y_1 \right) + d_2 \left( x_2 , y_2 \right) = d_1 \left( y_1, x_1 \right) + d_2 \left( y_2 , x_2 \right)= \\
+                =D_1 \left( \left( y_1, y_2 \right) , \left( x_1 , x_2 \right) \right) .
+            \end{gather*}
+            \item 
+            \begin{gather*}
+                D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = d_1 \left( x_1, y_1 \right) + d_2 \left( x_2 , y_2 \right) \leq d_1 \left( x_1, z_1 \right) + d_1 \left( z_1, y_1 \right) + \\
+                + d_2 \left( x_2, z_2 \right) + d_2 \left( z_2, y_2 \right) = D_1 \left( \left( x_1, x_2 \right) , \left( z_1 , z_2 \right) \right) + D_1 \left( \left( z_1, z_2 \right) , \left( y_1 , y_2 \right) \right).
+            \end{gather*}
+        \end{enumerate}
+        \item Comprobemos que $D_2$ satisface las propiedades de las métricas. Por ser $d_1$ y $d_2$ métricas,
+        \begin{enumerate}[i)]
+            \item
+            \[
+                D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = \sqrt{ d_1 \left( x_1, y_1\right) ^2 + d_2 \left( x_2 , y_2 \right)^2 } \geq 0.
+            \]
+            \item 
+            \begin{gather*}
+                D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = \sqrt{ d_1 \left( x_1, y_1\right) ^2 + d_2 \left( x_2 , y_2 \right)^2 } = 0 \iff \\
+                \iff \left\{ \begin{array}{c}
+                    d_1 \left( x_1, y_1 \right) = 0 \\
+                    d_2 \left( x_2, y_2 \right) = 0
+                \end{array} \right\} \iff  \left\{ \begin{array}{c}
+                    x_1=y_1 \\
+                    x_2=y_2
+                \end{array} \right\} \iff \left( x_1, y_1 \right) = \left( x_2, y_2 \right).
+            \end{gather*}
+            \item 
+            \begin{gather*}
+                D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = \sqrt{ d_1 \left( x_1, y_1\right) ^2 + d_2 \left( x_2 , y_2 \right)^2 } = \\ 
+                = \sqrt{ d_1 \left( y_1, x_1\right) ^2 + d_2 \left( y_2 , x_2 \right)^2 } = D_2 \left( \left( y_1, y_2 \right) , \left( x_1 , x_2 \right) \right) .
+            \end{gather*}
+            \item Primero, demostraremos un resultado auxiliar. Para cualesquiera reales positivos $a, b, c, d$ se tiene que
+            \begin{align} \nonumber
+                0 \leq \left( ad -cb \right) ^2 &\implies 2abcd \leq a^2d^2+c^2b^2 \\  \nonumber
+                &\implies \left( ab+cd \right) ^2 = a^2b^2 + 2abcd + c^2d^2 \\ \nonumber
+                    &\qquad\qquad\qquad\quad \leq a^2b^2+a^2d^2+c^2b^2+c^2d^2 \\ \nonumber
+                    &\qquad\qquad\qquad\quad = \left( a^2+c^2 \right) \left( b^2+d^2 \right) \\ \nonumber
+                &\implies \left( a+b \right) ^2 + \left( c+d\right) ^2 = a^2+b^2+c^2+d^2 +2ab +2cd \\ \nonumber
+                &\qquad \qquad \leq a^2+b^2+c^2+d^2+2\sqrt{\left( a^2+c^2\right) \left( b^2+d^2\right)} \\ \nonumber
+                &\implies\left( \sqrt{\left( a+b \right) ^2 + \left( c+d \right) ^2} \right) ^2 \leq \left( \sqrt{a^2+c^2} + \sqrt{b^2+d^2} \right) ^2 \\
+                \label{item:11.a.lema} &\implies \sqrt{\left( a+b \right) ^2 + \left( c+d \right) ^2} \leq \sqrt{a^2+c^2} + \sqrt{b^2+d^2}.
+            \end{align}
+            Entonces,
+            \begin{align*}
+                D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) &= \sqrt{ d_1 \left( x_1, y_1\right) ^2 + d_2 \left( x_2 , y_2 \right)^2 } \\
+                &\leq \sqrt{ \left( d_1 \left( x_1, z_1\right) + d_1\left( z_1, y_1 \right) \right) ^2 + \left( d_2 \left( x_2, z_2 \right) + d_2\left( z_2, y_2 \right) \right) ^2 }\\
+                & \stackrel{\eqref{item:11.a.lema}}{\leq} \sqrt{d_1\left( x_1, z_1 \right) ^2+d_2 \left( x_2, z_2 \right) ^2} + \sqrt{d_1\left( z_1, y_1 \right) ^2+d_2 \left( z_2, y_2 \right) ^2}\\
+                &= D_2 \left( \left( x_1, x_2 \right) , \left( z_1 , z_2 \right) \right) + D_2 \left( \left( z_1, z_2 \right) , \left( y_1 , y_2 \right) \right).
+            \end{align*}            
+        \end{enumerate}
+        \item Comprobemos que $D_{\infty}$ satisface las propiedades de las métricas. Por ser $d_1$ y $d_2$ métricas,
+        \begin{enumerate}[i)]
+            \item
+            \[
+                D_{\infty} \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = \max \left\{ d_1 \left( x_1, y_1\right) , d_2 \left( x_2 , y_2 \right) \right\} \geq 0.
+            \]
+            \item 
+            \begin{gather*}
+                D_{\infty} \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = \max \left\{ d_1 \left( x_1, y_1\right) , d_2 \left( x_2 , y_2 \right) \right\} = 0  \iff \\
+                \iff \left\{ \begin{array}{c}
+                    d_1 \left( x_1, y_1 \right) = 0 \\
+                    d_2 \left( x_2, y_2 \right) = 0
+                \end{array} \right\} \iff  \left\{ \begin{array}{c}
+                    x_1=y_1 \\
+                    x_2=y_2
+                \end{array} \right\} \iff \left( x_1, y_1 \right) = \left( x_2, y_2 \right).
+            \end{gather*}
+            \item 
+            \begin{gather*}
+                D_{\infty} \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) = \max \left\{ d_1 \left( x_1, y_1\right)  , d_2 \left( x_2 , y_2 \right) \right\} = \\
+                = \max \left\{ d_1 \left( y_1, x_1\right) , d_2 \left( y_2 , x_2 \right) \right\} =D_2 \left( \left( y_1, y_2 \right) , \left( x_1 , x_2 \right) \right) .
+            \end{gather*}
+            \item 
+            \begin{align*}
+                D_{\infty} \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) &= \max \left\{ d_1 \left( x_1, y_1\right) , d_2 \left( x_2 , y_2 \right) \right\} \\
+                &\leq \max \left\{ d_1 \left( x_1, z_1 \right) +d_1 \left( z_1, y_1 \right) , d_1 \left( x_2, z_2 \right) +d_2 \left( z_2, y_2 \right)  \right\} \\
+                &\leq \max \left\{ d_1 \left( x_1, z_1\right) , d_2 \left( x_2 , z_2 \right) \right\} + \\
+                &\qquad\qquad + \max \left\{ d_1 \left( z_1, y_1\right) , d_2 \left( z_2 , y_2 \right) \right\} \\
+                &= D_{\infty} \left( \left( x_1, x_2 \right) , \left( z_1 , z_2 \right) \right) + D_{\infty} \left( \left( z_1, z_2 \right) , \left( y_1 , y_2 \right) \right).
+            \end{align*}
+        \end{enumerate}
+    \end{enumerate}
+    Veamos ahora que $D_1$ y $D_2$ son métricas fuertemente equivalentes. Observamos que
+    \[
+        D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right)^2-D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right)^2=2d_1\left( x_1, y_1 \right) d_2 \left( x_2, y_2 \right).
+    \]
+    Entonces,
+    \[
+        2d_1\left( x_1, y_1 \right) d_2 \left( x_2, y_2 \right) \geq 0 \implies D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) \leq D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right).
+    \]
+    Y también
+    \begin{gather*}
+        2d_1\left( x_1, y_1 \right) d_2 \left( x_2, y_2 \right) \leq d_1\left( x_1, y_1 \right) ^2 + d_2 \left( x_2, y_2 \right) ^2 = D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right)^2 \implies \\
+        \implies D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) \leq \sqrt{2} D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right).
+    \end{gather*}
+    Por lo tanto,
+    \[
+        D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) \leq D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) \leq \sqrt{2} D_2 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right),
+    \]
+    con lo que $D_1$ y $D_2$ son métricas fuertemente equivalentes. Veamos ahora que $D_1$ y $D_{\infty}$ también lo son. Es trivial comprobar que
+    \[
+        D_{\infty} \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) \leq D_1 \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right) \leq 2 D_{\infty} \left( \left( x_1, x_2 \right) , \left( y_1 , y_2 \right) \right).
+    \]
+    Finalmente, como que la equivalencia fuerte es una propiedad transitiva, $D_2$ y $D_{\infty}$ son métricas fuertemente equivalentes.
+    
+    Para acabar, mostraremos la generalización de estos resultados. Sean $\left( X_i, d_i \right)$ espacios métricos para todo $i \in \left\{1, \dots , n \right\}$, y sea $X=X_1 \times \cdots \times X_n$. Definimos en $X$ las aplicaciones
+    \begin{enumerate}[(a)]
+        \item $D_1\left( \left( x_1, y_1 \right), \dots , \left( x_n, y_n \right) \right) = d_1\left( x_1, y_1 \right) + \cdots + d_n \left( x_n, y_n \right).$
+        \item $D_2\left( \left( x_1, y_1 \right), \dots , \left( x_n, y_n \right) \right) = \sqrt{d_1\left( x_1, y_1 \right)^2 + \cdots + d_n \left( x_n, y_n \right)^2}.$
+        \item $D_{\infty}\left( \left( x_1, y_1 \right), \dots , \left( x_n, y_n \right) \right) = \max \left\{d_1\left( x_1, y_1 \right), \dots, d_n \left( x_n, y_n \right) \right\}.$
+    \end{enumerate}
+    A través de un razonamiento inductivo inmediato a partir de lo anteriormente visto, obtenemos que $D_1$, $D_2$ y $D_{\infty}$ son métricas en $X$ y fuertemente equivalentes entre ellas.
+\end{eje}
+
+\begin{eje}
+    Sea $x= \lp x_1, x_2 \rp \in X \times X$ y sean $\varepsilon > 0, \, \delta=\varepsilon$. Entonces, $\forall y = \lp y_1, y_2 \rp \in X \times X$ con $D_1 \lp x, y \rp < \delta$,
+    \begin{align*}
+        \left| d\lp x_1, x_2 \rp - d\lp y_1, y_2 \rp \right| &\leq \left| d\lp x_1, x_2 \rp -d\lp x_2, y_1 \rp + d \lp x_2, y_1 \rp - d\lp y_1, y_2 \rp \right| \\
+        &\leq \left| d\lp x_1, x_2 \rp -d\lp x_2, y_1 \rp \right| + \left| d \lp x_2, y_1 \rp - d\lp y_1, y_2 \rp \right| \\
+        &\leq d\lp x_1, y_1 \rp + d\lp x_2, y_2 \rp = D_1 \lp x, y \rp \\
+        &< \delta = \varepsilon.
+    \end{align*}
+    Así pues, la aplicación $d \colon X \times X \to \real$ es continua tomando en $X \times X$ la métrica $D_1$. Por ser $D_1$, $D_2$ y $D_{\infty}$ métricas fuertemente equivalentes, $d$ también es continua si tomamos en $X \times X$ las métricas $D_2$ o $D_{\infty}$.
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item Comprobemos que $\| u \| := \sqrt{\left< u, u \right>}$ satisface las propiedades de norma.
+            \begin{enumerate}[i)]
+                \item $\left< u, u \right> \geq 0 \implies \| u \| =  \sqrt{\left< u, u \right> } \geq 0$.
+                \item $\lp \left< u, u \right> = 0 \iff u=0 \rp \implies \lp \| u \| = \sqrt{\left< u, u \right> } = 0 \iff u=0 \rp$.
+                \item $\| \lambda u \| = \sqrt { \left< \lambda u, \lambda u \right> } = \sqrt {\lambda^2 \left< u, u \right> } = | \lambda | \sqrt { \left<  u,  u \right> } = | \lambda | \| u \|$.
+                \item
+                \begin{gather*}
+                    \| u+v \| =\sqrt { \left< u + v , u+v \right>}=\sqrt { \left< u , u+v \right> + \left< v , u+v \right>}= \\
+                    = \sqrt { \left< u , u\right> +\left< u , v \right> + \left< v , u \right> + \left< v , v \right>} \leq \sqrt { \left< u , u\right> + \left< v , v \right>} \leq \\
+                    \leq \sqrt { \left< u , u\right>} + \sqrt{ \left< v , v \right>}= \| u \| + \| v \|.
+                \end{gather*}
+            \end{enumerate}
+        \item Comprobemos que $d \lp u, v \rp := \| u - v \|$ satisface las propiedades de métrica.
+            \begin{enumerate}[i)]
+                \item $d \lp u, v \rp = \|u-v \| \geq 0$.
+                \item $d\lp u, v \rp = \| u-v \| = 0 \iff u - v = 0 \iff u = v$.
+                \item
+                \begin{gather*}
+                    d\lp u, v \rp = \| u-v \| = \sqrt { \left< u - v , u-v \right>} = \sqrt { \left< u , u-v \right> - \left< v , u-v \right>} = \\
+                    = \sqrt { \left< u , u \right> - \left< u , v \right> - \left< v , u \right> + \left< v , v \right>}  = \sqrt { \left< v - u , v-u \right>} = \| v-u \| = d \lp v, u \rp.
+                \end{gather*}
+                \item $d\lp u, v \rp = \| u -v \| = \| u -w +w -v \| \leq \|u-w \| + \| w-v \|= d \lp u, w \rp + d \lp w, v \rp$.
+            \end{enumerate}
+        \item La métrica discreta no proviene de norma alguna. 
+            Esto es así porque no es escalable, por ejemplo, 
+            $2 = 2 d\lp (0, \dots, 0) , (1, \dots, 1) \rp \neq  
+            d \lp \lp0, \dots, 0\rp , \lp2, \dots, 2\rp \rp  = 1$, cosa que debiera cumplir 
+            si proviniera de una norma.
+
+            
+            La norma $\| x \| = \sum | x_i |$  
+            no proviene de ningún producto escalar. De hacerlo, debiera cumplir la
+            identidad del paralelogramo, pero los vectores
+            $x = \lp 1, 0, \dots, 0 \rp,
+            y = \lp 0, 1, 0, \dots, 0  \rp$
+            no la cumplen: $2\norm{x}^2 + 2\norm{y}^2 = 4 \neq 8 = \norm{x+y}^2
+            + \norm{x-y}^2$. Para $n = 1$ este contraejemplo no es válido pero en
+            ese caso sí es cierto que toda norma proviene de un producto escalar.
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    Dado un isomorfismo $\phi \colon \F \to \E$, dos normas en $\E$ serán equivalentes
+    si y solo si las normas asociadas de $\F$ por $\phi$ (es decir, de la forma 
+    $\norm{u}'=\norm{\phi(u)})$ lo son.
+    Como cualquier $\real$-espacio vectorial de dimensión finita es isomorfo a $\real^n$
+    basta comprobar que todas las normas de este último son equivalentes. 
+
+    Para ello, veremos primero que es suficiente probar que todas las normas son 
+    equivalentes a la norma ordinaria (que denotaremos por $\norm{\cdot}_{\text{ord}}$). 
+    Si toda norma es equivalente a la ordinaria, entonces tenemos que, para toda pareja
+    de normas $\norm{\cdot}_1,\,\norm{\cdot}_2$ y vector $v \in \E$ 
+    \begin{gather*}
+        m_1 \norm{v}_1 \leq \norm{v}_{\text{ord}} \leq M_1 \norm{v}_1, \\
+        m_2 \norm{v}_{\text{ord}} \leq \norm{v}_2 \leq M_2 \norm{v}_{\text{ord}}.\\
+    \end{gather*}
+    Por lo tanto,
+    \[
+        m_1 m_2 \norm{v}_1 \leq m_2 \norm{v}_{\text{ord}} \leq \norm{v}_2 \leq 
+        M_2 \norm{v}_{\text{ord}} \leq M_2  M_1 \norm{v}_1.
+    \]
+    Es decir, que la equivalencia es una propiedad transitiva y, como ya se ha dicho,
+    solo hace falta ver que todas las normas son equivalentes a la ordinaria.
+
+    Para ver esto último, comenzamos demostrando que
+    \[
+        \norm{v} = \norm{x_1e_1 + \dots + x_ne_n} \leq |x_1|\norm{e_1} + \dots + |x_n|
+        \norm{e_n} \leq nXE \leq nE \norm{v}_{\text{ord}}=M\norm{v}_{\text{ord}},
+    \]
+    donde $E$ es el máximo de las $\norm{e_i}$ y $X$ el máximo de las $|x_i|$.
+    La cota $M$ obtenido es independiente de $v$.
+    Usando esto, podemos ver que una norma $\norm{\cdot}$
+    en el espacio métrico ordinario de $\real^n$ es continua:
+    Para todo $\varepsilon > 0$, fijando $\delta = \frac{\varepsilon}{M}$, si
+    $\norm{x-y}_{\text{ord}} < \delta$ se cumple
+    \[
+        \abs{\norm{x} - \norm{y}} \leq \norm{x-y} \leq M\norm{x-y}_{\text{ord}} < 
+        \varepsilon.
+    \]
+    
+    De lo que $\norm{\cdot}$ es continua. Sabiendo esto, podemos deducir que existe
+    una cota $m$ tal que $m \leq \norm{v} \, \forall \: v \tq 
+    \norm{v}_\text{ord}=1$, 
+    puesto que cualquier función continua sobre un compacto (en este caso, la esfera
+    unidad con la m\'etrica habitual en $\real^n$) admite una cota inferior. Finalmente,
+    para cualquier vector $v$
+    \[
+        m\norm{v}_{\text{ord}} \leq \norm{\frac{v}{\norm{v}_\text{ord}}} 
+        \norm{v}_{\text{ord}} = \norm{v}.
+    \]
+
+    Con lo que hemos encontrado las cotas $m$ y $M$ necesarias para ver que
+    cualquier norma es equivalente a la ordinaria en $\real^n$, y, como se ha explicado
+    antes, para ver que dos normas cualesquiera en un $\real$-espacio
+    vectorial de dimensión finita son equivalentes.
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item Comprobemos que $\| f \|_1$ es una norma.
+            \begin{enumerate}[i)]
+                \item $\| f \|_1 =  \int_a^b \left| f \lp x \rp \right| \dif x \geq 0$.
+                \item $\| f \|_1 =  \int_a^b \left| f \lp x \rp \right| \dif x = 0 \stackrel{f \text{ continua}}{\iff} f = 0$.
+                \item $\| kf \|_1 =  \int_a^b \left| f \lp x \rp \right| \dif x = | k | \int_a^b \left| f \lp x \rp \right| \dif x = | k | \|f \|_1$.
+                \item $\| f+g \|_1 =  \int_a^b \left| f \lp x \rp +g \lp x \rp \right| \dif x \leq \int_a^b \left| f\lp x \rp \right| + \left| g \lp x \rp \right| \dif x = \| f \| _1 + \| g \|_ 1 $.
+            \end{enumerate}
+            Comprobemos que $\| f \|_2$ es una norma.
+            \begin{enumerate}[i)]
+                \item $\| f \|_2 =  \sqrt{\int_a^b \left| f \lp x \rp \right|^2 \dif x } \geq 0$.
+                \item $\| f \|_2 =  \sqrt{\int_a^b \left| f \lp x \rp \right|^2 \dif x} = 0 \stackrel{f \text{ continua}}{\iff} f = 0$.
+                \item $\| kf \|_2 =  \sqrt{\int_a^b \left| kf \lp x \rp \right|^2 \dif x} = | k | \sqrt{\int_a^b \left| f \lp x \rp \right|^2 \dif x } = | k | \|f \|_2 $.
+                \item $\| f+g \|_2 =  \sqrt{\int_a^b \left| f \lp x \rp +g \lp x \rp \right|^2 \dif x} = \sqrt{\int_a^b \left| f \lp x \rp \right|^2+2f \lp x \rp g \lp x \rp + \left| g \lp x \rp \right|^2 \dif x} \leq \sqrt{\int_a^b \left| f \lp x \rp \right|^2 + \left| g \lp x \rp \right|^2 \dif x} \leq \sqrt{\int_a^b \left| f \lp x \rp \right|^2 \dif x} + \sqrt{\int_a^b \left| g \lp x \rp \right|^2 \dif x} = \| f \| _2 + \| g \|_2 $.
+            \end{enumerate}
+            Comprobemos que $\| f \|_3$ es una norma.
+            \begin{enumerate}[i)]
+                \item $\| f \|_{\infty} = \sup_{x\in \left[ a, b \right]} \left\{ \left| f \lp x \rp \right| \right\} \geq 0$.
+                \item $\| f \|_{\infty} = \sup_{x\in \left[ a, b \right]} \left\{ \left| f \lp x \rp \right| \right\} = 0 \iff f=0$.
+                \item $\| kf \|_{\infty} = \sup_{x\in \left[ a, b \right]} \left\{ \left| kf \lp x \rp \right| \right\} = \left| k \right|\sup_{x\in \left[ a, b \right]} \left\{ \left| f \lp x \rp \right| \right\} = \left| k \right| \| f \|_{\infty}$.
+                \item $\| f+g \|_{\infty} = \sup_{x\in \left[ a, b \right]} \left\{ \left| f \lp x \rp + g \lp x \rp \right| \right\} \leq \sup_{x\in \left[ a, b \right]} \left\{ \left| f \lp x \rp \right| \right\} + \sup_{x\in \left[ a, b \right]} \left\{ \left| g \lp x \rp \right| \right\} = \left\| f \right\|_{\infty} + \| g \|_{\infty}$.
+            \end{enumerate}
+        \item Consideremos la familia de funciones, para $k \geq 1$,
+            \begin{align*}
+                f_k \colon \left[0, 1  \right] &\to \real \\
+                x &\mapsto f_k \lp x \rp := \left\{ \begin{array}{cc}
+                    0 & \text{si } x > \frac{1}{k} \\
+                    2k\lp 1 - kx \rp & \text{si } x \leq \frac{1}{k}
+                \end{array} \right.
+            \end{align*}
+            Se tiene que para todo $k \geq 1$, $\left\| f_k \right\|_1 = 1$ y $\left\| f_k \right\|_{\infty} = k$, de modo que las normas $\| \cdot \|_1 $ y $\| \cdot \|_{\infty} $ no son equivalentes.
+        \item Con la distancia $d_1 \lp f, g \rp = \| f-g \|_1$, la bola no se puede dibujar. Con la distancia $d_{\infty} \lp f, g \rp = \| f-g \|_{\infty}$, ERNESTO PON TU DIBUJO.
+        \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+        \item[]
+        \item El punto $\lp 1, 0 \rp$ del conjunto no es interior, de modo que el conjunto no es abierto.
+        \item Para cada punto $ \lp x, y \rp $ del conjunto, la bola abierta centrada en él y de radio $1-\abs{x}$ está contenida en el conjunto, de modo que el conjunto es abierto.
+        \item El punto $\lp 0, 0 \rp$ del conjunto no es interior, de modo que el conjunto no es abierto.
+        \item El punto $\lp 0, 0 \rp$ del conjunto no es interior, de modo que el conjunto no es abierto.
+        \item El punto $\lp 1, 0 \rp$ del conjunto no es interior, de modo que el conjunto no es abierto.
+        \item El punto $\lp 0, 0 \rp$ del conjunto no es interior, de modo que el conjunto no es abierto.
+        \item El punto $\lp \sqrt{2}, 0 \rp$ del conjunto no es interior, de modo que el conjunto no es abierto.
+        \item El punto $\lp 0, 0 \rp$ del conjunto no es interior, de modo que el conjunto no es abierto.
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    Sea $x \in E $. Entonces, $\forall \varepsilon>0, \, d \lp x, y \rp < \delta = \varepsilon \implies \abs{d\lp x, p \rp - d \lp p, y \rp} \leq d\lp x, y \rp < \varepsilon$. Por tanto, $d\lp \cdot, p \rp \colon E \to \real$ es continua.
+\end{eje}
+
+\begin{eje}
+    En el espacio métrico $\lp \real, d_0 \rp$, todos los puntos son interiores a cualquier conjunto que los contenga, ya que $B_{\frac{1}{2}}\lp x \rp = \left\{ x \right\}$. Entonces, para cualquier aplicación $f\colon \lp \real, d_0 \rp \to \lp \real, d \rp$, la antiimagen de un abierto es siempre un abierto y por consiguiente es una aplicación continua.
+\end{eje}
+
+\begin{eje}
+  \begin{enumerate}[(a)]
+        \item[]
+        \item
+            Vamos a comprobar que es continua por definición. 
+            
+            Sean $x',\,y' \in X \tq d\lp x',\,y'\rp < \varepsilon$. Entonces tenemos que
+            \begin{gather*}
+             f(x')= \inf_{y\in A} d\lp x',\,y\rp \leq \inf_{y\in A} \lp d\lp x',\,y'\rp + d\lp y',\,y\rp \rp = d\lp x',\,y'\rp + \inf_{y\in A} d\lp y',\,y\rp < \varepsilon + f(y') \\
+             f(y')= \inf_{y\in A} d\lp y',\,y\rp \leq \inf_{y\in A} \lp d\lp y',\,x'\rp + d\lp x',\,y\rp \rp = d\lp y',\,x'\rp + \inf_{y\in A} d\lp x',\,y\rp < \varepsilon + f(x').
+            \end{gather*}
+            Lo que nos dice que 
+            \[
+             f(x')-\varepsilon \leq f(y') \leq f(x') + \varepsilon \iff \abs{f(x')-f(y')}< \varepsilon .
+            \]
+            Y por lo tanto, cogiendo $\delta = \epsilon$ tenemos que 
+            \[
+             \forall \varepsilon > 0, \exists \delta > 0 \tq  \text{ si }d\lp x',\,y'\rp < \delta,\, \abs{f(x')-f(y')} < \varepsilon,
+            \]
+	    lo que demuestra la continuidad de $f$.
+	\item
+	  Tenemos dos opciones:
+	  \begin{itemize}
+	    \item $x \in A$, y por lo tanto, $\exists y \in A \tq d\lp x,\, y\rp = 0$ ($y=x$), y por lo tanto $d\lp x,\,A\rp =0$.
+	    \item $x \not\in A$. Como $0=d\lp x,\, A\rp = \inf_{y \in A} d\lp x,\, y\rp$, podemos encontrar puntos de $A$ tan cercanos a $x$ como queramos, es decir
+	    \[
+	     \forall \delta >0 ,\,  \exists y \in A \tq y \in B_{\delta}(x) \implies \lp B_{\delta}(x)\setminus \{x\}\rp \cap A \neq \varnothing , 
+	    \]
+	    que son los puntos de acumulación de $A$.
+	  \end{itemize}
+	  Por lo tanto, $d\lp x,\,A\rp =0 \iff x \in A\cup A'$.
+  \end{enumerate}
+\end{eje}
+
+\begin{eje}
+  \begin{enumerate}[(a)]
+   \item []
+   \item Si cogemos $f(x)=x$ y $g(x)=2x$ tenemos un contraejemplo a la continuidad de la función, ya que $d\lp f'(x), g'(x) \rp = \sup \lp f'(x)-g'(x)\rp = 1$, lo que nos dice que no podemos hacer la distancia tan pequeña como queramos.
+   \item Es trivial demostrar que $\bar{d}$ es una distancia a partir de las propiedades del valor absoluto.  Para ver que la función derivada es continua, usaremos la definición.
+   Si consideramos dos funciones $f$ y $g$ $\tq \bar{d}\lp f,g\rp < \varepsilon$, por definición de $\bar{d}$ tenemos que $\sup\limits_{x \in [a,b]} \abs{f'(x)-g'(x)}<\bar{d}\lp f,g\rp<\varepsilon$, y por lo tanto, si cogemos $\delta = \varepsilon$, tenemos que
+   \[
+    \forall \varepsilon,\, \exists \delta \tq \text{ si } \bar{d}\lp f,g \rp < \delta,\, \sup_{x \in [a,b]} \abs{f'(x)-g'(x)}<\bar{d}<\varepsilon,
+   \]
+    lo que nos dice que la aplicación derivada con esta métrica es continua.
+  \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)] \item[]
+        \item \label{item:boles_iguals_} Tomemos una bola abierta cualquiera $B_r \lp x \rp$ y un punto cualquiera perteneciente a dicha bola $y\in B_r\lp x \rp$. Entonces, para todo punto $z \in B_r \lp y \rp$ (bola abierta) se tiene que $d\lp x, z \rp \leq \max \lc d \lp x, y \rp, d \lp y, z \rp \rc < r $. Así pues, $B_r \lp y \rp \subseteq B_r \lp x \rp$. Mediante un razonamiento análogo, obtenemos que $B_r \lp x \rp \subseteq B_r \lp y \rp$, concluyendo que $B_r \lp y \rp = B_r \lp x \rp$. Para las bolas cerradas el procedimiento es el mismo.
+        \item Sea $y \in B_{r_1}\lp x_1 \rp \cap B_{r_2}\lp x_2 \rp$ y pongamos, sin pérdida de generalidad, $r_1\leq r_2$. Entonces $B_{r_1}\lp x_1 \rp \stackrel{ \ref{item:boles_iguals_}}{=} B_{r_1}\lp y \rp \subseteq B_{r_2}\lp y \rp \stackrel{\ref{item:boles_iguals_}}{=} B_{r_2}\lp x_2 \rp$.
+        \item Veamos primero que toda bola es un cerrado. Sea $B_r\lp x \rp$ una bola cualquiera (abierta o cerrada) y sea $y\notin B_r \lp x \rp$ un punto no perteneciente a dicha bola. Supongamos que $\exists z \in B_r\lp x \rp \cap B_r\lp y \rp$. Se tiene que $B_r\lp x \rp \stackrel{\ref{item:boles_iguals_}}{=} B_r\lp z \rp \stackrel{\ref{item:boles_iguals_}}{=} B_r\lp y \rp$, lo cual es una contradicción porque $y\notin B_r\lp x \rp$. Entonces, $B_r\lp x \rp \cap B_r\lp y \rp = \varnothing$ y todos los puntos del complementario de la bola son interiores, de modo que $B_r\lp x \rp$ es cerrada. Veamos ahora que toda bola es un abierto. Sea $B_r\lp x \rp$ una bola cualquiera (abierta o cerrada) y sea $y\in B_r \lp x \rp$ un punto perteneciente a dicha bola. Se tiene que $B_r\lp y \rp \stackrel{\ref{item:boles_iguals_}}{=} B_r\lp x \rp $ y, por consiguiente, que $y$ es un punto interior. Concluimos, pues, que la bola es un abierto.
+        \item Queremos ver que $d \lp a, b \rp \leq \max \lc d \lp a, c \rp, d\lp c, b \rp \rc$. Supongamos que no se satisface, es decir, que $\exists a, b, c \in \z$ tales que $n^{-r_1} = d \lp a, b \rp > \max \lc d \lp a, c \rp, d\lp c, b \rp \rc = \max \lc n^{-r_2}, n^{-r_3} \rc = n^{-r_2}$, sin pérdida de generalidad. Esto implica que $r_1<r_2$ y que $r_2 | \lp a-c \rp $ y $r_2 | \lp c-b \rp$, lo que a su vez significa que $r_2 | \lp a-c \rp + \lp c-b \rp = \lp a-b \rp$. Pero esto supone una contradicción porque entonces $d\lp a, b \rp \geq r_2 > r_1$. Por consiguiente, $d \lp a, b \rp \leq \max \lc d \lp a, c \rp, d\lp c, b \rp \rc$.
+        \item Las bolas cerradas de radio $n^{-r}$, $\lc b \in \z | d\lp a, b \rp \leq n^{-r} \rc$, son los conjuntos de puntos que satisfacen $n^r | \lp a-b \rp$, es decir, los conjuntos $a+n^r \z$. Comprobamos pues, que una bola abierta de radio $R$ satisfaciendo $n^{-r} < R \leq n^{-r+1}$ coincide con el conjunto $a+n^r \z$ y  que una bola cerrada de radio $R$ satisfaciendo $n^{-r} \leq R < n^{-r+1}$ coincide con el conjunto $a+n^r \z$.
+    \end{enumerate}
+\end{eje}
+
+\begin{eje}
+    Trataremos primero el caso $d_{\min}$. Sea $S=\lc A, B, C \rc$ y sean
+    \begin{gather*}
+        d_1 \colon S \times S \to \real \\
+        d_1\lp A, B \rp= d_1 \lp B, A \rp=2, \quad d_1\lp B, C \rp= d_1 \lp C, B \rp=3, \quad d_1\lp C, A \rp= d_1 \lp A, C \rp=1, \\
+        d_1\lp A, A \rp=0, \qquad d_1\lp B, B \rp=0, \qquad d_1\lp C, C \rp=0. \\
+        \text{y}\\
+        d_2 \colon S \times S \to \real \\
+        d_2\lp A, B \rp= d_2 \lp B, A \rp=1, \quad d_2\lp B, C \rp= d_2 \lp C, B \rp=3, \quad d_2\lp C, A \rp= d_2 \lp A, C \rp=2, \\
+        d_2\lp A, A \rp=0, \qquad d_2\lp B, B \rp=0, \qquad d_2\lp C, C \rp=0. \\
+    \end{gather*}
+    Es trivial comprobar que tanto $d_1$ como $d_2$ son métricas. Consideremos ahora $d_{\min}\lp x, y \rp = \min \lc d_1\lp x, y \rp, d_2 \lp x, y \rp \rc$. Tenemos que $d_{\min}\lp B, C\rp = 3 > 1+1= d_2\lp B, A \rp + d_1 \lp A, C \rp = d_{\min}\lp B, A\rp+d_{\min}\lp A, C\rp$. Esto es incompatible con la desigualdad triangular de las métricas, de modo que $d_{\min}$ no és una métrica.  Tratemos ahora $d_{\max}$. Puesto que $d_1$ y $d_2$ son métricas,
+    \begin{enumerate}[i)]
+        \item $d_{\max} \lp x, y \rp = \max \lc d_1 \lp x, y \rp, d_2 \lp x, y \rp \rc \geq 0$.
+        \item $d_{\max} \lp x, y \rp = \max \lc d_1 \lp x, y \rp, d_2 \lp x, y \rp \rc = 0 \iff x=y$.
+        \item $d_{\max} \lp x, y \rp = \max \lc d_1 \lp x, y \rp, d_2 \lp x, y \rp \rc = \max \lc d_1 \lp y, x \rp, d_2 \lp y, x \rp \rc = d_{\max} \lp y, x \rp$.
+        \item 
+            \begin{align*}  
+                d_{\max} \lp x, y \rp &= \max \lc d_1 \lp x, y \rp, d_2 \lp x, y \rp \rc \\
+                &\leq \max \lc d_1 \lp x, z \rp + d_1 \lp z, y \rp, d_2 \lp x, z \rp + d_2 \lp z, y \rp \rc \\
+                &\leq \max \lc d_1\lp x, z \rp , d_2 \lp x, z \rp \rc + \max \lc d_1 \lp z, y \rp , d_2 \lp z, y \rp \rc \\
+                &=d_{\max} \lp x, z \rp + d_{\max} \lp z, y \rp.
+            \end{align*}
+    \end{enumerate}
+    Así pues, $d_{\max}$ sí es una métrica.
+\end{eje}
+
+\begin{eje}
+    \begin{enumerate}[(a)]
+    \item []
+    \item
+        Vamos a comprobar que $D_1$ cumple las propiedades de las métricas.
+        \begin{enumerate}[i)]
+            \item $\abs{x_n - y_n} \geq 0 \implies D_1\lp x,y\rp \geq 0$.
+            \item $x_n = y_n \iff \abs{x_n-y_n}=0 \iff D_1\lp x,y\rp=0$.
+            \item $D_1\lp x,y\rp = \sup \lc \min\lc\abs{x_n-y_n},1\rc \rc = \sup\lc \min\lc\abs{y_n-x_n},1\rc \rc = D_1\lp y,x\rp$.
+            \item \begin{align*}
+                    D_1\lp x,y\rp & = \sup\lc\min\lc\abs{x_n-y_n},1\rc\rc \\
+                    & = \sup\lc\min\lc\abs{x_n-y_n+z_n-z_n},1\rc\rc\\
+                    & \leq \sup\lc\min\lc\abs{x_n -z_n}+\abs{y_n-z_n},1\rc\rc \\
+                    & \leq \sup\lc\min\lc\abs{x_n -z_n},1\rc\rc + \sup\lc\min\lc\abs{y_n-z_n},1\rc \rc\\
+                    & = D_1\lp x,z\rp + D_1\lp y,z\rp.
+                \end{align*}
+
+        \end{enumerate}
+        La comprobación de que $D_2$ es equivalente a la de $D_1$.
+    \item
+        Veamos qué conjunto conforma la bola $B^1_{\varepsilon}\lp 0 \rp = \lc x \in \real^{\omega} | D_1 \lp 0, x \rp < \varepsilon \rc$. Podemos separar dos casos. Si $\varepsilon > 1$, trivialmente tenemos que $B^1_{\varepsilon}\lp 0 \rp = \real ^{\omega}$. En cambio, si $\varepsilon \leq 1$, $B^1_{\varepsilon}\lp 0 \rp = \lc x \in \real^{\omega} | \quad  \abs{x_n} < \varepsilon \rc$.
+   
+        Tratemos ahora la bola $B^2_{\varepsilon}\lp 0 \rp = \lc x \in \real^{\omega} | D_2 \lp 0, x \rp < \varepsilon \rc$. Sabemos que si $n > \frac{1}{\varepsilon}$, entonces $\frac{1}{n} < \varepsilon$. Por lo tanto,
+        \[
+            B^2_{\varepsilon}\lp 0 \rp = \lc x \in \real^{\omega} \tq \, \frac{\abs{x_n}}{n} < \varepsilon, \, \forall n \geq \frac{1}{\varepsilon} \rc
+        \]
+    \item
+        Estudiemos, para empezar, el primer conjunto. Sea $x=\lp x_1, x_2, \dots \rp \in \lp a, b \rp \times \real \times \lp c, d \rp \times \real \times \cdots$ y tomemos $r=\min \lc x_1-a, b-x_1, x_3-c, d-x_3 \rc$. Entonces,
+        \begin{align*}
+            B^1_r\lp x \rp &= \lc y \in \lp a, b \rp \times \real \times \lp c, d \rp \times \real \times \cdots | D_1\lp y, x \rp < r \rc \subseteq \\
+            &\subseteq \lp a, b \rp \times \real \times \lp c, d \rp \times \real \times \cdots.
+        \end{align*}
+        Por consiguiente, $x$ es un punto interior por la métrica $D_1$ y $\lp a, b \rp \times \real \times \lp c, d \rp \times \real \times \cdots$ es un conjunto abierto por la métrica $D_1$. De forma similar, tomemos $r=\min \lc x_1-a, b-x_1, \frac{x_3-c}{3}, \frac{d-x_3}{3} \rc$. Entonces,
+        \begin{align*}
+            B^2_r\lp x \rp &= \lc y \in \lp a, b \rp \times \real \times \lp c, d \rp \times \real \times \cdots | D_2\lp y, x \rp < r \rc \subseteq \\
+            &\subseteq \lp a, b \rp \times \real \times \lp c, d \rp \times \real \times \cdots.
+        \end{align*}
+        Por consiguiente, $x$ es un punto interior por la métrica $D_2$ y $\lp a, b \rp \times \real \times \lp c, d \rp \times \real \times \cdots$ es un conjunto abierto por la métrica $D_2$.
+        
+        Estudiemos, ahora, el segundo conjunto. Sea $x=\lp a + \frac{b-a}{n} \rp$. Entonces, para cualquier $r>0$,
+        \[
+            B^1_r\lp x \rp = \lc y \in \lp a , b \rp ^{\omega}  | D_1\lp y, x \rp < r \rc \cap \lp \real^{\omega} \setminus \lp a, b \rp ^{\omega} \rp \neq \varnothing.
+        \]
+        Por consiguiente, $x$ no es un punto interior por la métrica $D_1$ y $\lp a, b \rp^{\omega}$ no es un conjunto abierto por la métrica $D_1$. Además, $B^1_r\lp x \rp \subseteq B^2_r\lp x \rp = \lc y \in \lp a, b \rp^{\omega} | D_2 \lp y, x \rp < r \rc$, con lo que $x$ no es un punto interior por la métrica $D_2$ y $\lp a, b \rp^{\omega}$ no es un conjunto abierto por la métrica $D_2$.
+        
+    \item
+        Estudiemos, para empezar, $f(t)$. Observemos que
+        \[
+            D_1 \lp f \lp x \rp, f \lp y \rp \rp = \sup \lc \min \lc \abs{x-y}, 1 \rc \rc \leq \abs{x-y} .
+        \]
+        Entonces,
+        \[
+            \forall x \in \real, \, \varepsilon > 0, \, \exists \delta = \varepsilon \tq \abs{x-y} < \delta \implies D_1 \lp f \lp x \rp, f \lp y \rp \rp \leq \abs{x-y} < \delta = \varepsilon.
+        \]
+        Por consiguiente, $f\lp t \rp$ es contínua si tomamos la métrica $D_1$ en $\real^{\omega}$. Observemos ahora que
+        \[
+            D_2 \lp f \lp x \rp, f \lp y \rp \rp = \sup \lc \frac{1}{n} \min \lc \abs{x-y}, 1 \rc \rc \leq \abs{x-y} .
+        \]
+        Entonces,
+        \[
+            \forall x \in \real, \, \varepsilon > 0, \, \exists \delta = \varepsilon \tq \abs{x-y} < \delta \implies D_2 \lp f \lp x \rp, f \lp y \rp \rp \leq \abs{x-y} < \delta = \varepsilon.
+        \]
+        Por lo tanto, $f\lp t \rp$ es contínua si tomamos la métrica $D_2$ en $\real^{\omega}$.
+        
+        Estudiemos ahora $g\lp t \rp $. Observemos que
+        \[
+            D_1 \lp f \lp x \rp, f \lp y \rp \rp = \sup \lc \min \lc n \abs{x-y}, 1 \rc \rc = \left\{ \begin{array}{cc}
+                0 & \text{si } x=y, \\
+                1 & \text{si } x\neq y.
+            \end{array} \right.
+        \]
+        Entonces, la condición de continuidad no se satisface para $0 < \varepsilon < 1$, de modo que $f\lp t \rp$ no es contínua si tomamos la métrica $D_1$ en $\real^{\omega}$. Observemos ahora que
+        \[
+            D_2 \lp f \lp x \rp, f \lp y \rp \rp = \sup \lc \min \lc \abs{x-y}, \frac{1}{n} \rc \rc \leq \abs{x-y} .
+        \]
+        Entonces,
+        \[
+            \forall x \in \real, \, \varepsilon > 0, \, \exists \delta = \varepsilon \tq \abs{x-y} < \delta \implies D_2 \lp f \lp x \rp, f \lp y \rp \rp \leq \abs{x-y} < \delta = \varepsilon.
+        \]
+        Finalmente, $g\lp t \rp$ es contínua si tomamos la métrica $D_2$ en $\real^{\omega}$.
+        
+    \end{enumerate}
+
+ 
+\end{eje}

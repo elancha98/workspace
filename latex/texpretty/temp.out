@@ -1,0 +1,39 @@
+
+\begin{eje}
+    Tenemos que comprobar que  
+    \begin{enumerate}[i)]
+        \item $d(a,b) \geq 0 \; \forall a,b  \in A^n$ y
+        que $d(a,b) = 0 \iff a = b$, lo  cual es trivial
+        por la definición de $d$. \item  $d(a,b) = 
+        d(b,a) \; \forall a,b \in A^n$. Trivial  por la
+         definición. \item $d(a, b) \leq  d(a,c) + d(c,
+         b)$. Sea $i \in R = \setb{j \vert  a_j \neq  
+        b_j}$, entonces, se cumple al menos  una de las
+        dos siguientes afirmaciones  
+        \[
+            
+
+            
+            \begin{cases}
+                i \in P =  
+                \setb{j \vert 
+                a_j \neq c_j} \\
+                i \in Q =  
+                \setb{j \vert 
+                c_j \neq b_j} 
+                
+            \end{cases}
+            
+
+            
+        \]
+        Por lo tanto, $R \subseteq P \cup Q  \implies 
+        d(a,b) = \abs{R} \leq \abs{P \cup  Q} \leq  
+        \abs{P} + \abs{Q} = d(a,c) +  d(a,b)$.  
+    \end{enumerate}
+    
+
+    
+\end{eje}
+
+

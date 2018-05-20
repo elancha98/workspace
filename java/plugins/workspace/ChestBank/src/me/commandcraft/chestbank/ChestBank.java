@@ -11,7 +11,7 @@ import me.commandcraft.chestbank.bank.BankManager;
 import net.milkbowl.vault.permission.Permission;
 
 public class ChestBank extends JavaPlugin {
-
+	private.	
 	private static ChestBank instance;
 	private static BankManager bankManager;
 	private static Configuration configuration;

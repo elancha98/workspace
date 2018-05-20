@@ -3,55 +3,84 @@
 \input{../LatexFME/preamble_es}
 
 \begin{document}
-\[
-\begin{aligned}
-    \int \frac{cx+d}{x^2+ax+b} \dif x &= \int \frac{c}{2} \frac{2x+\frac{2d}{c}}{x^2+ax+b} \dif x \\
-    &= \frac{c}{2} \int \frac{2x+a-a+ \frac{2d}{c}}{x^2+ax+b} \dif x \\
-    &= \frac{c}{2} \int \frac{2x+a}{x^2+ax+b}\dif x + \frac{\frac{2d - ac}{c}}{x^2+ax+b}\dif x \\
-    &= \frac{c}{2} \left( \int \frac{2x+a}{x^2+ax+b}\dif x + \int \frac{\frac{2d - ac}{c}}{x^2+ax+b}\dif x \right)
-\end{aligned}\]
+%\[
+%\begin{aligned}
+%    \int \frac{cx+d}{x^2+ax+b} \dif x &= \int \frac{c}{2} \frac{2x+\frac{2d}{c}}{x^2+ax+b} \dif x \\
+%    &= \frac{c}{2} \int \frac{2x+a-a+ \frac{2d}{c}}{x^2+ax+b} \dif x \\
+%    &= \frac{c}{2} \int \frac{2x+a}{x^2+ax+b}\dif x + \frac{\frac{2d - ac}{c}}{x^2+ax+b}\dif x \\
+%    &= \frac{c}{2} \left( \int \frac{2x+a}{x^2+ax+b}\dif x + \int \frac{\frac{2d - ac}{c}}{x^2+ax+b}\dif x \right)
+%\end{aligned}\]
     %&= \frac{c}{2} \left( \ln \abs{x^2+ax+b} + \frac{2d - ac}{c} \int \frac{1}{x^2+ax+b} \right) \\
     %&= \frac{c}{2} \ln \abs{x^2+ax+b} + \frac{2d - ac}{2} \int \frac{1}{\left( x + \frac{a}{2} \right)^2 + \left( b - \frac{a^2}{4} \right)} \\
     %&= \frac{c}{2} \ln \abs{x^2+ax+b} + \frac{2d - ac}{2 \sqrt{b - \frac{a^2}{4}}} \arctan \left( \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \right)
 %\end{aligned}\]
 
-Ahora, resolvemos
-\[
-    \int \frac{2x+a}{x^2+ax+b}
-\]
-Para ello, aplicamos el cambio de variable
-\begin{gather*}
-    u = x^2 + ax + b \qquad \dif x = \frac{1}{2x+a} \dif u \\
-    \int \frac{2x+a}{x^2+ax+b} \dif x = \int \frac{\left( 2x+a \right) \frac{1}{2x+a}}{u}  \dif u =
-    \int \frac{1}{u} \dif u  = \ln \abs{u} = \ln \abs{x^2+ax+b}
-\end{gather*}
+%Ahora, resolvemos
+%\[
+%    \int \frac{2x+a}{x^2+ax+b}
+%\]
+%Para ello, aplicamos el cambio de variable
+%\begin{gather*}
+%    u = x^2 + ax + b \qquad \dif x = \frac{1}{2x+a} \dif u \\
+%    \int \frac{2x+a}{x^2+ax+b} \dif x = \int \frac{\left( 2x+a \right) \frac{1}{2x+a}}{u}  \dif u =
+%    \int \frac{1}{u} \dif u  = \ln \abs{u} = \ln \abs{x^2+ax+b}
+%\end{gather*}
+%
+%Ahora, resolvemos
+%\[
+%    \int \frac{\frac{2d-ac}{c}}{x^2+ax+b} \dif x = \frac{2d-ac}{c} \int \frac{1}{x^2+ax+b} \dif x 
+%\]
+%Para ello, completamos cuadrados
+%\begin{gather*}
+%    \int \frac{1}{x^2+ax+b} \dif x = \int \frac{1}{\left( x + \frac{a}{2} \right)^2 + \left( b - \frac{a^2}{4} \right)} \dif x =\\
+%    \int \frac{\frac{1}{b - \frac{a^2}{4}}}{ \left( \frac{x + \frac{a}{2}}{ \sqrt{b - \frac{a^2}{4}}} \right)^2 + 1} \dif x
+%\end{gather*}
+%Ahora, aplicamos el cambio de variable
+%\begin{gather*}
+%    u = \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \qquad \dif x = \dif u \sqrt{b - \frac{a^2}{4}} \\
+%    \int \frac{\frac{1}{b - \frac{a^2}{4}}}{ \left( \frac{x + \frac{a}{2}}{ \sqrt{b - \frac{a^2}{4}}} \right)^2 + 1} \dif x = 
+%    \int \frac{\frac{\sqrt{b - \frac{a^2}{4}}}{b - \frac{a^2}{4}}}{u^2 + 1} \dif u = \frac{1}{\sqrt{b - \frac{a^2}{4}}} \int \frac{1}{u^2 + 1} \dif u = \\
+%    \frac{1}{\sqrt{b - \frac{a^2}{4}}} \arctan \left( u \right) = \frac{1}{\sqrt{b - \frac{a^2}{4}}} \arctan \left( \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \right)
+%\end{gather*}
+%Y por último substituimos
+%\[
+%    \int \frac{\frac{2d-ac}{c}}{x^2+ax+b} \dif x = \frac{2d-ac}{c\sqrt{b - \frac{a^2}{4}}} \arctan \left( \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \right)
+%\]
+%Ahora solo nos queda reemplazar ambas integrales
+%\[
+%\begin{aligned}
+%    \int \frac{cx+d}{x^2+ax+b} \dif x &= \frac{c}{2} \left( \int \frac{2x+a}{x^2+ax+b} \dif x + \int \frac{\frac{2d-ac}{c}}{x^2+ax+b} \right) \\
+%    &= \frac{c}{2} \ln \abs{x^2+ax+b}  + \frac{2d-ac}{2\sqrt{b-\frac{a^2}{4}}} \arctan \left( \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \right)
+%\end{aligned}
+%\]
 
-Ahora, resolvemos
+
+Para resolver 
 \[
-    \int \frac{\frac{2d-ac}{c}}{x^2+ax+b} \dif x = \frac{2d-ac}{c} \int \frac{1}{x^2+ax+b} \dif x 
-\]
-Para ello, completamos cuadrados
-\begin{gather*}
-    \int \frac{1}{x^2+ax+b} \dif x = \int \frac{1}{\left( x + \frac{a}{2} \right)^2 + \left( b - \frac{a^2}{4} \right)} \dif x =\\
-    \int \frac{\frac{1}{b - \frac{a^2}{4}}}{ \left( \frac{x + \frac{a}{2}}{ \sqrt{b - \frac{a^2}{4}}} \right)^2 + 1} \dif x
-\end{gather*}
-Ahora, aplicamos el cambio de variable
-\begin{gather*}
-    u = \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \qquad \dif x = \dif u \sqrt{b - \frac{a^2}{4}} \\
-    \int \frac{\frac{1}{b - \frac{a^2}{4}}}{ \left( \frac{x + \frac{a}{2}}{ \sqrt{b - \frac{a^2}{4}}} \right)^2 + 1} \dif x = 
-    \int \frac{\frac{\sqrt{b - \frac{a^2}{4}}}{b - \frac{a^2}{4}}}{u^2 + 1} \dif u = \frac{1}{\sqrt{b - \frac{a^2}{4}}} \int \frac{1}{u^2 + 1} \dif u = \\
-    \frac{1}{\sqrt{b - \frac{a^2}{4}}} \arctan \left( u \right) = \frac{1}{\sqrt{b - \frac{a^2}{4}}} \arctan \left( \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \right)
-\end{gather*}
-Y por último substituimos
-\[
-    \int \frac{\frac{2d-ac}{c}}{x^2+ax+b} \dif x = \frac{2d-ac}{c\sqrt{b - \frac{a^2}{4}}} \arctan \left( \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \right)
-\]
-Ahora solo nos queda reemplazar ambas integrales
-\[
-\begin{aligned}
-    \int \frac{cx+d}{x^2+ax+b} \dif x &= \frac{c}{2} \left( \int \frac{2x+a}{x^2+ax+b} \dif x + \int \frac{\frac{2d-ac}{c}}{x^2+ax+b} \right) \\
-    &= \frac{c}{2} \ln \abs{x^2+ax+b}  + \frac{2d-ac}{2\sqrt{b-\frac{a^2}{4}}} \arctan \left( \frac{x + \frac{a}{2}}{\sqrt{b - \frac{a^2}{4}}} \right)
-\end{aligned}
+	\int e^{-\sqrt{x}} \dif x
 \]
 
+Procedemos con un cambio de variable:
+
+Tomamos $t = \sqrt{x}$ y $\dif x = 2 t \dif t$. Ahora, aplicamos el cambio de variable
+\[
+	\int 2t e^{-t} \dif t = 2 \int t e^{-t} \dif t
+\]
+
+Ahora resolvemos por partes:
+\[
+	\begin{aligned}
+		u = t &\quad \dif v = e^{-t} \\
+		\dif u = 1 &\quad v = -e^{-t}
+	\end{aligned}
+\]
+Entonces
+\[
+	\int t e^{-t} \dif t = -te^{-t} - \int -e^{-t} \dif t = -te^{-t} - e^{-t}
+\]
+
+Y ahora desacemos el cambio de variable
+\[
+	\int e^{-\sqrt{x}} \dif x = -2\sqrt{x}e^{-\sqrt{x}} - 2e^{-\sqrt{x}}
+\]
 \end{document}

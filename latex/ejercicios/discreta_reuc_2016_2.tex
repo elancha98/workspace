@@ -19,45 +19,45 @@
 \noindent
 2.) Resolved la recurrencia:
 \[
-a_{n+1} - \alpha a_n = \beta^n, \quad a_0 = \lambda,
+	a_{n+1} - \alpha a_n = \beta^n, \quad a_0 = \lambda,
 \]
 con $\alpha,\beta, \lambda$ numeros reales.
 \\ \\ \\ \\ \\ \\
 Primero resolvemos la recurrencia general:
 \[
-x - \alpha = 0 \implies x = \alpha.
+	x - \alpha = 0 \implies x = \alpha.
 \]
 Si $\alpha \neq \beta$, tenemos:
 \[
-a_n = A \alpha^n + B\beta^n,
+	a_n = A \alpha^n + B\beta^n,
 \]
 con $a_0 = \lambda$ y $a_1 = 1 + \alpha\lambda$. Y por lo tanto
 \[
-\begin{cases}
-\lambda = A + B \\
-1 + \alpha\lambda = A\alpha + B\beta
-\end{cases}
+	\begin{cases}
+		\lambda = A + B \\
+		1 + \alpha\lambda = A\alpha + B\beta
+	\end{cases}
 \implies
 \begin{cases}
-A = \lambda - \frac{1}{\beta - \alpha} = \frac{\lambda\beta - \lambda\alpha - 1}{\beta - \alpha} \\
-B = \frac{1}{\beta - \alpha}
+	A = \lambda - \frac{1}{\beta - \alpha} = \frac{\lambda\beta - \lambda\alpha - 1}{\beta - \alpha} \\
+	B = \frac{1}{\beta - \alpha}
 \end{cases}.
 \]
 Si $\alpha = \beta$, entonces:
 \[
-a_n = A\alpha^n + Bn\alpha^n,
+	a_n = A\alpha^n + Bn\alpha^n,
 \]
 con $a_0 = \lambda$ y $a_1 = 1 + \alpha\lambda$.
 Por lo tanto:
 \[
-\begin{cases}
-\lambda = A \\
-1 + \alpha\lambda = A\alpha + B\alpha \\
-\end{cases}
+	\begin{cases}
+		\lambda = A \\
+		1 + \alpha\lambda = A\alpha + B\alpha \\
+	\end{cases}
 \implies
 \begin{cases}
-A = \lambda \\
-B = \frac{1}{\alpha}
+	A = \lambda \\
+	B = \frac{1}{\alpha}
 \end{cases}.
 \]
 \end{document}

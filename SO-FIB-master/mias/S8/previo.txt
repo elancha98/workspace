@@ -1,0 +1,27 @@
+Los comandos que hemos ejecutado han sido
+	Terminal 1:
+		mknod mipipe p
+		cat > mipipe
+	Terminal 2:
+		cat < mipipe
+
+No es posible comunicar los dos comandos 'cat' en dos terminales a traves de una pipe sin nombre.
+Sin embargo, en la misma terminal se puede conseguir con el siguiente comando:
+	cat | cat
+
+
+Deberiamos añadir el siguiente código:
+	dup(4, 0);
+	close(4);
+
+
+La funcion createSocket() hace lo siguiente:
+	crea una dirección para el socket.
+	Crea el socket con dominio AF_UNIX, tipo SOCK_STREAM y protocolo 0
+	Comprueba si hay error en crear el socket (y retorna si lo hay)
+	Hace un bind para enlazar al socket con una dirección
+	Pone al server en modo de espera y devuelve negativo si se produce un error
+
+La función serverConnection() hace lo siguiente:
+	Comprueba si el socket que le pasamos como paramétro está creado, enlazado, y listo para usar,
+	mediante la llamada al sistema accept.

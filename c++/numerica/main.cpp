@@ -12,4 +12,6 @@ int main() {
     cout << setprecision(15);
     cout << fixed;
     cout << Matrix::norm_inf(x) << endl;
+
+    // Un simple cambio
 }
