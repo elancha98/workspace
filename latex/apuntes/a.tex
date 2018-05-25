@@ -1,0 +1,413 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[pdftex]{hyperref}
+\usepackage{amsmath,amsthm,amssymb,graphicx,mathtools,tikz,hyperref,enumerate}
+\usepackage{mdframed,cleveref,cancel,stackengine,pgf,pgfplots,mathrsfs,thmtools}
+\usepackage{xfrac,stmaryrd,commath,needspace,multirow,float}
+\usepackage[shortlabels]{enumitem}
+\usepackage[spanish,es-lcroman]{babel}
+
+\newmdenv[leftline=false,topline=false]{topright}
+\let\proof\relax
+\usetikzlibrary{positioning,arrows, calc, babel}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=figures/]
+\pgfplotsset{compat=1.11}
+
+\newcommand*{\bimplies}{\boxed{\implies}}
+\newcommand*{\bimpliedby}{\boxed{\impliedby}}
+
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\q}{\mathbb{Q}}
+\newcommand{\cx}{\mathbb{C}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\C}{\mathscr{C}}
+\newcommand{\Pa}{\mathcal{P}}
+\newcommand{\Es}{\mathcal{E}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\pdv}[3][]{\frac{\partial^{#1} #2}{\partial #3^{#1}}}
+\newcommand{\dv}[3][]{\frac{\dif^{#1} #2}{\dif #3^{#1}}}
+\let\k\relax
+\newcommand{\k}{\Bbbk}
+\newcommand{\ita}[1]{\textit{#1}}
+\newcommand\inv[1]{#1^{-1}}
+\newcommand\setb[1]{\left\{#1\right\}}
+\newcommand{\vbrack}[1]{\langle #1\rangle}
+\newcommand{\determinant}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\Po}{\mathbb{P}}
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\newcommand{\lc}{\left\{}
+\newcommand{\rc}{\right\}}
+\DeclareMathOperator{\fr}{Fr}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\ext}{Ext}
+\DeclareMathOperator{\inte}{Int}
+\DeclareMathOperator{\rie}{Rie}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\nuc}{Nuc}
+\DeclareMathOperator{\car}{car}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\diver}{div}
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\graf}{graf}
+\DeclareMathOperator{\tq}{\;t.q.\;}
+\DeclareMathOperator{\disc}{disc}
+\let\emptyset\varnothing
+\setcounter{secnumdepth}{4}
+
+\def\mydate{\today}
+\hypersetup{
+    colorlinks,
+    linkcolor=blue
+}
+\def\upint{\mathchoice%
+    {\mkern13mu\overline{\vphantom{\intop}\mkern7mu}\mkern-20mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+  \int}
+\def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
+
+\newtheoremstyle{break}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%        Punctuation after thm head
+{\newline}% Space after thm head: \newline = linebreak
+{\thmname{#1}\thmnumber{ #2}.\thmnote{ {\it #3.}}}%         Thm head spec
+
+\newtheoremstyle{demo}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\it}% Thm head font
+{}%        Punctuation after thm head
+{5pt plus 1pt minus 1pt}% Space after thm head: \newline = linebreak
+{#1\thmnote{ #3}.}%         Thm head spec
+
+\newtheoremstyle{breakthm}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%        Punctuation after thm head
+{\newline}% Space after thm head: \newline = linebreak
+{#1 \normalfont #3 (#2)\addcontentsline{toc}{subsection}{#1 #3}}%         Thm head spec
+
+\newtheoremstyle{normal}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%        Punctuation after thm head
+{5pt plus 1pt minus 1pt}% Space after thm head: \newline = linebreak
+{\thmname{#1}\thmnumber{ #2}.\thmnote{ {\it #3.}}}%         Thm head spec
+
+% Normal
+\declaretheorem[style=normal,name=Lema,numberwithin=section]{lema}
+\declaretheorem[style=normal,name=Lema,numbered=no]{lema*}
+\declaretheorem[style=normal,name=Observación,sibling=lema]{obs}
+\declaretheorem[style=normal,name=Observación,numbered=no]{obs*}
+\declaretheorem[style=normal,name=Proposición,sibling=lema]{prop}
+\declaretheorem[style=normal,name=Proposición,numbered=no]{prop*}
+\declaretheorem[style=normal,name=Definición,sibling=lema]{defi}
+\declaretheorem[style=normal,name=Definición,numbered=no]{defi*}
+\declaretheorem[style=normal,name=Corolario,sibling=lema]{col}
+\declaretheorem[style=normal,name=Corolario,numbered=no]{col*}
+\declaretheorem[style=normal,name=Ejercicio,sibling=lema]{ej}
+\declaretheorem[style=normal,name=Ejercicio,numbered=no]{ej*}
+\declaretheorem[style=normal,name=Ejemplo]{example}
+\declaretheorem[style=normal,name=Ejemplo,numbered=no]{example*}
+
+% Demo
+\declaretheorem[style=demo,name=Demostración,qed=$\square$,numbered=no]{proof}
+
+% Break
+\declaretheorem[style=break,name=Teorema,sibling=lema]{teo*}
+
+% Breakthm
+\declaretheorem[style=breakthm,name=Teorema,sibling=lema]{teo}
+\declaretheorem[style=breakthm,name=Lema,numberwithin=section]{teolema}
+
+\begin{document}
+
+\title{Resolución de EDOs lineales simples}
+\date{}
+\maketitle
+
+Lo primero es que este método tan solo nos servirá para resolver EDOs 
+simples y lineales, en particular, nos será muy útil para la asignatura
+de física de segundo.
+
+Primero, tenemos que tener planteada la edos, llamaremos $f$ a la función
+que queremos encontrar (aunque en física es común que sea $v$ o $r$) y el resto
+de variables serán constantes. Nos debe quedar una ecuación de este tipo:
+
+\[
+  a_n \dv[n]{f(t)}{t} +
+  a_{n-1} \dv[n-1]{f(t)}{t} +
+  \cdots + a_2 \dv[2]{f(t)}{t} + a_1 \dv{f(t)}{t}
+  + a_0 f(t) = b
+\]
+
+\textbf{Nota:} Si $a_0, a_1, \dots, a_m$ son 0, pasamos $b$ al otro lado e integramos
+hasta obtener algo de la forma
+
+\[
+  \begin{gathered}
+    a_{n} \dv[n]{f(t)}{t} +
+    a_{n-1} \dv[n-1]{f(t)}{t} +
+    \cdots + a_m \dv[m]{f(t)}{t} = b
+    \\
+    a_{n} \dv[n-m]{f(t)}{t} +
+    a_{n-1} \dv[n-m-1]{f(t)}{t} +
+    \cdots + a_m f(t) = b t^m
+  \end{gathered}
+\]
+
+Ahora, encontramos la solución de la EDO homogénea:
+\[
+  a_n \dv[n]{f(t)}{t} + \cdots + a_1 \dv{f(t)}{t} + a_0 f(t) = 0
+\]
+Para ello, utilizamos el polinomio característico:
+\[
+  \begin{aligned}
+    & a_n \dv[n]{f(t)}{t} & + & a_{n-1} \dv[n-1]{f(t)}{t} & +
+    \cdots & + a_0 f(t) & = 0 \\
+    & a_n x^n & + & a_{n-1} x^{n-1} & + \cdots & + a_0 & = 0
+  \end{aligned}
+\]
+Ahora, resolvemos el polinomio. Aquí asumiremos que todas las raices son reales
+y de multiplicidad 1 (para otros casos consultar el libro de física, final de la paǵina 16).
+Nos quedan $n$ raices $r_1, r_2, \dots, r_n$. Y la solución de la ecuación homogénea es:
+\[
+  f_{\text{hom}}(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t} + \cdots + c_n e^{r_n tr_n t}
+\]
+
+Lo siguiente es encontrar una solución particular, que será un polinomio del mismo grado 
+que el término independiente, de tal forma que si nuestra EDOs era de la forma
+\[
+  a_{n} \dv[n-1]{f(t)}{t} +
+  a_{n-1} \dv[n-1]{f(t)}{t} +
+  \cdots + a_0 f(t) = b t^m
+\]
+
+Probaremos una solución de la forma
+\[
+  f_{\text{part}} = d_m t^m + d_{m-1} t^{m-1} + \cdots + d_1 t + d_0 
+\]
+
+Y ahora, tenemos que ajustar los parámetros $d_0, \dots, d_{m-1}$,
+substituyendo en la EDO:
+\[
+  a_m d_m + a_{m-1} \left( d_m t + d_{m-1} \right) + \cdots +
+  a_{0} \left( d_m t^m + d_{m-1} t^{m-1} + \cdots + d_1 t + d_0 \right) = b t^m
+\]
+
+Ahora, igualando coeficiente a coeficiente, obtendremos un sistema lineal de donde
+obtendremos $d_0, \dots, d_m$.
+
+Una vez realizados estos dos pasos, ya estamos preparados para encontrar nuestra $f$:
+\[
+  f = f_{\text{hom}} + f_{\text{part}}
+\]
+
+Por último, nos falta ajustar los coeficientes $c_1, \dots, c_n$, para ello, damos $n$
+valores a f y substituimos (el resultado de estos valores debe ser conocido). Es decir,
+para poder dar una solución única para la EDO, tenemos que conocer
+\[
+  f(t_1) = x_1 \quad f(t_2) = x_2 \quad \cdots \quad f(t_n) = x_n
+\]
+
+Resolver los valores de $c_1, \dots, c_n$ es fácil con está información, tan solo
+substituimos y resolvemos el sistema lineal.
+
+\section{Ejemplos}
+
+\begin{example}
+  Encontrar $v$
+  \[
+    m \dv{v}{t} = C - bv
+  \]
+  Sabiendo que $v(0) = 0$.
+\end{example}
+\begin{proof}
+  Primero nos ponemos la EDO de la forma
+  \[
+    m \dv{v}{t} + bv = C
+  \]
+  Y resolvemos la forma homogénea, con el polinomio
+  \[
+    m \dv{v}{t} + bv = 0 \qquad m x + b = 0
+  \]
+  La raiz del polinomio es $x = \frac{-b}{m}$, por lo tanto
+  \[
+    v_{\text{hom}} = c_1 e^{\frac{-b}{m} t}
+  \]
+
+  Lo siguiente es encontrar una solución particular (de grado 0), tomamos
+  \[
+    v_{\text{part}} = d_0
+  \]
+
+  Y nos queda
+  \[
+    m 0 + b d_0 = C \implies d_0 = \frac{C}{b}
+  \]
+  Por lo tanto tenemos que
+  \[
+    v = v_{\text{part}} + v_{\text{hom}} = \frac{C}{b} + c_1 e^{\frac{-b}{m} t}
+  \]
+
+  Ahora solo queda encontrar $c_1$, para ello tenemos
+  \[
+    v(0) = \frac{C}{b} + c_1 e^{\frac{-b}{m} 0} = 0 \implies c_1 = -\frac{C}{b}
+  \]
+  Con lo que concuimos que 
+  \[
+    v(t) = \frac{C}{b} - \frac{C}{b} e^{\frac{-b}{m} t}
+  \]
+\end{proof}
+
+\begin{example}
+  Encontrar $r$, sabiendo que
+  \[
+    m^2 \dv[2]{r}{t} = C + r
+  \]
+  Y que $r(0) = 0$ y $r(1) = -C$.
+\end{example}
+\begin{proof}
+  Primero, ponemos la EDO como
+  \[
+    m^2 \dv[2]{r}{t} - r = C
+  \]
+  Ahora tomamos la homogénea y calculamos el polinomio:
+  \[
+    m^2 \dv[2]{r}{t} - r = 0 \qquad m^2 x^2 - 1 = 0
+  \]
+
+  Las raices del polinomio son $x = \frac{\pm 1}{m}$, por lo tanto
+  \[
+    r_{\text{hom}} = c_1 e^{\frac{1}{m} t} + c_2 e^{\frac{- 1}{m} t}
+  \]
+
+  Ahora calculamos $r_{\text{part}}$ que es un polinomio de grado 0:
+  \[
+    r_{\text{part}} = d_0
+  \]
+
+  Al substituir:
+  \[
+    m^2 0 - d_0 = C \implies d_0 = -C
+  \]
+
+  Ahora solo queda sumar:
+  \[
+    v = v_{\text{hom}} + v_{\text{part}} = c_1 e^{\frac{1}{m} t} + c_2 e^{\frac{-1}{m} t} - C
+  \]
+
+  Y ajustar $c_1$ y $c_2$:
+  \[
+    \begin{cases}
+      v(0) = 0 \implies c_1 + c_2 = C \\
+      v(1) = -C \implies e c_1 + \frac{1}{e} c_2 = 0
+    \end{cases}
+    \implies
+    \begin{cases}
+      c_1 = \frac{C}{1 - e^2} \\
+      c_2 = \frac{-Ce^2}{1-e^2}
+    \end{cases}
+  \]
+
+  Por lo tanto,
+  \[
+    v(t) = \frac{C}{1 - e^2} e^{\frac{1}{m} t} + \frac{-Ce^2}{1-e^2} e^{\frac{-1}{m} t} - C
+  \]
+\end{proof}
+
+\begin{example}
+  Encontrar $v$ sabiendo que
+  \[
+    m \dv{v}{t} = C t - v
+  \]
+  Y $v(0) = 1 - Cm$
+\end{example}
+\begin{proof}
+  Tomamos la forma siguiente
+  \[
+    m \dv{v}{t} + v = C t
+  \]
+
+  Resolvemos la homogenea encontrando el polinomio
+  \[
+    m \dv{v}{t} + v = 0 \qquad m x + 1 = 0
+  \]
+
+  La raiz es $x = \frac{1}{m}$, y por lo tanto:
+  \[
+    v_{\text{hom}} = c_1 e^{\frac{1}{m} t}
+  \]
+
+  La solucion particular es un polinomio de grado 1:
+  \[
+    v_{\text{part}} = d_1 t + d_0
+  \]
+
+  Encontramos ahora $d_0$ y $d_1$:
+  \[
+    \begin{gathered}
+      m \dv{\left( d_1 t + d_0 \right)}{t} + \left( d_1 t + d_0  \right) =
+      m d_1 + d_1 t + d_0 = C t
+      \implies \\
+      \begin{cases}
+	d_1 = C \\
+	m d_1 + d_0 = 0
+      \end{cases}
+      \implies
+      \begin{cases}
+	d_1 = C \\
+	d_0 = -Cm
+      \end{cases}
+    \end{gathered}
+  \]
+
+  Ahora
+  \[
+    v = v_{\text{hom}} + v_{\text{part}} = c_1 e^{\frac{t}{m}} + C t - Cm
+  \]
+
+  Solo queda ajustar $c_1$:
+  \[
+    v(0) = 1 - Cm \implies c_1 - Cm = 1 - Cm \implies c_1 = 1
+  \]
+
+  con lo cual
+  \[
+    v = e^{\frac{t}{m}} + Ct - Cm
+  \]
+\end{proof}
+
+
+\end{document}
