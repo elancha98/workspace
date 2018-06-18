@@ -1,0 +1,16 @@
+*.swp
+*.log
+*.[oa]
+*.out
+*.toc
+*.aux
+*.auxlock
+*.backup
+*.kate-swp
+*.directory
+*.pdf
+*~
+*.idx
+*.ind
+*.ilg
+.Rhistory
