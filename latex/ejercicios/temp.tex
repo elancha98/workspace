@@ -1,7 +1,45 @@
 \documentclass[a4paper]{article}
 
+\input{preamble_es}
+
 \begin{document}
 
-A
+Dada la serie
+\[
+    \sum \frac{2^n \sin(\alpha)^{2n}}{n^\beta}
+\]
+Estudiaremos su convergencia.
+
+Primero, miraremos la convergencia absoluta:
+\[
+    \sum \abs{\frac{2^n \sin(\alpha)^{2n}}{n^\beta}} =
+    \sum \abs{\frac{2 \sin(\alpha)^2}{n^{\frac{\beta}{n}}}}^n 
+\]
+Además, como todos los números son positivos, podemos quitar el valor absoluto y 
+se tiene la siguiente desigualdad
+\[
+    \sum \left( \frac{2 \sin(\alpha)^2}{n^{\frac{\beta}{n}}} \right)^n \leq
+    \sum \left( 2 \sin(\alpha)^2 \right)^n
+\]
+Ahora, si $2 \sin(\alpha)^2 < 1$, la serie, claramente converge. Por otro lado, si
+$2 \sin(\alpha)^2 > 1$, $\exists N \in \n$ tal que
+\[
+    \forall n > N \qquad 2 \sin(\alpha)^2 > n^{\frac{\beta}{n}} \implies
+    \frac{2 \sin(\alpha)^2}{n^{\frac{\beta}{n}}} > 1
+\]
+Y por lo tanto, la serie diverge. Por último, si $2 \sin(\alpha)^2 = 1$, tenemos
+\[
+    \sum \frac{1}{n^\beta}
+\]
+Y por lo tanto la serie converge sii $\beta > 1$.
+
+\newpage
+
+\begin{enumerate}[a)]
+    \item Primero supodremos que la conición del enunciado es falsa, es decir, que no existe $W$. Entonces
+        tenemos que $\forall W \ni y$, $f^{-1}(W) \not\subseteq U \implies \exists x \in \inv{f}(W) \setminus U$
+        tal que $f(x) \in W$.
+\end{enumerate}<++>
+
 \end{document}
 
